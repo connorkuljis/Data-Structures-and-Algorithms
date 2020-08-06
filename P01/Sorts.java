@@ -43,6 +43,8 @@ class Sorts
     // selection sort
     public static void selectionSort(int[] A)
     {
+	printArray(A, "ORIGINAL");
+
 	for (int n = 0; n < A.length - 1; n++)
         {
             int minIdx = n;
@@ -66,6 +68,21 @@ class Sorts
     // insertion sort
     public static void insertionSort(int[] A)
     {
+	printArray(A, "ORIGINAL");
+
+	for (int nn = 1; nn < A.length; nn ++)
+	{
+            int ii = nn;
+            while (ii > 0 && (A[ii-1] > A[ii]))
+            {
+                int temp = A[ii];
+                A[ii] = A[ii - 1];
+                A[ii - 1] = temp;
+                ii--;
+            }
+        }
+	printArray(A, "SORTED");
+	System.out.println(""); 
     }// insertionSort()
 
     // mergeSort - front-end for kick-starting the recursive algorithm
