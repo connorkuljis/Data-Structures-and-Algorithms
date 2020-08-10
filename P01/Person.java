@@ -15,7 +15,7 @@ public class Person
     // default constructor
     public Person()
     {
-        name = "John Smith";
+        name = "";
         ID = 0;
     }
 

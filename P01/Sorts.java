@@ -15,11 +15,8 @@ class Sorts
     // bubble sort
     public static void bubbleSort(int[] A)
     {
-	printArray(A, "ORIGINAL");
-
 	int pass = 0;
 	boolean sorted;
-
 	do
 	{
 	    sorted = true;
@@ -35,16 +32,11 @@ class Sorts
 	    }
 	    pass++;
 	}while(!sorted);
-
-	printArray(A, "SORTED");
-	System.out.println(""); 
     }//bubbleSort()
 
     // selection sort
     public static void selectionSort(int[] A)
     {
-	printArray(A, "ORIGINAL");
-
 	for (int n = 0; n < A.length - 1; n++)
         {
             int minIdx = n;
@@ -59,17 +51,11 @@ class Sorts
 	    A[minIdx] = A[n];
 	    A[n] = temp;
         }
-
-	printArray(A, "SORTED");
-	System.out.println(""); 
-
     }// selectionSort()
 
     // insertion sort
     public static void insertionSort(int[] A)
     {
-	printArray(A, "ORIGINAL");
-
 	for (int nn = 1; nn < A.length; nn ++)
 	{
             int ii = nn;
@@ -81,19 +67,33 @@ class Sorts
                 ii--;
             }
         }
-	printArray(A, "SORTED");
-	System.out.println(""); 
     }// insertionSort()
 
     // mergeSort - front-end for kick-starting the recursive algorithm
+    // to start the recursive algorithm
     public static void mergeSort(int[] A)
     {
+	mergeSortRecurse( A, 0, A.length - 1 ); 
     }//mergeSort()
+
     private static void mergeSortRecurse(int[] A, int leftIdx, int rightIdx)
     {
+	if (leftIdx == rightIdx) // if range is 1, no use sorting
+	{
+	    return;
+	}
+
+	int middle = ( leftIdx + rightIdx ) / 2; // finding the midpoint
+
+	mergeSortRecurse( A, leftIdx, middle );       // sort the low half
+	mergeSortRecurse( A, middle + 1, rightIdx );  // sort the top half
+	merge( A, leftIdx, middle + 1, rightIdx );    // merging the sorted halves       
+
     }//mergeSortRecurse()
     private static void merge(int[] A, int leftIdx, int midIdx, int rightIdx)
     {
+	int j = 0;
+
     }//merge()
 
 
@@ -113,12 +113,10 @@ class Sorts
     {
 	System.out.println(type + " VALUES: "); 
 
-	for (int i = 0; i < myArr.length; i++)
+	for (int i = 0; i < 10; i++)
 	{
-	    System.out.print(myArr[i] + " "); 
+	    System.out.println(myArr[i] + " "); 
 	}
 	System.out.println(""); 
     }
-
-
-}//end Sorts calss
+}//end Sorts class

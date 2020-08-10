@@ -53,7 +53,9 @@ class SortsTestHarness
         else
             {
             n = Integer.parseInt(args[0]);
+
             int[] A = new int[n];
+
             for(int numSorts = 1 ; numSorts < args.length ; numSorts++)
                 {
                 sortType  = args[numSorts].charAt(0);
