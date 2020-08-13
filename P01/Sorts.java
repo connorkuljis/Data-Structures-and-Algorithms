@@ -31,6 +31,27 @@ class Sorts
 	}while(!sorted);
     }
 
+    public static void bubbleSort(Person[] A)
+    {
+	int pass = 0;
+	boolean sorted;
+	do
+	{
+	    sorted = true;
+	    for (int ii = 0; ii < (A.length - 1 - pass); ii++)
+	    {
+		if (A[ii].getID() > A[ii+1].getID())
+		{
+		    Person temp = A[ii];
+		    A[ii] = A[ii+1];
+		    A[ii+1] = temp;
+		    sorted = false;
+		}
+	    }
+	    pass++;
+	}while(!sorted);
+    }
+
     public static void selectionSort(int[] A)
     {
 	for (int n = 0; n < A.length - 1; n++)
@@ -49,6 +70,24 @@ class Sorts
         }
     }
 
+    public static void selectionSort(Person[] A)
+    {
+	for (int n = 0; n < A.length - 1; n++)
+        {
+            int minIdx = n;
+            for (int j = n + 1; j < A.length; j++)
+            {
+                if (A[j].getID() < A[minIdx].getID())
+                {
+                    minIdx = j;
+                }
+            }
+	    Person temp = A[minIdx];
+	    A[minIdx] = A[n];
+	    A[n] = temp;
+        }
+    }
+
     public static void insertionSort(int[] A)
     {
 	for (int nn = 1; nn < A.length; nn ++)
@@ -57,6 +96,21 @@ class Sorts
             while (ii > 0 && (A[ii-1] > A[ii]))
             {
                 int temp = A[ii];
+                A[ii] = A[ii - 1];
+                A[ii - 1] = temp;
+                ii--;
+            }
+        }
+    }
+
+    public static void insertionSort(Person[] A)
+    {
+	for (int nn = 1; nn < A.length; nn ++)
+	{
+            int ii = nn;
+            while (ii > 0 && (A[ii-1].getID() > A[ii].getID()))
+            {
+                Person temp = A[ii];
                 A[ii] = A[ii - 1];
                 A[ii - 1] = temp;
                 ii--;

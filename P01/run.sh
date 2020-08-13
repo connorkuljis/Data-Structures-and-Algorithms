@@ -32,11 +32,11 @@
 #
 #sorts="br sr qr mr bn sn qn mn ba sa qa ma"
 #sorts="ba br bn bd"
-sorts="br"
+sorts="br bd ir id sr sd"
 
 # The "max" variable contains the maximum n that is passed to SortsTestHarness
-#max=8192
-max=1024
+max=8192
+#max=1024
 
 
 ########################### DO NOT CHANGE BELOW THIS LINE ##################
