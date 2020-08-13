@@ -78,16 +78,16 @@ class Sorts
 
     private static void mergeSortRecurse(int[] A, int leftIdx, int rightIdx)
     {
-	if (leftIdx == rightIdx) // if range is 1, no use sorting
+	if (leftIdx == rightIdx) // base case to terminate the recursion
 	{
 	    return;
 	}
 
 	int middle = ( leftIdx + rightIdx ) / 2; // finding the midpoint
 
-	mergeSortRecurse( A, leftIdx, middle );       // sort the low half
-	mergeSortRecurse( A, middle + 1, rightIdx );  // sort the top half
-	merge( A, leftIdx, middle + 1, rightIdx );    // merging the sorted halves       
+	mergeSortRecurse( A, leftIdx, middle );   // sort the low half
+	mergeSortRecurse( A, middle + 1, rightIdx );// sort the top half
+	merge( A, leftIdx, middle + 1, rightIdx ); // merging the sorted halves       
 
     }//mergeSortRecurse()
     private static void merge(int[] A, int leftIdx, int midIdx, int rightIdx)
@@ -104,7 +104,8 @@ class Sorts
     private static void quickSortRecurse(int[] A, int leftIdx, int rightIdx)
     {
     }//quickSortRecurse()
-    private static int doPartitioning(int[] A, int leftIdx, int rightIdx, int pivotIdx)
+    private static int doPartitioning(int[] A, int leftIdx, int rightIdx, 
+	                              int pivotIdx)
     {
 		return 0;	// TEMP - Replace this when you implement QuickSort
     }//doPartitioning
