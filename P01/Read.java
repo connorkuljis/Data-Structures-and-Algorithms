@@ -129,8 +129,23 @@ class Read
         fileStream.close();
         return lineNum;
     }
-    
 
+    public static void writeFile(Person[] A, String target) throws Exception
+    {
+	java.io.File file = new java.io.File(target);
+	if (file.exists())
+	{
+	    System.out.println("File already exists"); 
+	}
+	else
+	{
+	    java.io.PrintWriter output = new java.io.PrintWriter(file);
 
-
+	    for (int i = 0; i < A.length; i++)
+	    {
+		output.println(A[i]);
+	    }
+	    output.close();
+	}
+    }
 }

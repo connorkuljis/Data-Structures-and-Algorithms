@@ -14,15 +14,22 @@ public class Question5
 	String filename = "RandomNames7000.csv";
 	Person[] names = Read.readNames(filename); /* create an array of 
 						      person objects */
-	printArray(names); // lets check first 10 people
+	// printArray(names); // lets check first 10 people
 
 	// TODO: possibly make a menu for this, for now - just uncomment 
 
-	// Sorts.bubbleSort(names);
+	Sorts.bubbleSort(names);
+	try
+	{
+	    Read.writeFile(names, "test.csv");
+	}
+	catch (Exception e)
+	{
+	    System.out.println(e.getMessage()); 
+	}
 	// Sorts.selectionSort(names);
 	// Sorts.insertionSort(names);
 	
-	printArray(names); // check if the first 10 people are sorted
     }
 
     private static void printArray(Person[] myArr)
