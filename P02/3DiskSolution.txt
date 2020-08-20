@@ -1,0 +1,15 @@
+### TOWERS OF HANOI ###
+Enter (3) disks: Source=1, Aux=2, Dest=3
+    Enter (2) disks: Source=1, Aux=3, Dest=2
+        Enter (1) disks: Source=1, Aux=2, Dest=3
+        Moving top disk(1) from peg: 1, to peg: 3
+        Moving top disk(2) from peg: 1, to peg: 2
+            Enter (1) disks: Source=3, Aux=1, Dest=2
+            Moving top disk(1) from peg: 3, to peg: 2
+    Moving top disk(3) from peg: 1, to peg: 3
+        Enter (2) disks: Source=2, Aux=1, Dest=3
+            Enter (1) disks: Source=2, Aux=3, Dest=1
+            Moving top disk(1) from peg: 2, to peg: 1
+            Moving top disk(2) from peg: 2, to peg: 3
+                Enter (1) disks: Source=1, Aux=2, Dest=3
+                Moving top disk(1) from peg: 1, to peg: 3

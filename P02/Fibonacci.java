@@ -1,45 +1,88 @@
+/* ***************************************************************************
+ * NAME: Fibonacci.java
+ * AUTHOR: Connor Kuljis, 19459138
+ * UNIT: COMP1002 - Data Structures and Algorithms
+ * PURPOSE: investigate performance of fibonacci algortithm with increasing
+ *          values of n.
+ * COMMENT: using the iterative method was far quicker
+ * DATE: 2020-08-20
+ * **************************************************************************/
 import java.util.*;
 
 public class Fibonacci
 {
     public static void main(String[] args)
     {
-	long startTime, endTime;
-	int total, n = 32; // to search for position in fibonacci
-
 	System.out.println("### Comparing Fibonacci Recursive/Iterative"); 
-	System.out.println("\t where n = " + n); 
 	System.out.println(""); 
 
-	/* RECURSIVE METHOD TEST ********************************************/
 	System.out.println("### Recursive Fibonacci ###"); 
-	startTime = System.nanoTime();
+	for (int i = -4; i <= 32; i = i + 4)
+	{
+	    testRecursive(i);
+	}
 
-	System.out.println("\tFib value: " + fibRecursive (n)); // <-  call to method
-
-	endTime = System.nanoTime();
-	total = (int)((double)(endTime - startTime) / 1000.0);
-	System.out.println("\tTIME FOR Fibonacci Recursive: " + total); 
-	// end recusive testing
-
-
-	/* ITERATIVE METHOD TEST ********************************************/
 	System.out.println("### Iterative Fibonacci ###"); 
-	startTime = System.nanoTime();
-
-	System.out.println("\tFib: " + fibonacci(n)); // <- call to method
-
-	endTime = System.nanoTime();
-	total = (int)((double)(endTime - startTime) / 1000.0);
-	System.out.println("\tTIME FOR Fibonacci Iterative: " + total); 
-	// end iterative testing
-
+	for (int i = -4; i <= 32; i = i + 4)
+	{
+	    testIterative(i);
+	}
     }
 
-    public static int fibRecursive(int n)
+    public static void testRecursive(int n)
     {
-	int fibVal = 0; // initialize
+	long startTime, endTime;
+	int total, fibVal = 0;
 
+	/* RECURSIVE METHOD TEST ********************************************/
+	startTime = System.nanoTime();
+
+	try
+	{
+	    fibVal = fibRecursive(n);
+	    endTime = System.nanoTime();
+	    total = (int)((double)(endTime - startTime) / 1000.0);
+	    System.out.println("\tn = " + n + ", Fib value: " + fibVal + ", in (" + total + 
+		    ") nanoseconds.");
+	}
+	catch (IllegalArgumentException e)
+	{
+	    System.out.println(e.getMessage()); 
+	}
+
+	// end recusive testing
+    }
+
+    public static void testIterative(int n)
+    {
+	long startTime, endTime;
+	int total, fibVal = 0;
+
+	startTime = System.nanoTime();
+	try
+	{
+	    fibVal = fibonacci(n);
+	    endTime = System.nanoTime();
+	    total = (int)((double)(endTime - startTime) / 1000.0);
+	    System.out.println("\tn = " + n + ", Fib value: " + fibVal + ", in (" + total + 
+		    ") nanoseconds.");
+	}
+	catch (IllegalArgumentException e)
+	{
+	    System.out.println(e.getMessage()); 
+	}
+	// end iterative testing
+    }
+
+    public static int fibRecursive(int n) throws IllegalArgumentException
+    {
+	if (n < 0)
+	{
+	    throw new IllegalArgumentException("n must be a " + 
+		    "non-negative number");
+	}
+
+	int fibVal = 0; // initialize
 	if (n <= 0)      // base case #1
 	{
 	    fibVal = 0;
@@ -55,15 +98,23 @@ public class Fibonacci
 	}
 
 	return fibVal;
-
     }
 
-    public static int fibonacci(int n)
+    public static int fibonacci(int n) throws IllegalArgumentException
     {
-	int fib = 0;
+	int fib;
 
-	if (n >= 1) 
-	{ 
+	if (n < 0)
+	{
+	    throw new IllegalArgumentException("n must be a " + 
+		    "non-negative number");
+	}
+	if (n == 0)
+	{
+	    fib = 0;
+	}
+	else
+	{
 	    fib = 1;
 	    int prevFib = 1;
 
@@ -75,11 +126,6 @@ public class Fibonacci
 		fib = fib + prevFib;
 		prevFib = temp;
 	    }
-       	}
-	else
-	{
-	    System.out.println("Invalid value of n"); 
-	    fib = 0;
 	}
 	return fib;
     }
