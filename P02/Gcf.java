@@ -1,33 +1,23 @@
+
 import java.util.*;
 
 public class Gcf
 {
     public static void main(String[] args)
     {
-	gcfRecur(12, 3);
-
+	int a = 1000, b = 128;
+	int result = gcfRecur(a, b);
+	System.out.println("GCF of " + a + " and " + b + " is: " + result); 
     }
 
-    /* imports: top, bottom (integers)
-     * exports: none
-     * purpose: 
-     */
-    public static void gcfRecur(int top, int bottom)
+    public static int gcfRecur(int top, int bottom)
     {
-	if (bottom == 1)  // base case. 
+	int var = top;
+	if (bottom != 0) // base case, when bottom = 0, we have found the gcf
 	{
-	    System.out.println("ending"); 
+	    var = gcfRecur(bottom, (top % bottom)); /* bottom becomes top, and
+	                      bottom is now the remainder of top and bottom */
 	}
-	else if (bottom % 2 != 0) // if cannot be further divided by 2
-	{
-	    System.out.println("Cannot divide"); 
-	}
-	else
-	{
-	    System.out.println("Checking: " + top); 
-	    System.out.println("Greatest Common Factor?: " + bottom); 
-	    int temp = bottom - 1;
-	    gcfRecur(top, temp);
-	}
+	return var;
     }
 }

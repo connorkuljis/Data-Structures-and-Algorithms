@@ -6,24 +6,29 @@ public class Fibonacci
     {
 	long startTime, endTime;
 	int total, n = 32; // to search for position in fibonacci
+
 	System.out.println("### Comparing Fibonacci Recursive/Iterative"); 
 	System.out.println("\t where n = " + n); 
 	System.out.println(""); 
 
-	/* timing fibonacci recursive*/
+	/* RECURSIVE METHOD TEST ********************************************/
 	System.out.println("### Recursive Fibonacci ###"); 
 	startTime = System.nanoTime();
-	System.out.println("\tFib value: " + fibRecursive (n)); // call to method
+
+	System.out.println("\tFib value: " + fibRecursive (n)); // <-  call to method
+
 	endTime = System.nanoTime();
 	total = (int)((double)(endTime - startTime) / 1000.0);
 	System.out.println("\tTIME FOR Fibonacci Recursive: " + total); 
 	// end recusive testing
 
 
-	/* timing fibonacci (this time the iterative method)*/
+	/* ITERATIVE METHOD TEST ********************************************/
 	System.out.println("### Iterative Fibonacci ###"); 
 	startTime = System.nanoTime();
-	System.out.println("\tFib: " + fibonacci(n)); // call to method
+
+	System.out.println("\tFib: " + fibonacci(n)); // <- call to method
+
 	endTime = System.nanoTime();
 	total = (int)((double)(endTime - startTime) / 1000.0);
 	System.out.println("\tTIME FOR Fibonacci Iterative: " + total); 
@@ -76,7 +81,6 @@ public class Fibonacci
 	    System.out.println("Invalid value of n"); 
 	    fib = 0;
 	}
-
 	return fib;
     }
 }

@@ -4,10 +4,10 @@
 
 class Towers
 {
-    static int nDisks = 3;
 
     public static void main(String[] args)
     {
+	int nDisks = 3;
 	doTowers(nDisks, 'A', 'B', 'C');
     }
     
