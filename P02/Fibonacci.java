@@ -74,7 +74,7 @@ public class Fibonacci
 	// end iterative testing
     }
 
-    public static int fibRecursive(int n) throws IllegalArgumentException
+    private static int fibRecursive(int n) throws IllegalArgumentException
     {
 	if (n < 0)
 	{
