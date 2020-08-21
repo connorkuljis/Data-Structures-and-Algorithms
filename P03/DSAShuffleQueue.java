@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-public class DSAQueue
+public class DSAShuffleQueue
 {
     // class constants 
     private static DEFAULT_CAPACITY = 100;
