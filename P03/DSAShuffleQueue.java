@@ -4,71 +4,89 @@ import java.util.*;
 public class DSAShuffleQueue
 {
     // class constants 
-    private static DEFAULT_CAPACITY = 100;
+    private static int DEFAULT_CAPACITY = 100;
 
     // class fields
     private Object[] queue;
-    private int count = 0;
+    private int nItems = 0;
     private int front = 0;
-    private int rear = -1;
+    private int rear = 0; // will be changed in constructors to max size
 
     // constructor
-    public DSAQueue()
+    public DSAShuffleQueue()
     {
         queue = new Object[DEFAULT_CAPACITY];
     }
 
     // alternate constructor
-    public DSAQueue(int maxCapacity)
+    public DSAShuffleQueue(int maxCapacity)
     {
         queue = new Object[maxCapacity];
     }
 
-    // mutator
     public void insert(Object inObj)
     {
-        if (rear == queue.length - 1)
-        {
-            rear = - 1;
-            queue[++rear] = inObj;
-            count++;
-        }
+	if (isFull())
+	{
+	    System.out.println("Queue is full"); 
+	}
+	else
+	{
+	    queue[rear] = inObj;
+	    rear++;
+	    nItems++;
+	}
     }
 
-    // accessor
-    public int getCount()
+    public Object remove()
     {
-        return count;
+	Object temp = null;
+	if (isEmpty())
+	{
+	    System.out.println("Queue is empty"); 
+	}
+	else
+	{
+	    temp = queue[0];
+	    for (int i = 0; i < (rear - 1); i++)
+	    {
+		queue[i] = queue[i+1];
+	    }
+	    rear--;
+	    nItems--;
+	}
+	return temp;
+    }
+
+    public Object peek()
+    {
+	return queue[0];
     }
 
     public boolean isEmpty()
     {
-        boolean empty = false;
-        if (count == 0)
-        {
-            empty = true;
-        }
-        return empty;
-        // return (count == 0);
+	return (nItems == 0);
     }
 
     public boolean isFull()
     {
-        boolean full = false;
-        if (count == queue.length)
-        {
-            full = true;
-        }
-        return full;
+	return (nItems == queue.length);
     }
 
-    // mutator
-    public abstract void enqueue (Object inObj);
+    public int size()
+    {
+	return nItems;
+    }
 
-    public abstract void dequeue (Object inObj);
+    public void printIt()
+    {
+	System.out.print("["); 
+	for(int i = 0; i < nItems; i++)
+	{
+	    System.out.print(queue[i] + ", "); 
+	}
+	System.out.print("]\n"); 
 
-    public abstract Object peek();
-        
-
+    }
 
 }

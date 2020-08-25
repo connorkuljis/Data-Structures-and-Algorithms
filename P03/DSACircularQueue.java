@@ -8,8 +8,8 @@ public class DSACircularQueue
 
     // class fields
     private Object[] queue;
-    private int count = 0;
-    private int front -1;
+    private int nItems = 0;
+    private int front = 0;
     private int rear = -1;
 
     // constructor
@@ -26,60 +26,59 @@ public class DSACircularQueue
 
     // mutator
 
-    public void enqueue(Object inObj)
+    /* NAME: insert
+     * IMPORTS: inObj (Object)
+     * EXPORTS: none
+     * PURPOSE: Inserts an object into the queue. We can insert an object fine 
+     * as long as the rear pointer is not at the end. If the rear pointer is at the
+     * end of the array we must wrap around (point at -1)                   */
+    public void insert(Object inObj)
     {
-	if (!isFull()) // if our queue is full, just fall through
+	if (isFull())
 	{
-	    if (isEmpty()) // if the queue is empty, start at indexes of 0
-	    {
-		front = 0;
-		rear = 0;
-	    }
-	    else // if the queue already has elements, increase the rear pointer
-	    {
-		rear++;
-	    }
-	    queue[rear] = inObj; // enter element in the new cell.
+	    System.out.println("Queue is full '" + inObj + "' has not been entered"); 
 	}
-    }
-
-    public void dequeue(Object inObj)
-    {
-	if (!isEmpty())
+	else
 	{
-	    if (front == rear)
+	    if (rear == queue.length -1)
 	    {
-		front = -1;
 		rear = -1;
 	    }
-	    else 
-	    {
-		front++;
-	    }
+	    queue[++rear] = inObj; // increment rear and insert
+	    nItems++;
 	}
     }
 
-    public boolean isFull()
+    public Object remove()
     {
-	boolean full = false;
-
-	int maxCapacity = queue.length - 1;
-	if (rear == maxCapacity)
+	Object temp = queue[front++];
+	if (front == queue.length)
 	{
-	    full = true;
+	    front = 0;
 	}
-	return full;
+	nItems--;
+	return temp;
+    }
+
+    public Object peek()
+    {
+	return queue[front];
     }
 
     public boolean isEmpty()
     {
-	boolean valid = false;
-	if ((front == -1) && (rear == -1)) // we set our 'pointers' (front and
-	                                   // rear) to rest at index -1
-	{
-	    valid = true;
-	}
-	return valid;
+	return (nItems == 0);
+    }
+
+    public boolean isFull()
+    {
+	return (nItems == queue.length);
+    }
+
+
+    public int size()
+    {
+	return nItems;
     }
 
 }
