@@ -1,30 +1,24 @@
 
 import java.util.*;
 
-public class DSAShuffleQueue
+public class DSAShuffleQueue extends DSAQueue
 {
-    // class constants 
-    private static int DEFAULT_CAPACITY = 100;
-
-    // class fields
-    private Object[] queue;
-    private int nItems = 0;
-    private int front = 0;
-    private int rear = 0; // will be changed in constructors to max size
-
     // constructor
     public DSAShuffleQueue()
     {
         queue = new Object[DEFAULT_CAPACITY];
+	rear = 0;
     }
 
     // alternate constructor
     public DSAShuffleQueue(int maxCapacity)
     {
         queue = new Object[maxCapacity];
+	rear = 0;
     }
 
-    public void insert(Object inObj)
+    @Override
+    protected void insert(Object inObj)
     {
 	if (isFull())
 	{
@@ -38,7 +32,8 @@ public class DSAShuffleQueue
 	}
     }
 
-    public Object remove()
+    @Override
+    protected Object remove()
     {
 	Object temp = null;
 	if (isEmpty())
@@ -58,35 +53,15 @@ public class DSAShuffleQueue
 	return temp;
     }
 
-    public Object peek()
-    {
-	return queue[0];
-    }
-
-    public boolean isEmpty()
+    @Override
+    protected boolean isEmpty()
     {
 	return (nItems == 0);
     }
 
-    public boolean isFull()
+    @Override
+    protected boolean isFull()
     {
 	return (nItems == queue.length);
     }
-
-    public int size()
-    {
-	return nItems;
-    }
-
-    public void printIt()
-    {
-	System.out.print("["); 
-	for(int i = 0; i < nItems; i++)
-	{
-	    System.out.print(queue[i] + ", "); 
-	}
-	System.out.print("]\n"); 
-
-    }
-
 }

@@ -24,18 +24,19 @@ public class QueueTestHarness
 	System.out.println("PEEK: " + test1.peek()); 
 	*/
 
-	DSAShuffleQueue test1 = new DSAShuffleQueue(3);
+	DSAQueue test1 = new DSACircularQueue(3);
 
 	test1.insert("Mary");
 	test1.insert("Apples");
 	test1.insert("Document");
 	System.out.println("SIZE: " + test1.size()); 
-	test1.printIt();
 
 	System.out.println("REMOVE: " + test1.remove()); 
 	System.out.println("REMOVE: " + test1.remove()); 
+	System.out.println("REMOVE: " + test1.remove()); 
+	System.out.println("REMOVE: " + test1.remove()); 
+	System.out.println("EMPTY?: " + test1.isEmpty()); 
 	System.out.println("SIZE: " + test1.size()); 
-	test1.printIt();
 	System.out.println("PEEK: " + test1.peek()); 
 
 

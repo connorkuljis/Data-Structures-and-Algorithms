@@ -1,27 +1,20 @@
 
 import java.util.*;
 
-public class DSACircularQueue
+public class DSACircularQueue extends DSAQueue
 {
-    // class constants 
-    private static int DEFAULT_CAPACITY = 100;
-
-    // class fields
-    private Object[] queue;
-    private int nItems = 0;
-    private int front = 0;
-    private int rear = -1;
-
     // constructor
     public DSACircularQueue()
     {
         queue = new Object[DEFAULT_CAPACITY];
+	rear = -1;
     }
 
     // alternate constructor
     public DSACircularQueue(int maxCapacity)
     {
         queue = new Object[maxCapacity];
+	rear = -1;
     }
 
     // mutator
@@ -32,7 +25,8 @@ public class DSACircularQueue
      * PURPOSE: Inserts an object into the queue. We can insert an object fine 
      * as long as the rear pointer is not at the end. If the rear pointer is at the
      * end of the array we must wrap around (point at -1)                   */
-    public void insert(Object inObj)
+    @Override
+    protected void insert(Object inObj)
     {
 	if (isFull())
 	{
@@ -49,36 +43,35 @@ public class DSACircularQueue
 	}
     }
 
-    public Object remove()
+    @Override
+    protected Object remove() 
     {
-	Object temp = queue[front++];
-	if (front == queue.length)
+	Object temp = null;
+	if (isEmpty())
 	{
-	    front = 0;
+	    System.out.println("Queue is empty, object cannot be removed.");
 	}
-	nItems--;
+	else
+	{
+	    temp = queue[front++];
+	    if (front == queue.length)
+	    {
+		front = 0;
+	    }
+	    nItems--;
+	}
 	return temp;
     }
 
-    public Object peek()
+    @Override 
+    protected boolean isEmpty()
     {
-	return queue[front];
+	return (((rear + 1) == front) || ((front + queue.length - 1) == rear));
     }
 
-    public boolean isEmpty()
+    @Override
+    protected boolean isFull()
     {
-	return (nItems == 0);
+	return (((rear + 2) == front) || ((front + queue.length - 2) == rear));
     }
-
-    public boolean isFull()
-    {
-	return (nItems == queue.length);
-    }
-
-
-    public int size()
-    {
-	return nItems;
-    }
-
 }

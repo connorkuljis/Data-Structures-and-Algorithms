@@ -1,74 +1,34 @@
 
 import java.util.*;
 
-public class DSAQueue
+public abstract class DSAQueue
 {
     // class constants 
-    private static DEFAULT_CAPACITY = 100;
+    protected static int DEFAULT_CAPACITY = 100;
 
     // class fields
-    private Object[] queue;
-    private int count = 0;
-    private int front = 0;
-    private int rear = -1;
-
-    // constructor
-    public DSAQueue()
-    {
-        queue = new Object[DEFAULT_CAPACITY];
-    }
-
-    // alternate constructor
-    public DSAQueue(int maxCapacity)
-    {
-        queue = new Object[maxCapacity];
-    }
+    protected Object[] queue;
+    protected int nItems = 0;
+    protected int front = 0;
+    protected int rear;
 
     // mutator
-    public void insert(Object inObj)
+    protected abstract void insert(Object inObj);
+    protected abstract Object remove();
+
+    protected abstract boolean isEmpty();
+    // return (nItems == 0);
+
+    protected abstract boolean isFull();
+    // return (nItems == queue.length);
+
+    public Object peek()
     {
-        if (rear == queue.length - 1)
-        {
-            rear = - 1;
-            queue[++rear] = inObj;
-            count++;
-        }
+	return queue[front];
     }
 
-    // accessor
-    public int getCount()
+    public int size()
     {
-        return count;
+	return nItems;
     }
-
-    public boolean isEmpty()
-    {
-        boolean empty = false;
-        if (count == 0)
-        {
-            empty = true;
-        }
-        return empty;
-        // return (count == 0);
-    }
-
-    public boolean isFull()
-    {
-        boolean full = false;
-        if (count == queue.length)
-        {
-            full = true;
-        }
-        return full;
-    }
-
-    // mutator
-    public abstract void enqueue (Object inObj);
-
-    public abstract void dequeue (Object inObj);
-
-    public abstract Object peek();
-        
-
-
 }
