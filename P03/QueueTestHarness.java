@@ -24,7 +24,7 @@ public class QueueTestHarness
 	System.out.println("PEEK: " + test1.peek()); 
 	*/
 
-	DSAQueue test1 = new DSACircularQueue(3);
+	DSAQueue test1 = new DSACircularQueue(5);
 
 	test1.insert("Mary");
 	test1.insert("Apples");
@@ -35,6 +35,7 @@ public class QueueTestHarness
 	System.out.println("REMOVE: " + test1.remove()); 
 	System.out.println("REMOVE: " + test1.remove()); 
 	System.out.println("REMOVE: " + test1.remove()); 
+
 	System.out.println("EMPTY?: " + test1.isEmpty()); 
 	System.out.println("SIZE: " + test1.size()); 
 	System.out.println("PEEK: " + test1.peek()); 

@@ -50,7 +50,7 @@ public class DSAStack
     public boolean isFull()
     {
         boolean full = false;
-        if (count == 100)
+        if (count == stack.length)
         {
             full = true;
         }
@@ -92,5 +92,13 @@ public class DSAStack
             topObj = stack[count - 1];
         }
         return topObj;
+    }
+    
+    public void display()
+    {
+	for (int i = 0; i < count; i++)
+	{
+	    System.out.println(stack[i]); 
+	}
     }
 }

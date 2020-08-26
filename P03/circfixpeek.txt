@@ -1,0 +1,9 @@
+SIZE: 3
+REMOVE: Mary
+REMOVE: Apples
+REMOVE: Document
+Queue is empty, object cannot be removed.
+REMOVE: null
+EMPTY?: true
+SIZE: 0
+PEEK: Mary

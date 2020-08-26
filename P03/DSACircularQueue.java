@@ -66,12 +66,12 @@ public class DSACircularQueue extends DSAQueue
     @Override 
     protected boolean isEmpty()
     {
-	return (((rear + 1) == front) || ((front + queue.length - 1) == rear));
+	return (nItems == 0);
     }
 
     @Override
     protected boolean isFull()
     {
-	return (((rear + 2) == front) || ((front + queue.length - 2) == rear));
+	return (nItems == queue.length);
     }
 }
