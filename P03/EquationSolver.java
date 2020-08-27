@@ -6,67 +6,64 @@ public class EquationSolver
     public double solve(String equation)
     {
 	DSAQueue postfixQueue = parseInfixToPostfix(equation);
-	double ans = evaluatePostfix(postfixQueue);
-	return ans;
+	while (!postfixQueue.isEmpty())
+	{
+	    System.out.println(postfixQueue.remove()); 
+	}
+	// double ans = evaluatePostfix(postfixQueue);
+	return 0;
     }
 
     private DSAQueue parseInfixToPostfix(String equation)
     {
-	String openBracket = "(";
-	String closeBracket = ")";
-
-
-	DSACircularQueue queueOfPostfix;
-	DSAStack stackOfOperators;
+	DSACircularQueue postfixQueue;
+	DSAStack opStack;
 	String[] equationArray;
-	int size;
-	String term;
-
+	int nElements;
+	char curChar;
 
 	equationArray = equation.split(" ");
-	size = equationArray.length;
+	nElements = equationArray.length;
 
-	queueOfPostfix = new DSACircularQueue(size);
-	stackOfOperators = new DSAStack(size);
+	postfixQueue = new DSACircularQueue(nElements);
+	opStack = new DSAStack(nElements);
 
-	for (int i = 0; i < size; i++)
+	for (int i = 0; i < nElements; i++)
 	{
-	    term = equationArray[i];
+	    curChar = equationArray[i].charAt(0);
 
-	    if (term.equals(openBracket))
+	    if (Character.isJavaIdentifierPart(curChar)) // is an operand
 	    {
-		stackOfOperators.push(term);
+		postfixQueue.insert(curChar);
 	    }
-	    else if (term.equals(closeBracket))
+	    else if (curChar == '(')
 	    {
-		while (!stackOfOperators.top().equals(openBracket))
-		{
-		    queueOfPostfix.insert(stackOfOperators.pop());
-		}
-		stackOfOperators.pop();
+		opStack.push(curChar);
 	    }
-	    if ("+-*/".contains(term))
+	    else if (curChar == ')')
 	    {
-		while (!stackOfOperators.isEmpty() && 
-		    !stackOfOperators.top().equals(openBracket) &&
-			(precedenceOf(stackOfOperators.top().toString().charAt(0))
-			 >= precedenceOf(term.charAt(0))))
+		while (!opStack.isEmpty() && (Character)opStack.top() != '(')
 		{
-		    queueOfPostfix.insert(stackOfOperators.pop());
+		    postfixQueue.insert(opStack.pop()); // will keep popping until open bracket
 		}
-		stackOfOperators.push(term);
+		opStack.pop(); // this is the opening parenthesis
 	    }
 	    else
 	    {
-		queueOfPostfix.insert(Double.valueOf(term));
+		while (!opStack.isEmpty() && (Character)opStack.top() != '(' && precedenceOf(curChar) <= precedenceOf((Character)opStack.top()))
+		{
+		    postfixQueue.insert(opStack.pop());
+		}
+		opStack.push(curChar);
 	    }
 	}
 
-	while(!stackOfOperators.isEmpty())
+	// popping remaining elements on the stack, and insert into the end of the queue
+	while(!opStack.isEmpty())
 	{
-	    queueOfPostfix.insert(stackOfOperators.pop());
+	    postfixQueue.insert(opStack.pop());
 	}
-	return queueOfPostfix;
+	return postfixQueue;
     }
 
     private double evaluatePostfix(DSAQueue postfixQueue)
