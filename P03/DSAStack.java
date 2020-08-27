@@ -62,8 +62,7 @@ public class DSAStack
     {
         if (isFull())
         {
-            // throw new Exception("Stack is full.");
-            System.out.println("Stack is full"); 
+            throw new IllegalArgumentException("Cannot push " + inObj + " because the stack is full.");
         }
         else
         {
@@ -84,8 +83,7 @@ public class DSAStack
         Object topObj = null;
         if (isEmpty())
         {
-            // throw new Exception("Stack is empty.");
-            System.out.println("Stack is empty"); 
+            throw new IllegalArgumentException("Error. Stack is empty.");
         }
         else
         {
@@ -96,9 +94,19 @@ public class DSAStack
     
     public void display()
     {
+	System.out.print("["); 
 	for (int i = 0; i < count; i++)
 	{
-	    System.out.println(stack[i]); 
+	    if (i == count - 1)
+	    {
+		System.out.print(stack[i]); 
+
+	    }
+	    else
+	    {
+		System.out.print(stack[i] + ", "); 
+	    }
 	}
+	System.out.println("]"); 
     }
 }

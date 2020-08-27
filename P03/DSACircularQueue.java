@@ -1,4 +1,11 @@
-
+/* ***************************************************************************
+ * NAME: DSACircularQueue.java
+ * AUTHOR: Connor Kuljis, 19459138
+ * UNIT: DSA
+ * PURPOSE: Circular queueu implementation
+ * COMMENT:
+ * DATE: 2020-08-28
+ * **************************************************************************/
 import java.util.*;
 
 public class DSACircularQueue extends DSAQueue
@@ -30,7 +37,7 @@ public class DSACircularQueue extends DSAQueue
     {
 	if (isFull())
 	{
-	    System.out.println("Queue is full '" + inObj + "' has not been entered"); 
+	    throw new IllegalArgumentException("Error. Cannot insert object as the queue is full.");
 	}
 	else
 	{
@@ -49,7 +56,7 @@ public class DSACircularQueue extends DSAQueue
 	Object temp = null;
 	if (isEmpty())
 	{
-	    System.out.println("Queue is empty, object cannot be removed.");
+	    throw new IllegalArgumentException("Error. Cannot remove object as the queue is empty.");
 	}
 	else
 	{

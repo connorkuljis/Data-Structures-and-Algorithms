@@ -1,3 +1,11 @@
+/* ***************************************************************************
+ * NAME: DSAShuffleQueue
+ * AUTHOR: Connor Kuljis, 19459138
+ * UNIT: DSA
+ * PURPOSE: Shuffle implementation of queue
+ * COMMENT:
+ * DATE: 2020-08-28
+ * **************************************************************************/
 
 import java.util.*;
 
@@ -22,7 +30,7 @@ public class DSAShuffleQueue extends DSAQueue
     {
 	if (isFull())
 	{
-	    System.out.println("Queue is full"); 
+	    throw new IllegalArgumentException("Error. Cannot insert object as the queue is full.");
 	}
 	else
 	{
@@ -38,7 +46,7 @@ public class DSAShuffleQueue extends DSAQueue
 	Object temp = null;
 	if (isEmpty())
 	{
-	    System.out.println("Queue is empty"); 
+	    throw new IllegalArgumentException("Error. Cannot remove object as the queue is empty.");
 	}
 	else
 	{

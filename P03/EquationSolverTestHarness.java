@@ -1,3 +1,12 @@
+/* ***************************************************************************
+ * NAME: EquationSolverTestHarness
+ * AUTHOR: Connor Kuljis, 19459138
+ * UNIT: DSA 
+ * PURPOSE: test equation solver
+ * COMMENT:
+ * DATE: 2020-08-28
+ * **************************************************************************/
+
 public class EquationSolverTestHarness
 {
     public static void main( String[] args )

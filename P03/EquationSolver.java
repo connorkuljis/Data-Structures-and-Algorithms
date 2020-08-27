@@ -1,3 +1,11 @@
+/* ***************************************************************************
+ * NAME: EquationSolver.java
+ * AUTHOR: Connor Kuljis, 19459138
+ * UNIT: Data Structures and Algorithms
+ * PURPOSE: infix to postfix converter in java
+ * COMMENT:
+ * DATE: 2020-08-28
+ * **************************************************************************/
 import java.util.*;
 
 public class EquationSolver
@@ -139,6 +147,4 @@ public class EquationSolver
 	}
 	return ans;
     }
-
-
 }

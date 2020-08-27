@@ -1,33 +1,55 @@
-// https://en.wikipedia.org/wiki/Call_stack
+/* ***************************************************************************
+ * NAME: CallStack.java
+ * AUTHOR: Connor Kuljis, 19459138
+ * UNIT: Data Structures and Algorithms
+ * PURPOSE: simple java program to simulate a call stack
+ * COMMENT: https://en.wikipedia.org/wiki/Call_stack
+ * DATE: 2020-08-28
+ * **************************************************************************/
 import java.util.*;
 
 public class CallStack
 {
-    // I have used a global variable here for the sake of simulating the call stack
+    // I have used a global variable here for the sake of simulating RAM in a computer
     public static DSAStack stack = new DSAStack();
 
     public static void main(String[] args)
     {
 	int nCalls = 5;
+
+	System.out.println("# Call Stack Example\n"); 
+
+	System.out.println("\t### Simulating a Recursive Method Call"); 
 	functionRecur(nCalls);
+
+	System.out.println("\n\t### Simulating a Nested Method Call"); 
+	functionNested(nCalls);
     }
     
     public static void functionRecur(int n)
     {
-	if (n == 0)
+	String methodName = "functionRecur(" + Integer.toString(n) + ")"; // String of name and arguments
+
+	if (n == 0) // base case
 	{
-	    System.out.println(""); 
+	    System.out.println("");  // prints a line when base case is hit
 	    return;
 	}
 
-	String methodName = "functionRecur(" + Integer.toString(n) + ")";
-	insertStack(methodName);
+	insertStack(methodName); // simulate adding 'block' to stack frame
 	functionRecur(n-1);
-	popStack(methodName);
+	popStack(methodName); // simulate removing 'block' to stack frame
     }
 
     public static void functionNested(int n)
     {
+	// nesting method calls in a for loop
+	for (int i = 1; i <= n; i++)
+	{
+	    String methodName = "functionRecur(" + Integer.toString(i) + ")";
+	    insertStack(methodName);
+	    popStack(methodName); // method is removed from the stack immediately after
+	}
 
     }
 
@@ -41,7 +63,4 @@ public class CallStack
     {
 	System.out.println("Removing the method: " + stack.pop() + " from the stack frame.");
     }
-
-    
-
 }
