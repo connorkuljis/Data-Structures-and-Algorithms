@@ -1,10 +1,10 @@
 /* ***************************************************************************
  * NAME: DSAStackTestHarness.java
  * AUTHOR: Connor Kuljis, 19459138
- * UNIT:
- * PURPOSE:
+ * UNIT: DSA 
+ * PURPOSE: testing my stack class
  * COMMENT:
- * DATE:
+ * DATE: 2020-08-28
  * **************************************************************************/
 import java.util.*;
 
@@ -55,12 +55,5 @@ public class DSAStackTestHarness
 	test.display();
 	System.out.println("Is the stack empty: " + test.isEmpty()); 
 	System.out.println("Is the stack full: " + test.isFull()); 
-
-
-
-
-
-
-
     }
 }
