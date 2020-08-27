@@ -5,61 +5,61 @@ public class EquationSolver
     
     public double solve(String equation)
     {
-	DSAQueue postfixQueue = parseInfixToPostfix(equation);
-	while (!postfixQueue.isEmpty())
-	{
-	    System.out.println(postfixQueue.remove()); 
-	}
-	// double ans = evaluatePostfix(postfixQueue);
-	return 0;
+	DSAQueue postfixQueue;
+	double ans;
+
+        postfixQueue = parseInfixToPostfix(equation); // convert our equation to postfix (as a Queue)
+	ans = evaluatePostfix(postfixQueue); // given our postfix queue, solve it and return answer (real number)
+
+	return ans;
     }
 
     private DSAQueue parseInfixToPostfix(String equation)
     {
 	DSACircularQueue postfixQueue;
 	DSAStack opStack;
-	String[] equationArray;
-	int nElements;
-	char curChar;
+	String ce;
+	char ch;
 
-	equationArray = equation.split(" ");
-	nElements = equationArray.length;
+	StringTokenizer eq = new StringTokenizer(equation, " ");
 
-	postfixQueue = new DSACircularQueue(nElements);
-	opStack = new DSAStack(nElements);
+	postfixQueue = new DSACircularQueue(eq.countTokens());
+	opStack = new DSAStack(eq.countTokens());
 
-	for (int i = 0; i < nElements; i++)
+	while(eq.hasMoreTokens())
 	{
-	    curChar = equationArray[i].charAt(0);
+	    ce = eq.nextToken();
+	    ch = ce.charAt(0);
+	    switch (ch)
+	    {
+		case '+': case '-': case '*': case '/':
+		    while (!opStack.isEmpty() && (Character)opStack.top() != '(' &&
+			    precedenceOf((Character)opStack.top()) >= precedenceOf(ch))
+		    {
+			postfixQueue.insert(opStack.pop());
+		    }
+		    opStack.push(ch);
+		    break;
 
-	    if (Character.isJavaIdentifierPart(curChar)) // is an operand
-	    {
-		postfixQueue.insert(curChar);
-	    }
-	    else if (curChar == '(')
-	    {
-		opStack.push(curChar);
-	    }
-	    else if (curChar == ')')
-	    {
-		while (!opStack.isEmpty() && (Character)opStack.top() != '(')
-		{
-		    postfixQueue.insert(opStack.pop()); // will keep popping until open bracket
-		}
-		opStack.pop(); // this is the opening parenthesis
-	    }
-	    else
-	    {
-		while (!opStack.isEmpty() && (Character)opStack.top() != '(' && precedenceOf(curChar) <= precedenceOf((Character)opStack.top()))
-		{
-		    postfixQueue.insert(opStack.pop());
-		}
-		opStack.push(curChar);
+		case '(':
+		    opStack.push(ch);
+		    break;
+		
+		case ')':
+		    while ((Character)opStack.top() != '(')
+		    {
+			postfixQueue.insert(opStack.pop());
+		    }
+		    opStack.pop();
+		    break;
+
+		default:
+		    postfixQueue.insert(Double.valueOf(ce));
+		    break;
 	    }
 	}
 
-	// popping remaining elements on the stack, and insert into the end of the queue
-	while(!opStack.isEmpty())
+	while(!opStack.isEmpty()) // remaining operators on the stack are added to the queue
 	{
 	    postfixQueue.insert(opStack.pop());
 	}
@@ -68,46 +68,49 @@ public class EquationSolver
 
     private double evaluatePostfix(DSAQueue postfixQueue)
     {
-	DSAStack stackOfOperators;
+	DSAStack operandStack; // note that we are storing double values on the stack this time
 	char op;
 	double op1, op2;
 
-	stackOfOperators = new DSAStack(postfixQueue.size());
+	operandStack = new DSAStack(postfixQueue.size());
 	while(!postfixQueue.isEmpty())
 	{
 	    if (postfixQueue.peek() instanceof Double)
 	    {
-		stackOfOperators.push(postfixQueue.remove());
+		operandStack.push(postfixQueue.remove());
+	    }
+	    else if (postfixQueue.peek() instanceof Character)
+	    {
+		op2 = (double) operandStack.pop();
+		op1 = (double) operandStack.pop();
+		op = (Character) (postfixQueue.remove());
+		operandStack.push(executeOperation(op, op1, op2));
 	    }
 	    else
 	    {
-		op2 = (double) stackOfOperators.pop();
-		op1 = (double) stackOfOperators.pop();
-		op = postfixQueue.remove().toString().charAt(0);
-		stackOfOperators.push(executeOperation(op, op1, op2));
+		throw new IllegalArgumentException("Error evaulating postfix. ");
 	    }
 	}
-	return (double)stackOfOperators.pop();
+	return (double)operandStack.pop();
     }
 
     // precedence
     // ( * / ) > ( + - )
     private int precedenceOf(char theOp)
     {
-	int precedence;
+	int precedence = 0;
 
-	if(theOp == '+' || theOp == '-') 
+	switch(theOp)
 	{
-	    precedence = 1;
-	}
-	else if (theOp == '*' || theOp == '/')
-	{
-	    precedence = 2;
-	}
-	else
-	{
-	    throw new IllegalArgumentException("Unknown operator: ("
-		    + theOp + "), in precedenceOf");
+	    case '+': case '-':
+		precedence = 1;
+		break;
+
+	    case '*': case '/':
+		precedence = 2;
+		break;
+	    default:
+		throw new IllegalArgumentException("Unknown operator: (" + theOp + "), in precedenceOf");
 	}
 	return precedence;
     }
