@@ -28,11 +28,11 @@ public class CallStack
     
     public static void functionRecur(int n)
     {
-	String methodName = "functionRecur(" + Integer.toString(n) + ")"; // String of name and arguments
+	int i = n*2;
+	String methodName = "functionRecur(" + Integer.toString(n) + "), i=" + i; // String of name and arguments
 
 	if (n == 0) // base case
 	{
-	    System.out.println("");  // prints a line when base case is hit
 	    return;
 	}
 
@@ -43,6 +43,9 @@ public class CallStack
 
     public static void functionNested(int n)
     {
+	String name = "functionRecur(" + Integer.toString(n) + ")";
+	insertStack(name);
+
 	// nesting method calls in a for loop
 	for (int i = 1; i <= n; i++)
 	{
@@ -50,17 +53,19 @@ public class CallStack
 	    insertStack(methodName);
 	    popStack(methodName); // method is removed from the stack immediately after
 	}
+	popStack(name);
 
     }
 
     public static void insertStack(String methodName)
     {
 	stack.push(methodName);
-	System.out.println("Adding the method: " + methodName + " to the stack frame."); 
+	stack.display();
     }
 
     public static void popStack(String methodName)
     {
-	System.out.println("Removing the method: " + stack.pop() + " from the stack frame.");
+	stack.pop();
+	stack.display();
     }
 }
