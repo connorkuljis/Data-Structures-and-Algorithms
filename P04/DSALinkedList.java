@@ -6,8 +6,50 @@
  * COMMENT:
  * DATE: 2020-08-28
  * **************************************************************************/
-public class DSALinkedList
+import java.util.Iterator;
+import java.lang.Iterable;
+
+
+public class DSALinkedList implements Iterable
 {
+    public Iterator iterator()
+    {
+	return new DSALinkedListIterator(this);
+    }
+
+    private class DSALinkedListIterator implements Iterator
+    {
+	private DSAListNode iterNext;
+
+	public DSALinkedListIterator(DSALinkedList theList) // constructor
+	{
+	    iterNext = theList.head;
+	}
+
+	public boolean hasNext() // implementing the abstract method from iterator
+	{
+	    return (iterNext != null);
+	}
+
+	public Object next() // implementing the abstract method from iterator
+	{
+	    Object value;
+	    if (iterNext == null)
+	    {
+		value = null;
+	    }
+	    else
+	    {
+		value = iterNext.getValue();
+		iterNext = iterNext.getNext();
+	    }
+	    return value;
+	}
+
+	// remove() is a default method in Iterator, so dont need to put it in
+    }
+
+
     DSAListNode head;
     DSAListNode tail;
 
