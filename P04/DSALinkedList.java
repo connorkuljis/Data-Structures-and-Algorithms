@@ -6,16 +6,15 @@
  * COMMENT:
  * DATE: 2020-08-28
  * **************************************************************************/
-
 public class DSALinkedList
 {
     DSAListNode head;
     DSAListNode tail;
 
-
     public DSALinkedList()
     {
         head = null;
+	tail = null;
     }
 
     public void insertFirst(Object newValue)
@@ -24,11 +23,13 @@ public class DSALinkedList
         if (isEmpty())
         {
             head = newNode;
+	    tail = newNode;
         }
         else
         {
-            newNode.setNext(head);
-            head = newNode;
+	    head.setPrevious(newNode);
+	    newNode.setNext(head);
+	    head = newNode;
         }
     }
 
@@ -38,15 +39,12 @@ public class DSALinkedList
         if (isEmpty())
         {
             head = newNode;
+	    tail = newNode;
         }
         else
         {
-            DSAListNode curNode = head;
-            while (curNode.getNext() != null)
-            {
-                curNode = curNode.getNext();
-            }
-            curNode.setNext(newNode);
+	    tail.setNext(newNode);
+	    tail = newNode;
         }
     }
 
@@ -78,12 +76,7 @@ public class DSALinkedList
         }
         else
         {
-            DSAListNode curNode = head;
-            while (curNode.getNext() != null) // traversing to the last node
-            { 
-                curNode = curNode.getNext();
-            }
-            nodeValue = curNode.getValue();
+	    nodeValue = tail.getValue();
         }
         return nodeValue;
     }
@@ -120,15 +113,8 @@ public class DSALinkedList
         }
         else
         {
-            prevNode = null;
-            curNode = head;
-            while (curNode.getNext() != null)
-            {
-                prevNode = curNode;
-                curNode = curNode.getNext();
-            }
-            prevNode.setNext(null);
-            nodeValue = curNode.getValue();
+	    nodeValue = tail.getValue();
+	    // make node doublely linked
         }
         return nodeValue;
     }

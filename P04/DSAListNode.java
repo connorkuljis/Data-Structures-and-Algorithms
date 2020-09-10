@@ -43,8 +43,8 @@ public class DSAListNode
         return previous;
     }
 
-    public void setPrevious(DSAListNode inNext)
+    public void setPrevious(DSAListNode inPrevious)
     {
-        previous = inNext;
+        previous = inPrevious;
     }
 }

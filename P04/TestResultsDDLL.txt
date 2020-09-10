@@ -1,0 +1,22 @@
+
+
+Testing Normal Conditions - Constructor
+=======================================
+Testing creation of DSALinkedList (isEmpty()): passed
+
+Test inserting first and removing first (stack behaviour)
+==========================================================
+Testing insertFirst(): passed
+Testing peekLast(): passed   
+Testing removeFirst(): passed
+Testing isEmpty(): passed
+
+Test inserting last and removing first (queue behaviour)
+========================================================
+Testing insertLast(): passed
+Testing peekFirst(): passed
+Testing removeFirst(): passed
+Testing isEmpty(): passed
+Testing insertFirst()passed
+
+Number PASSED: 10/10 -> 100%
