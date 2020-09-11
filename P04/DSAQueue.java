@@ -9,7 +9,7 @@
 
 import java.util.*;
 
-public class DSAQueue
+public class DSAQueue implements Iterable
 {
     // class fields
     private DSALinkedList list;
@@ -19,6 +19,11 @@ public class DSAQueue
     public DSAQueue()
     {
 	list = new DSALinkedList();
+    }
+
+    public Iterator iterator()
+    {
+	return list.iterator();
     }
 
     public void insert(Object inObj)

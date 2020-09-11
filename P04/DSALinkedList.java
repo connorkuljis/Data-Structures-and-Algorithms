@@ -12,6 +12,9 @@ import java.lang.Iterable;
 
 public class DSALinkedList implements Iterable
 {
+    private DSAListNode head;
+    private DSAListNode tail;
+
     public Iterator iterator()
     {
 	return new DSALinkedListIterator(this);
@@ -48,10 +51,6 @@ public class DSALinkedList implements Iterable
 
 	// remove() is a default method in Iterator, so dont need to put it in
     }
-
-
-    DSAListNode head;
-    DSAListNode tail;
 
     public DSALinkedList()
     {

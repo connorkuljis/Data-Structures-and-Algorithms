@@ -86,7 +86,7 @@ public class MyLinkedListTestHarness
 	System.out.println("Enter the filename"); 
 	filename = sc.next();
 
-	list = ReadList.readInts(filename);
+	list = FileIO.readInts(filename);
 
 	return list;
     }
@@ -108,7 +108,7 @@ public class MyLinkedListTestHarness
 
 	try
 	{
-	    ReadList.writeFile(list, target);
+	    FileIO.writeFile(list, target);
 	}
 	catch (Exception e)
 	{
