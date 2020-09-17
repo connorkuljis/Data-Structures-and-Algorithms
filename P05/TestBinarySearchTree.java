@@ -15,9 +15,22 @@ public class TestBinarySearchTree
 	tree.insert("H", 1);
 	tree.insert("C", 1);
 
-	tree.printInOrder();
-	tree.printPreOrder();
-	tree.printPostOrder();
+	System.out.println(tree.min()); 
+	System.out.println(tree.max()); 
+
+	System.out.println(tree.height()); 
+
+	tree.describeBalance();
+
+	DSAQueue inOrderQueue = tree.inOrder();
+	while (!inOrderQueue.isEmpty())
+	{
+	    System.out.print(inOrderQueue.remove() + " ");
+
+	}
+
+
+
 
 
     }

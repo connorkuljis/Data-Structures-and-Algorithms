@@ -3,11 +3,12 @@
  * AUTHOR: Connor Kuljis, 19459138
  * UNIT: Data Structures and Algorithms (COMP1002)
  * PURPOSE:
- * COMMENT:
- * DATE: 2020-09-11
+ * COMMENT: https://stackoverflow.com/questions/742844/how-to-determine-if-binary-tree-is-balanced
+ * DATE: 2020-09-17
  * **************************************************************************/
+import java.io.*;
 
-public class BinarySearchTree
+public class BinarySearchTree implements Serializable
 {
     public class TreeNode
     {
@@ -98,11 +99,11 @@ public class BinarySearchTree
 	{
 	    throw new IllegalArgumentException("Key " + key + ", already exists within the tree");
 	}
-	else if (key.compareTo(curNode.getKey()) < 0)
+	else if (key.compareTo(curNode.getKey()) < 0) // string is smaller so go left recursive
 	{
 	    curNode.setLeft(insertRec(key, value, curNode.getLeft()));
 	}
-	else
+	else // string is not smaller so go right recursive
 	{
 	    curNode.setRight(insertRec(key, value, curNode.getRight()));
 	}
@@ -111,37 +112,107 @@ public class BinarySearchTree
 
     public void delete(String key)
     {
-	//todo
+	deleteRec(key, m_root);
     }
 
-    public void printInOrder()
+    // (recursively) find the node to delete and pass it to a method that will remove it from the tree
+    public TreeNode deleteRec(String key, TreeNode curNode)
     {
-	inOrderRec(m_root);
-	System.out.println(""); 
+	TreeNode updateNode = curNode;
+
+	if (curNode == null)
+	{
+	    throw new IllegalArgumentException("Cannot delete node, not in tree.");
+	}
+	else if (key.equals(curNode.getKey()))
+	{
+	    updateNode = deleteNode(key, curNode);
+	}
+	else if (key.compareTo(curNode.getKey()) < 0) // string is smaller so go left recursive
+	{
+	    curNode.setLeft(deleteRec(key, curNode.getLeft()));
+	}
+	else // string is not smaller so go right recursive
+	{
+	    curNode.setRight(deleteRec(key, curNode.getRight()));
+	}
+	return updateNode;
+    }
+
+    public TreeNode deleteNode(String key, TreeNode delNode)
+    {
+	TreeNode updateNode = null;
+
+	if (delNode.getLeft() == null && delNode.getRight() == null)
+	{
+	    updateNode = null;                    // no children
+	}
+	else if (delNode.getLeft() != null && delNode.getRight() == null)
+	{
+	    updateNode = delNode.getLeft();       // one child (left)
+	}
+	else if (delNode.getLeft() == null && delNode.getRight() != null)
+	{
+	    updateNode = delNode.getRight();       // one child (right)
+	}
+	else
+	{
+	    updateNode = promoteSuccessor(delNode.getRight());
+	    if (updateNode != delNode.getRight())
+	    {
+		updateNode.setRight(delNode.getRight());
+	    }
+	    updateNode.setLeft(delNode.getLeft());
+	}
+	return updateNode;
+    }
+
+    public TreeNode promoteSuccessor(TreeNode curNode)
+    {
+	TreeNode successor = curNode;
+	if (curNode.getLeft() == null)
+	{
+	    successor = curNode;
+	}
+	else if (curNode.getLeft() != null)
+	{
+	    successor = promoteSuccessor(curNode.getLeft());
+	    if (successor == curNode.getLeft())
+	    {
+		curNode.setLeft(successor.getRight());
+	    }
+	}
+	return successor;
+    }
+
+    public DSAQueue inOrder()
+    {
+	DSAQueue theQueue = new DSAQueue();
+	inOrderRec(theQueue, m_root);
+	return theQueue;
     }
 
     public void printPreOrder()
     {
 	preOrderRec(m_root);
-	System.out.println(""); 
     }
 
     public void printPostOrder()
     {
 	postOrderRec(m_root);
-	System.out.println(""); 
     }
 
-    public void inOrderRec(TreeNode node)
+    public void inOrderRec(DSAQueue theQueue, TreeNode node)
     {
 	if (node == null)
 	{
 	    return;
 	}
 
-	inOrderRec(node.getLeft());
-	System.out.print(node.getKey() + " "); 
-	inOrderRec(node.getRight());
+	inOrderRec(theQueue, node.getLeft());
+	// System.out.print(node.getKey() + " "); 
+	theQueue.insert(node.getKey());
+	inOrderRec(theQueue, node.getRight());
     }
 
     public void preOrderRec(TreeNode node)
@@ -151,9 +222,9 @@ public class BinarySearchTree
 	    return;
 	}
 
-	System.out.print(node.getKey() + " "); 
-	inOrderRec(node.getLeft());
-	inOrderRec(node.getRight());
+	// System.out.print(node.getKey() + " "); 
+	// inOrderRec(node.getLeft());
+	// inOrderRec(node.getRight());
 
     }
 
@@ -164,17 +235,95 @@ public class BinarySearchTree
 	    return;
 	}
 
-	inOrderRec(node.getLeft());
-	inOrderRec(node.getRight());
-	System.out.print(node.getKey() + " "); 
+	// inOrderRec(node.getLeft());
+	// inOrderRec(node.getRight());
+	// System.out.print(node.getKey() + " "); 
 
     }
+
+    public String min()
+    {
+	return minRec(m_root);
+    }
+
+    public String max()
+    {
+	return maxRec(m_root);
+    }
+
+    /* keep looking to the left node */
+    public String minRec(TreeNode curNode)
+    {
+	String minKey;
+	if (curNode.getLeft() != null) // base case
+	{
+	    minKey = minRec(curNode.getLeft());
+	}
+	else
+	{
+	    minKey = curNode.getKey();
+	}
+	return minKey;
+    }
+
+    /* keep looking to the right node as long as there is some node there */
+    public String maxRec(TreeNode curNode)
+    {
+	String maxKey;
+	if (curNode.getRight() != null) // not the base case
+	{
+	    maxKey = maxRec(curNode.getRight());
+	}
+	else // this is the base case eg: the next node is null
+	{
+	    maxKey = curNode.getKey();  
+	}
+	return maxKey;
+    }
+
+    public void describeBalance()
+    {
+	int lh, rh, th;
+	double lw, rw;
+
+	th = height();
+	lh = heightRec(m_root.getLeft());
+	rh = heightRec(m_root.getRight());
+
+	lw = (double)(lh) / (double)(th) * 100;
+	rw = (double)(rh) / (double)(th) * 100;
+
+	System.out.println("L=" + lw + "% | R=" + rw + "%"); 
+    }
+
     public int height()
     {
-	return 0;
-
+	return heightRec(m_root);
     }
 
+    public int heightRec(TreeNode curNode)
+    {
+	int htSoFar, iLeftHt, iRightHt;
 
+	if (curNode == null)
+	{
+	    htSoFar = -1; // Base case – no more along this branch
+	}
+	else
+	{
+	    iLeftHt = heightRec(curNode.getLeft()); // Calc left height from here 
+	    iRightHt = heightRec(curNode.getRight()); 
 
+	    // Get highest of left vs right branches
+	    if (iLeftHt > iRightHt)
+	    {
+		htSoFar = iLeftHt + 1;
+	    }
+	    else
+	    {
+		htSoFar = iRightHt + 1;
+	    }
+	}
+	return htSoFar;
+    }
 }
