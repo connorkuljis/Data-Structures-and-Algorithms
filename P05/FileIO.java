@@ -47,9 +47,9 @@ public class FileIO
 	{
 	    try
 	    {
-		int id = Integer.parseInt(strArr[0]);
+		String id = strArr[0];
 		String name = strArr[1];
-		tree.insert(name, id);
+		tree.insert(id, name);
 	    }
 	    catch (NumberFormatException e)
 	    {
@@ -62,8 +62,7 @@ public class FileIO
 	}
     }
 
-    /*
-    public static void writeFile(DSALinkedList list, String target) throws Exception
+    public static void writeCSV(DSAQueue queue, String target) throws Exception
     {
 	java.io.File file = new java.io.File(target);
 	if (file.exists())
@@ -74,12 +73,12 @@ public class FileIO
 	{
 	    java.io.PrintWriter output = new java.io.PrintWriter(file);
 
-	    for (Object e : list)
+	    for (Object e : queue)
 	    {
 		output.print(e + ",");
+		output.println("");
 	    }
 	    output.close();
 	}
     }
-    */
 }

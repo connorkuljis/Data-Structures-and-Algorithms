@@ -10,7 +10,7 @@ import java.io.*;
 
 public class BinarySearchTree implements Serializable
 {
-    public class TreeNode
+    public class TreeNode implements Serializable
     {
 	private String m_key;
 	private Object m_value;
@@ -60,7 +60,7 @@ public class BinarySearchTree implements Serializable
 
 	if (curNode == null)
 	{
-	    throw new IllegalArgumentException("Key " + key + ", not found");
+	    System.out.println("Key " + key + " not found"); 
 	}
 	else if (key.equals(curNode.getKey())) // base case
 	{
@@ -192,14 +192,18 @@ public class BinarySearchTree implements Serializable
 	return theQueue;
     }
 
-    public void printPreOrder()
+    public DSAQueue preOrder()
     {
-	preOrderRec(m_root);
+	DSAQueue theQueue = new DSAQueue();
+	preOrderRec(theQueue, m_root);
+	return theQueue;
     }
 
-    public void printPostOrder()
+    public DSAQueue postOrder()
     {
-	postOrderRec(m_root);
+	DSAQueue theQueue = new DSAQueue();
+	postOrderRec(theQueue, m_root);
+	return theQueue;
     }
 
     public void inOrderRec(DSAQueue theQueue, TreeNode node)
@@ -210,35 +214,33 @@ public class BinarySearchTree implements Serializable
 	}
 
 	inOrderRec(theQueue, node.getLeft());
-	// System.out.print(node.getKey() + " "); 
 	theQueue.insert(node.getKey());
 	inOrderRec(theQueue, node.getRight());
     }
 
-    public void preOrderRec(TreeNode node)
+    public void preOrderRec(DSAQueue theQueue, TreeNode node)
     {
 	if (node == null)
 	{
 	    return;
 	}
 
-	// System.out.print(node.getKey() + " "); 
-	// inOrderRec(node.getLeft());
-	// inOrderRec(node.getRight());
+	theQueue.insert(node.getKey());
+	preOrderRec(theQueue, node.getLeft());
+	preOrderRec(theQueue, node.getRight());
 
     }
 
-    public void postOrderRec(TreeNode node)
+    public void postOrderRec(DSAQueue theQueue, TreeNode node)
     {
 	if (node == null)
 	{
 	    return;
 	}
 
-	// inOrderRec(node.getLeft());
-	// inOrderRec(node.getRight());
-	// System.out.print(node.getKey() + " "); 
-
+	postOrderRec(theQueue, node.getLeft());
+	postOrderRec(theQueue, node.getRight());
+	theQueue.insert(node.getKey());
     }
 
     public String min()
