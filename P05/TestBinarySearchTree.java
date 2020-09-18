@@ -56,7 +56,12 @@ public class TestBinarySearchTree
 
 	System.out.println("... loading copy"); 
 	BinarySearchTree copy = Menu.loadFile("test");
+    System.out.println("Delete 'A'");
+    copy.delete("A");
 
+	inOrderQueue = copy.inOrder();
+	System.out.print("(In Order Traversal)   : "); 
+	inOrderQueue.display();
 	System.out.println("COPY MIN: " + copy.min()); 
 	System.out.println("COPY MAX: " + copy.max()); 
 	System.out.println("COPY Height: " + copy.height()); 
