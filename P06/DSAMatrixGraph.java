@@ -50,12 +50,58 @@ public class DSAMatrixGraph
         for (Object e : labels)
         {
             DSAListNode node = (DSAListNode) e;
-            if (label == (char)node.getValue())
+            if ((char)node.getValue() == label)
             {
                 found = true;
             } 
         }
         return found;
+    }
+
+    public int getVertexCount()
+    {
+        int vertexCount = 0;
+        for (Object e : labels)
+        {
+            vertexCount++;
+        }
+        return vertexCount;
+    }
+
+    public int getEdgeCount()
+    {
+        int edgeCount = 0;
+        for (int i = 0; i < adjMat.length; i++)
+        {
+            for (int j = 0; j < adjMat[0].length; j++)
+            {
+                edgeCount += adjMat[i][j];
+            }
+        }
+        return edgeCount / 2;
+    }
+
+    public boolean isAdjancent(int vertex1, int vertex2) // alternatively take the char labels
+    {
+        boolean adjacent = false;
+        if (adjMat[vertex1][vertex2] == 1)
+        {
+            adjacent = true;
+        }
+        return adjacent;
+    }
+
+    public DSALinkedList getAdjacent(int vertex)
+    {
+        DSALinkedList adjacent = new DSALinkedList();
+        for (int j = 0; j < adjMat.length; j++)
+        {
+            if (adjMat[vertex][j] == 1)
+            {
+                adjacent.insertLast(adjMat[vertex][j]);
+            }
+        }
+        return adjacent;
     }
 
     public void displayAsMatrix()
