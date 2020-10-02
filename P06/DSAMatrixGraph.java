@@ -1,8 +1,8 @@
 /* ***************************************************************************
- * NAME:
+ * NAME: DSAMatrixGraph
  * AUTHOR: Connor Kuljis, 19459138
  * UNIT: Data Structures and Algorithms (COMP1002)
- * PURPOSE:
+ * PURPOSE: this is a basic implementation of a graph using a 2d array as for an adjacency matrix.
  * COMMENT:
  * DATE: 2020-
  * **************************************************************************/
