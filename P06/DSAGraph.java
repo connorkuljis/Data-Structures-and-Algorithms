@@ -5,6 +5,8 @@
  * PURPOSE: DSA Graph using Adjacency List
  * COMMENT:
  * DATE: 2020-10-01
+ * helpful video ->
+ * https://www.youtube.com/watch?v=TIbUeeksXcI 
  * **************************************************************************/
 
 public class DSAGraph
@@ -27,33 +29,36 @@ public class DSAGraph
         verticies.insertLast(node);
     }
 
+    /* to add an edge between two verticies, we are given their labels */
     public void addEdge(String vertex1, String vertex2)
     {
         if (hasVertex(vertex1) && hasVertex(vertex2)) // if the verticies exist in the graph
         {
-            for (Object e : verticies) // May be slow due to iterating though the linked list
+	    // first find the two verticies that match the label
+	    DSAGraphVertex v1 = null; // storing the first
+	    DSAGraphVertex v2 = null; // storing the second
+
+	    // iterate through the list of verticies
+            for (Object e : verticies) 
             {
-                DSAListNode node;
-                DSAGraphVertex vertex;
-                DSALinkedList adjList;
-                String label;
+		// need to get their labels
+                DSAListNode currNode = (DSAListNode) e;
+                DSAGraphVertex currVertex = (DSAGraphVertex) currNode.getValue();
+                String label = currVertex.getLabel();
 
-                node = (DSAListNode) e;
-                vertex = (DSAGraphVertex) node.getValue();
-
-                label = vertex.getLabel();
-                adjList = vertex.getAdjacent();
-
-                if (label.equals(vertex1))
+                if (label.equals(vertex1)) // we have found our first label
                 {
-                    adjList.insertLast(vertex2);
+		    v1 = currVertex;
                 }
-                else if (label.equals(vertex2))
+                else if (label.equals(vertex2)) // we have found our second label
                 {
-                    adjList.insertLast(vertex1);
+		    v2 = currVertex;
                 }
-                // error handling?
             }
+
+	    // undirected graph so we can add to both sides
+	    v1.getAdjacent().insertLast(v2);
+	    v2.getAdjacent().insertLast(v1);
         }
     }
 
@@ -137,8 +142,6 @@ public class DSAGraph
         return hasAdjacent;
     }
 
-    // public DSALinkedList getAdjacent(String vertex)
-
     public boolean isEmpty()
     {
 	boolean empty;
@@ -172,9 +175,78 @@ public class DSAGraph
             DSALinkedList adjList = vertex.getAdjacent();
             for (Object g : adjList)
             {
-                System.out.print(g + " ");
+		DSAGraphVertex currVertex = (DSAGraphVertex) g;
+                System.out.print(currVertex.getLabel() + " ");
             }
             System.out.println("");
         }
+    }
+
+    public DSAQueue depthFirstSearch()
+    {
+	DSAQueue traversalQueue = new DSAQueue();
+	DSAStack stack = new DSAStack();
+
+	DSAListNode front = (DSAListNode) verticies.peekFirst();
+	DSAGraphVertex start = (DSAGraphVertex) front.getValue();
+
+	start.setVisited();
+	stack.push(start); // start the search 
+	traversalQueue.insert(start);
+
+	while (!stack.isEmpty())
+	{
+	    DSAGraphVertex curr = (DSAGraphVertex) stack.pop();
+	    if (!curr.getVisited()) // if NOT Visisted eg: "new"
+	    {
+		curr.setVisited();
+		traversalQueue.insert(curr);
+	    }
+
+	    for (Object e : curr.getAdjacent())
+	    {
+		DSAGraphVertex adjVertex = (DSAGraphVertex) e;
+		if (!adjVertex.getVisited())
+		{
+		    stack.push(adjVertex);
+		}
+	    }
+	}
+	return traversalQueue;
+    }
+
+    public DSAQueue breadthFirstSearch()
+    {
+	DSAQueue queue = new DSAQueue();
+	DSAQueue traversalQueue = new DSAQueue();
+
+	DSAListNode front = (DSAListNode) verticies.peekFirst();
+	DSAGraphVertex start = (DSAGraphVertex) front.getValue();
+
+	start.setVisited();
+	
+	queue.insert(start);
+	traversalQueue.insert(start);
+
+	while (!queue.isEmpty())
+	{
+	    DSAGraphVertex curr = (DSAGraphVertex) queue.remove();
+	    if (!curr.getVisited())
+	    {
+		curr.setVisited();
+		traversalQueue.insert(curr);
+	    }
+
+	    for (Object e : curr.getAdjacent())
+	    {
+		DSAGraphVertex adjVertex = (DSAGraphVertex) e;
+		if (!adjVertex.getVisited())
+		{
+		    queue.insert(adjVertex);
+		}
+	    }
+	}
+	return traversalQueue;
+
     }
 }
