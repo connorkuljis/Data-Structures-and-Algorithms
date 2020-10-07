@@ -139,6 +139,18 @@ public class DSAGraph
 
     // public DSALinkedList getAdjacent(String vertex)
 
+    public boolean isEmpty()
+    {
+	boolean empty;
+	empty = false;
+
+	if (verticies.isEmpty())
+	{
+	    empty = true;
+	}
+	return empty;
+    }
+
     public void display()
     {
         for (Object e : verticies)
@@ -150,6 +162,7 @@ public class DSAGraph
 
     public void displayAdjacencyList()
     {
+	System.out.println("Displaying Adjacency List:"); 
         for (Object e : verticies)
         {
             DSAListNode node = (DSAListNode) e;
