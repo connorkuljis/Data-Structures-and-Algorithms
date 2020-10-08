@@ -37,17 +37,17 @@ public class DSAHashTable
     /* HASH TABLE CLASS */
     private DSAHashEntry[] hashArray;
     private int count;
+    private final float MAX_LOAD_FACTOR = 0.685f;
 
     public DSAHashTable(int inSize)
     {
 	int actualSize = nextPrime(inSize);
 	hashArray = new DSAHashEntry[actualSize];
 
-	for (int i = 0; i < hashArray.length - 1; i++)
+	for (int i = 0; i < hashArray.length; i++)
 	{
 	    hashArray[i] = new DSAHashEntry();
 	}
-
 	count = 0;
     }
 
@@ -75,10 +75,13 @@ public class DSAHashTable
 	// ASSUMPTION: the array is not full
 	DSAHashEntry item = new DSAHashEntry(inKey, inValue);
 	int hashIdx = hash(inKey);
+	int stepSize = doubleHash(hashIdx);
 
 	while (hashArray[hashIdx].state != 0 ) // loop until found an empty spot
 	{
-	    hashIdx = linearProbe(hashIdx); // will wrap around
+	    // hashIdx = linearProbe(hashIdx); // will wrap around
+	    hashIdx += stepSize;
+	    hashIdx %= hashArray.length;
 	}
 
 	// insert the item
@@ -111,12 +114,17 @@ public class DSAHashTable
 	{
 	    hashIdx = find(inKey);
 	    hashArray[hashIdx].state = -1;
+	    count--;
 	}
 	catch (Exception e)
 	{
 	    System.out.println(e.getMessage());
 	}
+    }
 
+    private int doubleHash(int hashIdx)
+    {
+	return 5 - (hashIdx % 5);
     }
 
     private int linearProbe(int hashIdx)
@@ -127,6 +135,8 @@ public class DSAHashTable
     private int find(String inKey)
     {
 	int hashIdx = hash(inKey), origIdx = hashIdx;
+	int stepSize = doubleHash(hashIdx);
+
 	boolean found = false, giveUp = false;
 
 	while (!found && !giveUp)
@@ -141,7 +151,9 @@ public class DSAHashTable
 	    }
 	    else
 	    {
-		hashIdx = linearProbe(hashIdx);
+		// hashIdx = linearProbe(hashIdx);
+		hashIdx += stepSize;
+		hashIdx %= hashArray.length;
 		if (hashIdx == origIdx)
 		{
 		    giveUp = true;
@@ -157,12 +169,12 @@ public class DSAHashTable
 	return hashIdx;
     }
 
+    /* https://stackoverflow.com/questions/10901752/what-is-the-significance-of-load-factor-in-hashmap#:~:text=Default%20initial%20capacity%20of%20the,as%2016%20*%200.75%20%3D%2012%20. */
+    /* https://docs.oracle.com/javase/6/docs/api/java/util/HashMap.html */
     public double getLoadFactor()
     {
 	return (double) count / (double) hashArray.length;
     }
-
-    // private int stepHash()
 
     private int nextPrime(int startVal) 
     {
