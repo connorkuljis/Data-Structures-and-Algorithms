@@ -83,7 +83,6 @@ public class DSAHashTable implements Serializable
 	    reSize(nextPrime(hashArray.length / 2));
 	}
 
-	// ASSUMPTION: the array is not full
 	DSAHashEntry item = new DSAHashEntry(inKey, inValue);
 	int hashIdx = hash(inKey);
 	int stepSize = doubleHash(hashIdx);
@@ -135,6 +134,7 @@ public class DSAHashTable implements Serializable
 	    hashIdx = find(inKey);
 	    hashArray[hashIdx].state = -1;
 	    count--;
+
 	}
 	catch (Exception e)
 	{
@@ -179,7 +179,7 @@ public class DSAHashTable implements Serializable
     
     private int find(String inKey)
     {
-	int hashIdx = hash(inKey), origIdx = hashIdx;
+	int nhashIdx = hash(inKey), origIdx = hashIdx;
 	int stepSize = doubleHash(hashIdx);
 
 	boolean found = false, giveUp = false;

@@ -3,12 +3,11 @@ import java.io.*;
 
 public class FileIO
 {
+    static final String file1 = "prac6_1.al";
+    static final String file2 = "prac6_2.al";
+
     public static void main(String[] args)
     {
-	// define the names
-	final String file1 = "prac6_1.al";
-	final String file2 = "prac6_2.al";
-
 	// read the graph from the filenames
 	DSAGraph graph1 = readAL(file1);
 	DSAGraph graph2 = readAL(file2);
