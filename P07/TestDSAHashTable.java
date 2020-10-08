@@ -9,7 +9,7 @@ public class TestDSAHashTable
 	System.out.println(CLEAR); 
 	System.out.println("### DSAHashTable Test Harness"); 
 
-	int size = 22;
+	int size = 4;
 	DSAHashTable table = new DSAHashTable(size);
 
 	System.out.println("### Testing put() method"); 
@@ -28,18 +28,24 @@ public class TestDSAHashTable
 	System.out.println("Display: ~~~~~~~~"); 
 	table.display();
 	System.out.println("LF: " + table.getLoadFactor()); 
+	System.out.println("COUNT: " + table.getCount()); 
+	System.out.println("CAPACITY: " + table.getCapacity()); 
 
 	System.out.println("### Testing remove() method"); 
 	System.out.println("Removing key 'Oranges'"); 
 	table.remove("Oranges");
 	table.display();
+	System.out.println("LF: " + table.getLoadFactor()); 
+	System.out.println("COUNT: " + table.getCount()); 
+	System.out.println("CAPACITY: " + table.getCapacity()); 
 
 	System.out.println("### Testing removal of invalid key value"); 
 	table.remove("Shoes");
 
 	table.display();
-
+	System.out.println("COUNT: " + table.getCount()); 
 	System.out.println("LF: " + table.getLoadFactor()); 
+	System.out.println("CAPACITY: " + table.getCapacity()); 
 
     }
 }

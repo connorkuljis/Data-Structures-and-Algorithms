@@ -38,6 +38,7 @@ public class DSAHashTable
     private DSAHashEntry[] hashArray;
     private int count;
     private final float MAX_LOAD_FACTOR = 0.685f;
+    private final float MIN_LOAD_FACTOR = 0.1f;
 
     public DSAHashTable(int inSize)
     {
@@ -60,7 +61,7 @@ public class DSAHashTable
     private int hash(String inKey)
     {
 	int hashIdx = 0;
-	for (int ii = 0; ii < inKey.length(); ii ++)
+	for (int ii = 0; ii < inKey.length(); ii++)
 	{
 	    // https://docs.oracle.com/javase/10/docs/api/java/lang/String.html#hashCode()
 	    hashIdx = (31 * hashIdx) + inKey.charAt(ii);
@@ -72,6 +73,15 @@ public class DSAHashTable
      * need to be private, otherwise it will be public */
     public void put(String inKey, Object inValue)
     {
+	if (getLoadFactor() > MAX_LOAD_FACTOR)
+	{
+	    reSize(nextPrime(hashArray.length * 2));
+	}
+	else if (getLoadFactor() < MIN_LOAD_FACTOR)
+	{
+	    reSize(nextPrime(hashArray.length / 2));
+	}
+
 	// ASSUMPTION: the array is not full
 	DSAHashEntry item = new DSAHashEntry(inKey, inValue);
 	int hashIdx = hash(inKey);
@@ -109,6 +119,15 @@ public class DSAHashTable
 
     public void remove(String inKey) 
     {
+	if (getLoadFactor() > MAX_LOAD_FACTOR)
+	{
+	    reSize(nextPrime(hashArray.length * 2));
+	}
+	else if (getLoadFactor() < MIN_LOAD_FACTOR)
+	{
+	    reSize(nextPrime(hashArray.length / 2));
+	}
+
 	int hashIdx = 0;
 	try
 	{
@@ -130,6 +149,31 @@ public class DSAHashTable
     private int linearProbe(int hashIdx)
     {
 	return (hashIdx + 1) % hashArray.length; // probe;
+    }
+    
+    private void reSize(int size)
+    {
+	DSAHashEntry[] copyArray = hashArray; // make a copy
+
+	DSAHashEntry[] newArray = new DSAHashEntry[size]; // this is the new array
+
+	for (int i = 0; i < newArray.length; i++)
+	{
+	    newArray[i] = new DSAHashEntry(); // populate the new array
+	}
+
+	hashArray = newArray; // move the copy to the class field
+
+	// copy just the used entries by hashing them in the new array
+	for (int ii = 0; ii < copyArray.length; ii++)
+	{
+	    if (copyArray[ii].state == 1)
+	    {
+		String inKey = copyArray[ii].key;
+		Object inValue = copyArray[ii].value;
+		put(inKey, inValue); // re-hash in the new array
+	    }
+	}
     }
     
     private int find(String inKey)
@@ -174,6 +218,16 @@ public class DSAHashTable
     public double getLoadFactor()
     {
 	return (double) count / (double) hashArray.length;
+    }
+
+    public int getCount()
+    {
+	return count;
+    }
+
+    public int getCapacity()
+    {
+	return hashArray.length;
     }
 
     private int nextPrime(int startVal) 
@@ -222,6 +276,10 @@ public class DSAHashTable
 	    if (hashArray[i].state == 1)
 	    {
 		System.out.println("[ " + hashArray[i].key + " | " + hashArray[i].value + " ]"); 
+	    }
+	    else
+	    {
+		System.out.println(","); 
 	    }
 	}
     }
