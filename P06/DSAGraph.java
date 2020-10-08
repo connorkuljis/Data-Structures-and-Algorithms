@@ -11,7 +11,7 @@
 
 public class DSAGraph
 {
-    DSALinkedList verticies; // List of Graph Nodes
+    private DSALinkedList verticies; // List of Graph Nodes
 
     public DSAGraph()
     {
@@ -184,6 +184,7 @@ public class DSAGraph
 
     public DSAQueue depthFirstSearch()
     {
+	resetGraphVisited();
 	DSAQueue traversalQueue = new DSAQueue();
 	DSAStack stack = new DSAStack();
 
@@ -217,6 +218,7 @@ public class DSAGraph
 
     public DSAQueue breadthFirstSearch()
     {
+	resetGraphVisited();
 	DSAQueue queue = new DSAQueue();
 	DSAQueue traversalQueue = new DSAQueue();
 
@@ -248,5 +250,15 @@ public class DSAGraph
 	}
 	return traversalQueue;
 
+    }
+
+    private void resetGraphVisited()
+    {
+	for (Object e : verticies)
+	{
+	    DSAListNode node = (DSAListNode) e;
+	    DSAGraphVertex vertex = (DSAGraphVertex) node.getValue();
+	    vertex.clearVisited();
+	}
     }
 }

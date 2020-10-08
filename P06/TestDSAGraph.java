@@ -2,13 +2,37 @@ public class TestDSAGraph
 {
     public static void main(String[] args)
     {
-	final String file1 = "prac6_1.al";
-	final String file2 = "prac6_2.al";
 
-        DSAGraph g1 = FileIO.readAL(file1);
-	System.out.println("BFS"); 
-	g1.breadthFirstSearch();
+	DSAGraph graph = new DSAGraph();
+	graph.addVertex("A", null);
+	graph.addVertex("B", null);
+	graph.addVertex("C", null);
+	graph.addVertex("D", null);
 
+	
+	graph.addEdge("A", "B");
+	graph.addEdge("A", "C");
+	graph.addEdge("B", "C");
+	graph.addEdge("C", "D");
+	graph.displayAdjacencyList();
+
+	DSAQueue dfs = graph.depthFirstSearch();
+	DSAQueue bfs = graph.breadthFirstSearch();
+
+	System.out.print("DFS : "); 
+	for (Object e : dfs)
+	{
+	    
+	    System.out.print(((DSAGraphVertex)(e)).getLabel() + " "); 
+	}
+	System.out.println(""); 
+
+	System.out.print("BFS : "); 
+	for (Object e : bfs)
+	{
+	    System.out.print(((DSAGraphVertex)(e)).getLabel() + " "); 
+	}
+	System.out.println(""); 
 	
     }
     

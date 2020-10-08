@@ -9,11 +9,12 @@
 
 import java.util.*;
 import java.lang.Math;
+import java.io.*;
 
-public class DSAHashTable
+public class DSAHashTable implements Serializable
 {
     /* INNER CLASS */
-    public class DSAHashEntry
+    public class DSAHashEntry implements Serializable
     {
 	private String key;
 	private Object value;
@@ -66,7 +67,7 @@ public class DSAHashTable
 	    // https://docs.oracle.com/javase/10/docs/api/java/lang/String.html#hashCode()
 	    hashIdx = (31 * hashIdx) + inKey.charAt(ii);
 	}
-	return hashIdx % hashArray.length;
+	return Math.abs(hashIdx % hashArray.length); // to fix negative has values take the absolute value
     }
 
     /* NOTE: Java: If you use a private inner class for DSAHashEntry, put(DSAHashEntry) will 
@@ -270,16 +271,11 @@ public class DSAHashTable
 
     public void display()
     {
-	System.out.println("[ <key> | <value> ]"); 
 	for (int i = 0; i < hashArray.length - 1; i++)
 	{
 	    if (hashArray[i].state == 1)
 	    {
 		System.out.println("[ " + hashArray[i].key + " | " + hashArray[i].value + " ]"); 
-	    }
-	    else
-	    {
-		System.out.println(","); 
 	    }
 	}
     }

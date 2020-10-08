@@ -6,46 +6,40 @@ public class TestDSAHashTable
     {
 	final String CLEAR = "\033[H\033[2J";
 
+	int startSize = 10;
+
 	System.out.println(CLEAR); 
 	System.out.println("### DSAHashTable Test Harness"); 
+	System.out.println("default size: " + startSize); 
+	System.out.println(""); 
 
-	int size = 4;
-	DSAHashTable table = new DSAHashTable(size);
+	DSAHashTable table = new DSAHashTable(startSize);
 
 	System.out.println("### Testing put() method"); 
 	table.put("Apples", 10);
-	System.out.println("put() ok."); 
 	table.put("Pears", 20);
-	System.out.println("put() ok."); 
-	table.put("Oranges", 5);
-	System.out.println("put() ok."); 
 	table.put("Bananas", 2);
-	System.out.println("put() ok."); 
 	table.put("Grapes", 0.5);
-	System.out.println("put() ok."); 
+	table.put("Oranges", 1);
+	table.put("Assorted", 1);
+	displayHashTableInfo(table);
 
-     
-	System.out.println("Display: ~~~~~~~~"); 
-	table.display();
-	System.out.println("LF: " + table.getLoadFactor()); 
-	System.out.println("COUNT: " + table.getCount()); 
-	System.out.println("CAPACITY: " + table.getCapacity()); 
+	System.out.println("Removing key 'Apples'"); 
+	table.remove("Apples");
+	displayHashTableInfo(table);
 
-	System.out.println("### Testing remove() method"); 
-	System.out.println("Removing key 'Oranges'"); 
-	table.remove("Oranges");
-	table.display();
-	System.out.println("LF: " + table.getLoadFactor()); 
-	System.out.println("COUNT: " + table.getCount()); 
-	System.out.println("CAPACITY: " + table.getCapacity()); 
-
-	System.out.println("### Testing removal of invalid key value"); 
+	System.out.println("Removal of invalid key value"); 
 	table.remove("Shoes");
+	displayHashTableInfo(table);
 
+    }
+
+    private static void displayHashTableInfo(DSAHashTable table)
+    {
 	table.display();
-	System.out.println("COUNT: " + table.getCount()); 
-	System.out.println("LF: " + table.getLoadFactor()); 
-	System.out.println("CAPACITY: " + table.getCapacity()); 
+	System.out.println("\tLF: " + table.getLoadFactor()); 
+	System.out.println("\tCAPACITY: " + table.getCapacity()); 
+	System.out.println(""); 
 
     }
 }

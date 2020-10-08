@@ -3,6 +3,47 @@ import java.io.*;
 
 public class FileIO
 {
+    public static void main(String[] args)
+    {
+	// define the names
+	final String file1 = "prac6_1.al";
+	final String file2 = "prac6_2.al";
+
+	// read the graph from the filenames
+	DSAGraph graph1 = readAL(file1);
+	DSAGraph graph2 = readAL(file2);
+
+	System.out.println(file1); 
+	// display the first graph
+	graph1.displayAdjacencyList();
+	System.out.print("DFS : "); 
+	displaySearch(graph1.depthFirstSearch());
+	System.out.print("BFS : "); 
+	displaySearch(graph1.breadthFirstSearch());
+	// end 1
+
+	System.out.println(""); 
+
+	System.out.println(file2); 
+	// display the second graph
+	graph2.displayAdjacencyList();
+	System.out.print("DFS : "); 
+	displaySearch(graph2.depthFirstSearch());
+	System.out.print("BFS : "); 
+	displaySearch(graph2.breadthFirstSearch());
+	// end 2
+    }
+
+    public static void displaySearch(DSAQueue traversalQueue)
+    {
+	for (Object e : traversalQueue) // each object is a vertex with a label
+	{
+	    System.out.print(((DSAGraphVertex)(e)).getLabel() + " "); 
+	}
+	System.out.println(""); 
+
+    }
+
     public static DSAGraph readAL(String inFilename)
     {
 	DSAGraph theGraph = new DSAGraph();
