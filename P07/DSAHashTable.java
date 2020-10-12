@@ -179,7 +179,7 @@ public class DSAHashTable implements Serializable
     
     private int find(String inKey)
     {
-	int nhashIdx = hash(inKey), origIdx = hashIdx;
+	int hashIdx = hash(inKey), origIdx = hashIdx;
 	int stepSize = doubleHash(hashIdx);
 
 	boolean found = false, giveUp = false;
