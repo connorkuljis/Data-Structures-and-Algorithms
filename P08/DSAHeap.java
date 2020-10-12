@@ -131,12 +131,14 @@ public class DSAHeap
 	count = heap.length;
 	heapify();
 
-	for (int i = heap.length - 1; i <= 1; i--)
+	for (int i = heap.length - 1; i >= 1; i--)
 	{
-	    // swap(0, i);
-	    // trickleDownRecur(0);
-	    System.out.println(i); 
+	    swap(0, i);
+	    --count;
+	    trickleDownRecur(0);
+
 	}
+	count = heap.length;
     }
 
     public void display()
