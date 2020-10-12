@@ -1,3 +1,12 @@
+/* ***************************************************************************
+ * NAME: FileIO.java
+ * AUTHOR: Connor Kuljis, 19459138
+ * UNIT: Data Structures and Algorithms (COMP1002)
+ * PURPOSE: can read a file of any size and return a populate array
+ * of DSAHeapEntry's
+ * COMMENT: the file must be first read to get the number of lines, then again to populate the array
+ * DATE: 2020-10-13
+ * **************************************************************************/
 import java.util.*;
 import java.io.*;
 

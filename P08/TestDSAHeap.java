@@ -1,3 +1,16 @@
+/* ***************************************************************************
+ * NAME: TestDSAHeap
+ * AUTHOR: Connor Kuljis, 19459138
+ * UNIT: Data Structures and Algorithms (COMP1002)
+ * PURPOSE: Testing harness for DSAHeap
+ *
+ * COMMENT: 
+ * simpleTest()
+ * lectureEx()
+ * fileIOTest()
+ *
+ * DATE: 2020-10-13
+ * **************************************************************************/
 import java.util.*;
 
 public class TestDSAHeap
