@@ -9,21 +9,6 @@
 
 public class DSAHeap
 {
-    public class DSAHeapEntry
-    {
-	private int priority;
-	private Object value;
-
-	public DSAHeapEntry(int inPriority, Object inValue)
-	{
-	    priority = inPriority;
-	    value = inValue;
-	}
-    }
-
-    /** 
-     *
-     * */
     private DSAHeapEntry[] heap;
     private int count;
     private int capacity;
@@ -42,8 +27,6 @@ public class DSAHeap
     private boolean hasLeftChild(int idx) { return getLeftChildIdx(idx) < count; }
     private boolean hasRightChild(int idx) { return getRightChildIdx(idx) < count; }
     private boolean hasParent(int idx) { return getParentIdx(idx) >= 0; }
-
-    public DSAHeapEntry[] getHeap() { return heap; }
 
     public void add(int inPriority, Object inObject)
     {
@@ -79,7 +62,7 @@ public class DSAHeap
 	int parentIdx = getParentIdx(curIdx);
 	if (curIdx > 0)
 	{
-	    if (heap[curIdx].priority > heap[parentIdx].priority)
+	    if (heap[curIdx].getPriority() > heap[parentIdx].getPriority())
 	    {
 		// swap
 		swap(parentIdx, curIdx);
@@ -88,7 +71,7 @@ public class DSAHeap
 	}
     }
 
-    private void swap (int sourceIdx, int withIdx)
+    private void swap(int sourceIdx, int withIdx)
     {
 	DSAHeapEntry temp = heap[sourceIdx];
 	heap[sourceIdx] = heap[withIdx];
@@ -106,12 +89,12 @@ public class DSAHeap
 	    largeIdx = leftChildIdx;
 	    if (rightChildIdx < count)
 	    {
-		if (heap[leftChildIdx].priority < heap[rightChildIdx].priority)
+		if (heap[leftChildIdx].getPriority() < heap[rightChildIdx].getPriority())
 		{
 		    largeIdx = rightChildIdx;
 		}
 	    }
-	    if (heap[largeIdx].priority > heap[curIdx].priority)
+	    if (heap[largeIdx].getPriority() > heap[curIdx].getPriority())
 	    {
 		swap(largeIdx, curIdx);
 		trickleDownRecur(largeIdx);
@@ -133,35 +116,37 @@ public class DSAHeap
 	}
     }
 
-    public void heapify()
+    private void heapify()
     {
 	int nonLeafIdx = (count / 2 ) - 1;
-	for (int i = nonLeafIdx; i > 0; i--)
+	for (int i = nonLeafIdx; i >= 0; i--)
 	{
 	    trickleDownRecur(i);
 	}
     }
 
-    public void heapSort()
+    public void heapSort(DSAHeapEntry[] arrayToSort)
     {
+	heap = arrayToSort;
+	count = heap.length;
 	heapify();
 
-	for (int i = count - 1; i > 1; i--)
+	for (int i = heap.length - 1; i <= 1; i--)
 	{
-	    swap(0, i);
-	    trickleDownRecur(0);
+	    // swap(0, i);
+	    // trickleDownRecur(0);
+	    System.out.println(i); 
 	}
     }
 
     public void display()
     {
-	System.out.print("[ "); 
+	System.out.print("["); 
 	for (int i = 0; i < count; i++)
 	{
-	    System.out.print(heap[i].priority + ", "); 
+	    System.out.print(heap[i].getPriority() + " "); 
 	}
-	System.out.print("] "); 
-	System.out.println(""); 
+	System.out.println("]"); 
     }
 
 
