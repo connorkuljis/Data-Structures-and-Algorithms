@@ -1,49 +1,55 @@
 # Sorting Prac Findings
 
 ## Intro
-The practical introduced the three basic sorting algorithms; Bubble, Insertion 
-and Selection sort.
-
-The sorts are known as 'in-place' sorting algorithms meaning no extra arrays 
-(memory/RAM) is needed.
+Advanced sorting algorithms
+- mergesort
+- quicksort
 
 ## Big-O Notation
 Big-O notation is intended to describe how an algorithm scales for variable 
 size input.
 
-These alogrithms are all O(n^2) in average case. They are n^2 as the use of 
+(the fastest possible sorting time for a set is O(n))
+
+Previous alogrithms were all O(n^2) in average case. They are n^2 as the use of 
 double nested loops. 
 
-This means for each element in the outer loop, there 
-could be n times iteration within the inner loop.
+Whereas mergesort and quicksort are O(n Log n), as we copy N elements at each level in recursion.
+And comparisons can in each level will be less than N. (splitting by logN).
+Recurisve splitting is natural log of N (log2N)
+
+Recursive functions can cause increased space complexity on the stack, and are limited by the stack size
+After the sorting the stacks are free'd from memory
+
 
 ## Exploring Run Times
+Random Values
 Sample size n=8192	
 
 Results;
-Bubble, 84001.333 
-Insertion, 10741.000 
-Selection, 21785.668
+mergesort	68832.33333333333
+
+QuickSort and its Variants
+left 		39954.333333333336
+median of three 32914.0
+random		29826.333333333332
 
 The results are the average of 4 runs for each sort type.
 
 ## Conclusion
-From the results, Bubble sort performed the slowest, followed by Selection and
-similaly Insertion - which was the fastest.
+In conclusion quicksort was much faster than mergesort.
+I think mergesort is slower, as no matter the best/worst/avg case 
+it is always splitting by natural log of N.
 
-My conclusions is that Bubble sort runs the slowest due to the fact it passes 
-over the array many many times. Whereas other sorts can separate out already 
-sorted elements - not having to loop over them repeatedly.
+Whereas quicksort while still splitting at log2N levels, can in a best case ignore 
+previous pivots if already sorted.
 
-Selction sort ran the second best - much better than bubble sort. Again I thin
-k this is due to the fact selection sort essentially defines the array into 
-segments: sorted and unsorted. Each pass makes the unsorted 'half' smaller and
-smaller each time.
+Amongst the different implementations of quicksort pivoting from the left was
+the slowest as suspected from the lecture notes, followed by median of three 
+and similarly random, which was the fastest.
 
-Insertion sort ran the best - although not as large of a difference to 
-selection when compared to bubble sort. I think the times are similar due to
-similar characteristics such as having a 'sorted' and 'unsorted' part of the
-array. The values from the unsorted part and picked and placed in the correct
-position in the sorted part.
+Left pivot is relatively slow as splits can be uneven.
+Median was second slowest, maybe due to having the calculate the median each time.
+Random was the most efficient, but this can vary depending on the order
 
 
