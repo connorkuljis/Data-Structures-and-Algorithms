@@ -29,11 +29,14 @@ class SortsTestHarness
         System.out.println("        where");
         System.out.println("        n is number of integers to sort");
         System.out.println("        x is one of");
-        System.out.println("           b - bubblesort");
-        System.out.println("           i - insertion sort");
-        System.out.println("           s - selection sort");
-        System.out.println("           q - quicksort");
+        // System.out.println("           b - bubblesort");
+        // System.out.println("           i - insertion sort");
+        // System.out.println("           s - selection sort");
+        // System.out.println("           q - quicksort");
         System.out.println("           m - mergesort");
+        System.out.println("           l - quicksort (left)");
+        System.out.println("           3 - quicksort (median of three)");
+        System.out.println("           r - quicksort (random)");
         System.out.println("        y is one of");
         System.out.println("           a - 1..n ascending");
         System.out.println("           d - 1..n descending");
@@ -106,13 +109,17 @@ class SortsTestHarness
                     long startTime = System.nanoTime();
                     switch (sortType)
                     {
-                        case 'b' : Sorts.bubbleSort(A); break;
-                        case 's' : Sorts.selectionSort(A); break;
-                        case 'q' : Sorts.quickSort(A); break;
-                        case 'j' : Arrays.sort(A); break;    // Java's QuickSort
-                        case 'm' : Sorts.mergeSort(A); break;
-                        case 'i' : Sorts.insertionSort(A); break;
+                        // case 'b' : Sorts.bubbleSort(A); break;
+                        // case 's' : Sorts.selectionSort(A); break;
+                        // case 'q' : Sorts.quickSort(A); break;
+                        // case 'j' : Arrays.sort(A); break;    // Java's QuickSort
+                        // case 'i' : Sorts.insertionSort(A); break;
                         //case 'h' : Sorts.heapSort(A); break;
+                        case 'm' : Sorts.mergeSort(A); break;
+                        case 'l' : Sorts.quickSortLeft(A); break;
+                        case '3' : Sorts.quickSortMedian3(A); break;
+                        case 'r' : Sorts.quickSortRandom(A); break;
+
                         default :
                             throw new IllegalArgumentException("Unsupported sort type " + sortType);
                     }
