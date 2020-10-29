@@ -12,17 +12,18 @@ public class BinarySearchTree implements Serializable
 {
     public class TreeNode implements Serializable
     {
-	private String m_key;
-	private Object m_value;
-	private TreeNode m_leftChild;
-	private TreeNode m_rightChild;
+		private String m_key;
+		private Object m_value;
+		private TreeNode m_leftChild;
+		private TreeNode m_rightChild;
 
 	public TreeNode(String inKey, Object inVal)
 	{
 	    if (inKey == null)
 	    {
-		throw new IllegalArgumentException("Key cannot be null");
-	    }
+			throw new IllegalArgumentException("Key cannot be null");
+		}
+
 	    m_key = inKey;
 	    m_value = inVal;
 	    m_rightChild = null;
