@@ -3,21 +3,15 @@ import java.io.*;
 
 public class FileIO
 {
-    static final String file1 = "pairs.txt";
+    static final String file1 = "asset_info.csv";
 
     public static void main(String[] args)
     {
 	// read the graph from the filenames
-	DSAGraph graph1 = readAL(file1);
+	DSAGraph graph1 = readAsset(file1);
 
-	System.out.println(file1); 
-	// display the first graph
-	graph1.displayAdjacencyList();
-	System.out.print("DFS : "); 
-	displaySearch(graph1.depthFirstSearch());
-	System.out.print("BFS : "); 
-	displaySearch(graph1.breadthFirstSearch());
-	graph1.display();
+	// graph1.displayAdjacencyList();
+	// graph1.display();
 	// end 1
     }
 
@@ -31,7 +25,7 @@ public class FileIO
 
     }
 
-    public static DSAGraph readAL(String inFilename)
+    public static DSAGraph readAsset(String inFilename)
     {
 	DSAGraph theGraph = new DSAGraph();
 
@@ -45,7 +39,10 @@ public class FileIO
 	    rdr = new InputStreamReader(fileStrm);
 	    bufRdr = new BufferedReader(rdr);
 
-	    line = bufRdr.readLine();
+	    line = bufRdr.readLine(); // lets ignore the first line
+	    line = bufRdr.readLine(); // lets ignore the second line
+
+	    line = bufRdr.readLine(); // read the 'first line'
 	    while(line != null)
 	    {
 		processLine(line, theGraph);
@@ -68,13 +65,59 @@ public class FileIO
 	return theGraph;
     }
 
-    public static void processLine(String row, DSAGraph theGraph)
+    private static double regexCurrency(String inStrValue)
     {
-	String[] strArr = row.split(" ");
+	double outVal = 0;
 	try
 	{
-	    String v1 = strArr[0];
-	    String v2 = strArr[1];
+	    outVal = Double.parseDouble(inStrValue.replaceAll("[^\\d.]+", "")); // regex to get only 
+	                                                                        // digits and decimal
+	}
+	catch (Exception e)
+	{
+
+	}
+	return outVal;
+    }
+
+    private static double regexPercentage(String inStrValue)
+    {
+	double outVal = 0;
+	try
+	{
+	    outVal = Double.parseDouble(inStrValue.replaceAll("%", "")); // regex to get only 
+									 // digits, decimal and negative sign
+	}
+	catch (Exception e)
+	{
+
+	}
+	return outVal;
+    }
+
+    // https://stackoverflow.com/questions/1757065/java-splitting-a-comma-separated-string-but-ignoring-commas-in-quotes
+    public static void processLine(String row, DSAGraph theGraph)
+    {
+	String[] strArr = row.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+
+	String name = strArr[1]; 
+	String symbol = strArr[2];
+	double marketCap = regexCurrency(strArr[3]);
+	double price = regexCurrency(strArr[5]);
+	String circulatingSupply = strArr[6];
+	double volume24hr = regexCurrency(strArr[8]);
+	double change1hr = regexPercentage(strArr[9]);
+	double change24hr = regexPercentage(strArr[10]);
+	double change7d = regexPercentage(strArr[11]);
+
+	CryptoCurrency currency = new CryptoCurrency(name, symbol, marketCap, price, 
+		circulatingSupply, volume24hr, change1hr, change24hr, change7d);
+
+	System.out.println(currency); 
+	/*
+	try
+	{
+
 	    if (theGraph.isEmpty())
 	    {
 		theGraph.addVertex(v1, null);
@@ -89,7 +132,7 @@ public class FileIO
 		theGraph.addVertex(v2, null);
 	    }
 
-	    theGraph.addEdge(v1,v2); // finally add the Edge
+	    // theGraph.addEdge(v1,v2); finally add the Edge
 
 	}
 	catch (IllegalArgumentException e)
@@ -97,6 +140,12 @@ public class FileIO
 	    System.out.println("Error trying to process line"); 
 
 	}
+	*/
+    }
+
+    // public static DSAGraph readAsset(String filename)
+    {
+
     }
 
     // public static void writeCSV(DSAQueue queue, String target) throws Exception
