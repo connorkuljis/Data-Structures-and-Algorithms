@@ -8,13 +8,14 @@ public class TestDSAGraph
 	graph.addVertex("B", null);
 	graph.addVertex("C", null);
 	graph.addVertex("D", null);
-
 	
-	graph.addEdge("A", "B");
-	graph.addEdge("A", "C");
-	graph.addEdge("B", "C");
-	graph.addEdge("C", "D");
+	graph.addEdge("A", "B", "a->b", null);
+	graph.addEdge("A", "C", "a-c", null);
+	graph.addEdge("B", "C", "b->c", null);
+	graph.addEdge("C", "D", "c->d", null);
 	graph.displayAdjacencyList();
+	graph.displayVertices();
+	graph.displayEdges();
 
 	DSAQueue dfs = graph.depthFirstSearch();
 	DSAQueue bfs = graph.breadthFirstSearch();
@@ -22,7 +23,6 @@ public class TestDSAGraph
 	System.out.print("DFS : "); 
 	for (Object e : dfs)
 	{
-	    
 	    System.out.print(((DSAGraphVertex)(e)).getLabel() + " "); 
 	}
 	System.out.println(""); 

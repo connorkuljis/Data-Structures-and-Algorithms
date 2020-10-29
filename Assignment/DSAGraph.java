@@ -12,10 +12,12 @@
 public class DSAGraph
 {
     private DSALinkedList verticies; // List of Graph Nodes
+    private DSALinkedList edges;     // List of Edge Objects
 
     public DSAGraph()
     {
         verticies = new DSALinkedList();
+	edges = new DSALinkedList();
     }
 
     public void addVertex(String label, Object value)
@@ -30,36 +32,55 @@ public class DSAGraph
     }
 
     /* to add an edge between two verticies, we are given their labels */
-    public void addEdge(String vertex1, String vertex2)
+    public void addEdge(String fromLabel, String toLabel, String edgeLabel, Object value)
     {
-        if (hasVertex(vertex1) && hasVertex(vertex2)) // if the verticies exist in the graph
-        {
-	    // first find the two verticies that match the label
-	    DSAGraphVertex v1 = null; // storing the first
-	    DSAGraphVertex v2 = null; // storing the second
+	DSAGraphVertex fromVertex = null;
+	DSAGraphVertex toVertex = null;
+	try
+	{
+	    fromVertex = getVertex(fromLabel);
+	    toVertex = getVertex(toLabel);
+	}
+	catch (Exception e)
+	{
+	    e.getMessage();
+	}
 
-	    // iterate through the list of verticies
-            for (Object e : verticies) 
-            {
-		// need to get their labels
-                DSAListNode currNode = (DSAListNode) e;
-                DSAGraphVertex currVertex = (DSAGraphVertex) currNode.getValue();
-                String label = currVertex.getLabel();
+	fromVertex.addEdge(toVertex); // directed graph so just add the path 'from -> to'
+			  // from's adjacency list will include to,
+	                  // but to's adjacency list will not include from/
 
-                if (label.equals(vertex1)) // we have found our first label
-                {
-		    v1 = currVertex;
-                }
-                else if (label.equals(vertex2)) // we have found our second label
-                {
-		    v2 = currVertex;
-                }
-            }
+	DSAGraphEdge edge = new DSAGraphEdge(fromVertex, toVertex, edgeLabel, value);
+	edges.insertLast(edge);
+    }
 
-	    // undirected graph so we can add to both sides
-	    v1.getAdjacent().insertLast(v2);
-	    v2.getAdjacent().insertLast(v1);
-        }
+    public DSAGraphVertex getVertex(String inLabel) throws IllegalArgumentException
+    {
+	DSAGraphVertex vertex = null;
+
+	for (Object e : verticies) 
+	{
+	    // casting each object in the verticies list to a vertex
+	    DSAListNode currNode = (DSAListNode) e;
+	    DSAGraphVertex currVertex = (DSAGraphVertex) currNode.getValue();
+
+	    // get the label
+	    String curLabel = currVertex.getLabel();
+
+	    if (curLabel.equals(inLabel)) // we have found our vertex
+	    {
+		vertex = currVertex;
+	    }
+	}
+
+	// exception handling will throw error if the vertex does not exist
+	if (vertex == null)
+	{
+	    throw new IllegalArgumentException("Cannot add edge (" + inLabel + 
+		    "). Reason, Vertex (" + inLabel + ") does not exist");
+	}
+
+	return vertex;
     }
 
     public boolean hasVertex(String label)
@@ -88,7 +109,15 @@ public class DSAGraph
         return vertexCount;
     }
 
-    // public int getEdgeCount()
+    public int getEdgeCount()
+    {
+	int edgeCount = 0;
+	for (Object e : edges)
+	{
+	    edgeCount++;
+	}
+	return edgeCount;
+    }
 
     public boolean isAdjancent(String vertex1, String vertex2) // alternatively take the char labels
     {
@@ -132,9 +161,11 @@ public class DSAGraph
     private boolean hasAdjacent(DSAGraphVertex vertex, String inString)
     {
         boolean hasAdjacent = false;
-        for (Object e : vertex.getAdjacent())
+        for (Object e : vertex.getAdjacencyList())
         {
-            //if (e.getLabel.equals(inString))
+	    DSAListNode node = (DSAListNode) e;
+	    DSAGraphVertex checkVertex = (DSAGraphVertex) node.getValue();
+	    if(checkVertex.getLabel().equals(inString))
             {
                 hasAdjacent = true;
             }
@@ -154,12 +185,21 @@ public class DSAGraph
 	return empty;
     }
 
-    public void display()
+    public void displayVertices()
     {
         for (Object e : verticies)
         {
             DSAListNode node = (DSAListNode) e;
-            System.out.println(node.getValue());
+	    DSAGraphVertex vertex = (DSAGraphVertex) node.getValue();
+            System.out.println(vertex.getLabel());
+        }
+    }
+
+    public void displayEdges()
+    {
+        for (Object e : edges)
+        {
+	    System.out.println(e); 
         }
     }
 
@@ -172,7 +212,7 @@ public class DSAGraph
             DSAGraphVertex vertex = (DSAGraphVertex) node.getValue();
             System.out.print(vertex.getLabel() + " | ");
 
-            DSALinkedList adjList = vertex.getAdjacent();
+            DSALinkedList adjList = vertex.getAdjacencyList();
             for (Object g : adjList)
             {
 		DSAGraphVertex currVertex = (DSAGraphVertex) g;
@@ -205,7 +245,7 @@ public class DSAGraph
 		traversalQueue.insert(curr);
 	    }
 
-	    for (Object e : curr.getAdjacent())
+	    for (Object e : curr.getAdjacencyList())
 	    {
 		DSAGraphVertex adjVertex = (DSAGraphVertex) e;
 		if (!adjVertex.getVisited())
@@ -240,7 +280,7 @@ public class DSAGraph
 		traversalQueue.insert(curr);
 	    }
 
-	    for (Object e : curr.getAdjacent())
+	    for (Object e : curr.getAdjacencyList())
 	    {
 		DSAGraphVertex adjVertex = (DSAGraphVertex) e;
 		if (!adjVertex.getVisited())

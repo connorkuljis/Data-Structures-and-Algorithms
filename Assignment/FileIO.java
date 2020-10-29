@@ -9,8 +9,7 @@ public class FileIO
     {
 	// read the graph from the filenames
 	DSAGraph graph1 = readAsset(file1);
-
-	// graph1.displayAdjacencyList();
+	graph1.displayAdjacencyList();
 	// graph1.display();
 	// end 1
     }
@@ -98,49 +97,30 @@ public class FileIO
     // https://stackoverflow.com/questions/1757065/java-splitting-a-comma-separated-string-but-ignoring-commas-in-quotes
     public static void processLine(String row, DSAGraph theGraph)
     {
-	String[] strArr = row.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
-
-	String name = strArr[1]; 
-	String symbol = strArr[2];
-	double marketCap = regexCurrency(strArr[3]);
-	double price = regexCurrency(strArr[5]);
-	String circulatingSupply = strArr[6];
-	double volume24hr = regexCurrency(strArr[8]);
-	double change1hr = regexPercentage(strArr[9]);
-	double change24hr = regexPercentage(strArr[10]);
-	double change7d = regexPercentage(strArr[11]);
-
-	CryptoCurrency currency = new CryptoCurrency(name, symbol, marketCap, price, 
-		circulatingSupply, volume24hr, change1hr, change24hr, change7d);
-
-	System.out.println(currency); 
-	/*
 	try
 	{
+	    String[] strArr = row.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 
-	    if (theGraph.isEmpty())
-	    {
-		theGraph.addVertex(v1, null);
-		theGraph.addVertex(v2, null);
-	    }
-	    if  (!theGraph.hasVertex(v1)) // if the graph does not have a vertex
-	    {
-		theGraph.addVertex(v1, null);
-	    }
-	    if  (!theGraph.hasVertex(v2))
-	    {
-		theGraph.addVertex(v2, null);
-	    }
+	    String name = strArr[1]; 
+	    String symbol = strArr[2];
+	    double marketCap = regexCurrency(strArr[3]);
+	    double price = regexCurrency(strArr[5]);
+	    String circulatingSupply = strArr[6];
+	    double volume24hr = regexCurrency(strArr[8]);
+	    double change1hr = regexPercentage(strArr[9]);
+	    double change24hr = regexPercentage(strArr[10]);
+	    double change7d = regexPercentage(strArr[11]);
 
-	    // theGraph.addEdge(v1,v2); finally add the Edge
+	    CryptoCurrency currency = new CryptoCurrency(name, symbol, marketCap, price, 
+		    circulatingSupply, volume24hr, change1hr, change24hr, change7d);
 
+	    theGraph.addVertex(symbol, currency);
 	}
 	catch (IllegalArgumentException e)
 	{
 	    System.out.println("Error trying to process line"); 
 
 	}
-	*/
     }
 
     // public static DSAGraph readAsset(String filename)
