@@ -7,6 +7,12 @@
  * DATE: 2020-10-01
  * helpful video ->
  * https://www.youtube.com/watch?v=TIbUeeksXcI 
+ *
+ * REFERENCES: This is modified code, previously submitted in Practial 6 
+ *             - Graphs.
+ *
+ *             Implementation follows structure of psuedocode from Lecture 6 -
+ *             Graphs
  * **************************************************************************/
 
 public class DSAGraph
@@ -25,8 +31,8 @@ public class DSAGraph
      * NAME   : addVertex
      * IMPORTS: label (String), value (Object)
      * EXPORTS: none
-     * PURPOSE: Add a new node/vertex to the graph.
-     * ASSERTION: Duplicate nodes are not allowed in the graph
+     * PURPOSE: Adds a new node/vertex to the graph.
+     * ASSERTION: Duplicate nodes are skipped and not inserted into the graph
      * ***********************************************************************/
     public void addVertex(String label, Object value)
     {
@@ -40,8 +46,17 @@ public class DSAGraph
 	}
     }
 
-    /* to add an edge between two verticies, we are given their labels */
-    public void addEdge(String fromLabel, String toLabel, String edgeLabel, Object value)
+    /* ************************************************************************
+     * NAME   : addEdge
+     * IMPORTS: fromLabel (String), toLabel (String), edgeLabel (String),
+     *          value (Object)
+     * EXPORTS: none
+     * PURPOSE: Adds a directed edge between two verticies.
+     * ASSERTION: Its is a directed graph, so only insertion is only done on
+     *            the source vertex
+     * ***********************************************************************/
+    public void addEdge(String fromLabel, String toLabel, String edgeLabel, 
+	                Object value)
     {
 	DSAGraphVertex fromVertex = null;
 	DSAGraphVertex toVertex = null;
@@ -65,6 +80,12 @@ public class DSAGraph
 	edges.insertLast(edge);
     }
 
+    /* ************************************************************************
+     * NAME   : hasVertex
+     * IMPORTS: label (String)
+     * EXPORTS: boolean
+     * PURPOSE: returns true if the target vertex exists in the vertices list
+     * ***********************************************************************/
     public boolean hasVertex(String label)
     {
         boolean found;
@@ -83,7 +104,15 @@ public class DSAGraph
         return found;
     }
 
-    public DSAGraphVertex getVertex(String inLabel) throws IllegalArgumentException
+    /* ************************************************************************
+     * NAME   : getVertex
+     * IMPORTS: inLabel (String)
+     * EXPORTS: vertex (DSAGraphVertex)
+     * PURPOSE: returns the vertex from the list
+     * ASSERION: Throws error if the vertex does not exist
+     * ***********************************************************************/
+    public DSAGraphVertex getVertex(String inLabel) throws 
+	                               IllegalArgumentException
     {
 	DSAGraphVertex vertex = null;
 
@@ -110,7 +139,12 @@ public class DSAGraph
 	return vertex;
     }
 
-
+    /* ************************************************************************
+     * NAME   : getVertexCount
+     * IMPORTS: none
+     * EXPORTS: vertexCount (int)
+     * PURPOSE: counts the number of verticies in the list
+     * ***********************************************************************/
     public int getVertexCount()
     {
         int vertexCount = 0;
@@ -121,6 +155,12 @@ public class DSAGraph
         return vertexCount;
     }
 
+    /* ************************************************************************
+     * NAME   : getEdgeCount
+     * IMPORTS: none
+     * EXPORTS: edgeCount (int)
+     * PURPOSE: counts the number of edges in the list
+     * ***********************************************************************/
     public int getEdgeCount()
     {
 	int edgeCount = 0;
@@ -131,6 +171,12 @@ public class DSAGraph
 	return edgeCount;
     }
 
+    /* ************************************************************************
+     * NAME   : isAdjacent
+     * IMPORTS: search (String), toFind (String)
+     * EXPORTS: boolean
+     * PURPOSE: given the names of two verticies, find if they are adjacent
+     * ***********************************************************************/
     public boolean isAdjancent(String search, String toFind) // alternatively take the char labels
     {
         boolean adjacent = false;
@@ -156,6 +202,13 @@ public class DSAGraph
         return adjacent;
     }
 
+    /* ************************************************************************
+     * NAME   : hasAdjacent
+     * IMPORTS: vertex (DSAGraphVertex), inString (String)
+     * EXPORTS: boolean
+     * PURPOSE: given a vertex object return true if there is an adjacent 
+     *          vertex that matches the imported string
+     * ***********************************************************************/
     private boolean hasAdjacent(DSAGraphVertex vertex, String inString)
     {
         boolean hasAdjacent = false;
@@ -171,6 +224,14 @@ public class DSAGraph
         return hasAdjacent;
     }
 
+    /* ************************************************************************
+     * NAME   : isEmpty
+     * IMPORTS: none
+     * EXPORTS: boolean
+     * PURPOSE: return true if the graph is empty
+     * ASSERTION: 'empty' means that there are no verticies, edge list can be 
+     *            non-empty
+     * ***********************************************************************/
     public boolean isEmpty()
     {
 	boolean empty;
@@ -183,6 +244,12 @@ public class DSAGraph
 	return empty;
     }
 
+    /* ************************************************************************
+     * NAME   : displayVerticies
+     * IMPORTS: none
+     * EXPORTS: none
+     * PURPOSE: print the verticies in the verticies list
+     * ***********************************************************************/
     public void displayVerticies()
     {
         for (Object e : verticies)
@@ -192,6 +259,12 @@ public class DSAGraph
         }
     }
 
+    /* ************************************************************************
+     * NAME   : displayEdges
+     * IMPORTS: none
+     * EXPORTS: none
+     * PURPOSE: print the edges in the edges list
+     * ***********************************************************************/
     public void displayEdges()
     {
         for (Object e : edges)
@@ -200,6 +273,12 @@ public class DSAGraph
         }
     }
 
+    /* ************************************************************************
+     * NAME   : displayAdjacencyList
+     * IMPORTS: none
+     * EXPORTS: none
+     * PURPOSE: print each vertex and its adjacency list in the verticies list
+     * ***********************************************************************/
     public void displayAdjacencyList()
     {
 	System.out.println("Displaying Adjacency List:"); 
@@ -223,6 +302,12 @@ public class DSAGraph
         }
     }
 
+    /* ************************************************************************
+     * NAME   : depthFirstSearch
+     * IMPORTS: none
+     * EXPORTS: traversalQueue(DSAQueue)
+     * PURPOSE: depth first search algorithm
+     * ***********************************************************************/
     public DSAQueue depthFirstSearch()
     {
 	resetGraphVisited();
@@ -257,6 +342,12 @@ public class DSAGraph
 	return traversalQueue;
     }
 
+    /* ************************************************************************
+     * NAME   : breadthFirstSearch
+     * IMPORTS: none
+     * EXPORTS: traversalQueue(DSAQueue)
+     * PURPOSE: breadth first search algorithm
+     * ***********************************************************************/
     public DSAQueue breadthFirstSearch()
     {
 	resetGraphVisited();
@@ -293,6 +384,12 @@ public class DSAGraph
 
     }
 
+    /* ************************************************************************
+     * NAME   : resetGraphVisited
+     * IMPORTS: none
+     * EXPORTS: none
+     * PURPOSE: refreshes the verticies to the "not-visited" state
+     * ***********************************************************************/
     private void resetGraphVisited()
     {
 	for (Object e : verticies)

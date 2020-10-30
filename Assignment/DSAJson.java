@@ -25,8 +25,6 @@ public class DSAJson
 	    // System.out.println(jsonObject.getString("timezone"));
 	    JSONArray symbols = jsonObject.getJSONArray("symbols");
 
-	    // Graph init
-
 	    int count = 0;
 	    for (int i = 0; i < symbols.length(); i++)
 	    {
