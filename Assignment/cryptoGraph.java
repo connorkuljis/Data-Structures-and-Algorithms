@@ -6,6 +6,7 @@
  * COMMENT:
  * DATE: 2020-
  * **************************************************************************/
+import java.util.*;
 
 public class cryptoGraph
 {
@@ -18,6 +19,11 @@ public class cryptoGraph
 	    String assetFileName = args[1];
 	    String tradeFileName = args[2];
 	    System.out.println(mode + ": " + assetFileName + ", " + tradeFileName); 
+
+	    DSAGraph g = FileIO.readAsset(assetFileName);
+	    g.displayVertices();
+
+
 	}
 	else
 	{

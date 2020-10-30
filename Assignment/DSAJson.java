@@ -26,7 +26,7 @@ public class DSAJson
 	    JSONArray symbols = jsonObject.getJSONArray("symbols");
 
 	    // Graph init
-	    DSAGraph graph = new DSAGraph();
+	    DSAGraph graph = FileIO.readAsset("asset_info.csv");
 
 	    int count = 0;
 	    for (int i = 0; i < symbols.length(); i++)
@@ -34,9 +34,11 @@ public class DSAJson
 		// TODO put an if statement to check the status if "TRADING"
 		JSONObject curObj = (JSONObject) (symbols.get(i)); 
 		// System.out.println(curObj.getString("symbol")); 
-		System.out.print(curObj.getString("baseAsset") + " "); 
-		System.out.print(curObj.getString("quoteAsset")); 
-		System.out.println(""); 
+		String label = curObj.getString("symbol"); 
+		String from = curObj.getString("baseAsset"); 
+		String to = curObj.getString("quoteAsset"); 
+		graph.addEdge(from, to, label, null);
+		graph.displayEdges();
 		count++;
 	    }
 	}

@@ -17,6 +17,7 @@ public class TestDSAGraph
 	graph.displayVertices();
 	graph.displayEdges();
 
+	/*
 	DSAQueue dfs = graph.depthFirstSearch();
 	DSAQueue bfs = graph.breadthFirstSearch();
 
@@ -33,6 +34,7 @@ public class TestDSAGraph
 	    System.out.print(((DSAGraphVertex)(e)).getLabel() + " "); 
 	}
 	System.out.println(""); 
+	*/
 	
     }
     

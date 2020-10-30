@@ -1,19 +1,7 @@
-import java.util.*;
 import java.io.*;
 
 public class FileIO
 {
-    static final String file1 = "asset_info.csv";
-
-    public static void main(String[] args)
-    {
-	// read the graph from the filenames
-	DSAGraph graph1 = readAsset(file1);
-	graph1.displayAdjacencyList();
-	// graph1.display();
-	// end 1
-    }
-
     public static void displaySearch(DSAQueue traversalQueue)
     {
 	for (Object e : traversalQueue) // each object is a vertex with a label

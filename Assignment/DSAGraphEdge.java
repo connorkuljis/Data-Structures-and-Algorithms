@@ -50,7 +50,7 @@ public class DSAGraphEdge
 
     public String toString()
     {
-	return ("Edge: " + label + ", To: " + to.getLabel() + ", From: " + from);
+	return label;
     }
 }
 

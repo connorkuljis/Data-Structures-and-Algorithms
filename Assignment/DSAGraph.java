@@ -46,11 +46,11 @@ public class DSAGraph
 	    e.getMessage();
 	}
 
-	fromVertex.addEdge(toVertex); // directed graph so just add the path 'from -> to'
+	DSAGraphEdge edge = new DSAGraphEdge(fromVertex, toVertex, edgeLabel, value);
+	
+	fromVertex.addEdge(edge); // directed graph so just add the path 'from -> to'
 			  // from's adjacency list will include to,
 	                  // but to's adjacency list will not include from/
-
-	DSAGraphEdge edge = new DSAGraphEdge(fromVertex, toVertex, edgeLabel, value);
 	edges.insertLast(edge);
     }
 
@@ -215,9 +215,10 @@ public class DSAGraph
             DSALinkedList adjList = vertex.getAdjacencyList();
             for (Object g : adjList)
             {
-		DSAGraphVertex currVertex = (DSAGraphVertex) g;
-                System.out.print(currVertex.getLabel() + " ");
+		// DSAGraphVertex currVertex = (DSAGraphVertex) g;
+                // System.out.print(currVertex.getLabel() + " ");
 		// System.out.println(currVertex); 
+		System.out.print(g + " "); 
             }
             System.out.println("");
         }
@@ -247,6 +248,7 @@ public class DSAGraph
 
 	    for (Object e : curr.getAdjacencyList())
 	    {
+		System.out.println(e); 
 		DSAGraphVertex adjVertex = (DSAGraphVertex) e;
 		if (!adjVertex.getVisited())
 		{

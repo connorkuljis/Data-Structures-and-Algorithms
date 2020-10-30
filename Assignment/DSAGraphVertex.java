@@ -12,6 +12,8 @@ public class DSAGraphVertex
     public Object value; // optional?
     public DSALinkedList adjacencyList;
     public boolean wasVisited;
+    int inDegree;
+    int outDegree;
 
     public DSAGraphVertex(String inLabel, Object inValue)
     {
@@ -19,11 +21,15 @@ public class DSAGraphVertex
         value = inValue; 
         adjacencyList = new DSALinkedList();
         wasVisited = false;
+	inDegree = 0;
+	outDegree = 0;
     }
 
-    public void addEdge(DSAGraphVertex inVertex)
+    public void addEdge(DSAGraphEdge inEdge)
     {
-	adjacencyList.insertLast(inVertex);
+	adjacencyList.insertLast(inEdge);
+	outDegree++;
+	inEdge.getTo().incrementInDegree();
     }
 
 // ACCESSOR getLabel IMPORTS NONE EXPORTS label
@@ -62,6 +68,11 @@ public class DSAGraphVertex
     public boolean getVisited()
     {
         return wasVisited;
+    }
+
+    public void incrementInDegree()
+    {
+	inDegree++;
     }
 
 // ACCESSOR toString IMPORTS NONE EXPORTS string
