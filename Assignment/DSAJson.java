@@ -15,11 +15,8 @@ import org.json.JSONArray;
 
 public class DSAJson
 {
-    public static void main(String[] args)
+    public static DSAGraph readTrade(DSAGraph graph, String tradeFileName)
     {
-	DSAGraph graph = FileIO.readAsset("asset_info.csv");
-	// DSAGraph graph = new DSAGraph();
-
 	try
 	{
 	    JSONTokener jsonToken = new JSONTokener(new FileReader("exchangeInfo.json"));
@@ -51,8 +48,7 @@ public class DSAJson
 	{
 	    e.getMessage();
 	}
-	
-	graph.displayAdjacencyList();
+	return graph;
     }
 
 }
