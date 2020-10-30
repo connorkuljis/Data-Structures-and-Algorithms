@@ -33,9 +33,8 @@ public class cryptoGraph
 		DSAGraph theGraph = new DSAGraph();
 		theGraph = FileIO.readAsset(assetFileName);
 		theGraph = DSAJson.readTrade(theGraph, tradeFileName);
-
-		System.out.println("Report:"); 
 		theGraph.displayAdjacencyList();
+
 	    }
 	    else
 	    {

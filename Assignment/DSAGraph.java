@@ -31,14 +31,12 @@ public class DSAGraph
     public void addVertex(String label, Object value)
     {
         DSAGraphVertex vertex;
-        DSAListNode node;
 
 	if(!hasVertex(label))
 	{
 	    vertex = new DSAGraphVertex(label, value);
-	    node = new DSAListNode(vertex);
 
-	    verticies.insertLast(node);
+	    verticies.insertLast(vertex);
 	}
     }
 
@@ -92,8 +90,7 @@ public class DSAGraph
 	for (Object e : verticies) 
 	{
 	    // casting each object in the verticies list to a vertex
-	    DSAListNode currNode = (DSAListNode) e;
-	    DSAGraphVertex currVertex = (DSAGraphVertex) currNode.getValue();
+	    DSAGraphVertex currVertex = (DSAGraphVertex) e;
 
 	    // get the label
 	    String curLabel = currVertex.getLabel();
@@ -190,8 +187,7 @@ public class DSAGraph
     {
         for (Object e : verticies)
         {
-            DSAListNode node = (DSAListNode) e;
-	    DSAGraphVertex vertex = (DSAGraphVertex) node.getValue();
+	    DSAGraphVertex vertex = (DSAGraphVertex) e;
             System.out.println(vertex.getLabel());
         }
     }
@@ -209,8 +205,7 @@ public class DSAGraph
 	System.out.println("Displaying Adjacency List:"); 
         for (Object e : verticies)
         {
-            DSAListNode node = (DSAListNode) e;
-            DSAGraphVertex vertex = (DSAGraphVertex) node.getValue();
+            DSAGraphVertex vertex = (DSAGraphVertex) e;
 
             DSALinkedList adjList = vertex.getAdjacencyList();
 	    if (!adjList.isEmpty())
