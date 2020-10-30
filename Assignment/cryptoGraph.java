@@ -12,30 +12,39 @@ public class cryptoGraph
 {
     public static void main(String[] args)
     {
-	// if (args.length == 3)
-	if (args.length > 1) // this is for testing purposes
+	if (args.length == 3)
 	{
-	    System.out.println(mode + ": " + assetFileName + ", " + tradeFileName); 
-	    // valid arg length
 	    String mode = args[0];
+
 	    String assetFileName = args[1];
 	    String tradeFileName = args[2];
-	    System.out.println(mode + ": " + assetFileName + ", " + tradeFileName); 
 
-	    // read the asset (nodes in the graph)
-	    DSAGraph g = FileIO.readAsset(assetFileName);
+	    System.out.println(mode + " : " + assetFileName + ", " + tradeFileName); 
 
-	    // read the trade (edges in the graph)
-	    // ASSERTION: if the nodes do not exist in the graph, the edges are not added
-	    g = DSAJson.readTrade(g, tradeFileName);
+	    if (mode.equals("-i"))
+	    {
+		System.out.println("Interactive mode -i"); 
+		menu();
+	    }
+	    else if (mode.equals("-r"))
+	    {
+		System.out.println("Report mode -r"); 
 
-	    System.out.println(findAsset(g, "BTC")); 
-	    
+		DSAGraph theGraph = new DSAGraph();
+		theGraph = FileIO.readAsset(assetFileName);
+		theGraph = DSAJson.readTrade(theGraph, tradeFileName);
 
+		System.out.println("Report:"); 
+		theGraph.displayEdges();
+	    }
+	    else
+	    {
+		usage();
+	    }
 	}
 	else
 	{
-	    printUsage();
+	    usage();
 	}
     }
 
@@ -43,6 +52,8 @@ public class cryptoGraph
     {
 	Scanner sc = new Scanner(System.in);
 	int choice;
+	boolean close = false;
+
 	do
 	{
 	    prompt();
@@ -53,20 +64,50 @@ public class cryptoGraph
 	    switch(choice)
 	    {
 		case 1:
-		    System.out.println("You selected, 1. Load Data"); 
-		    loadDataMenu();
+		    message("You selected, 1. Load Data"); 
+		    loadDataSubMenu();
 		    break;
 		case 2:
-		    System.out.println("You selected, 2. Find and display an asset"); 
-		    System.out.println("");
-		    System.out.println(findAsset(g, "BTC")); 
+		    message("You selected, 2. Find and display an asset"); 
 		    break;
+		case 3:
+		    message("You selected, 3. Find and display trade details");
 
+		    break;
+		case 4:
+		    message("4. Find and display potential trade paths"); 
+		    break;
+		case 5:
+		    message("You selected, 5. Set asset filter"); 
+		    break;
+		case 6:
+		    message("You selected, 6. Asset overview"); 
+		    break;
+		case 7:
+		    message("You selected, 7. Trade overview"); 
+		    break;
+		case 8:
+		    message("You selected, 8. Save Data"); 
+		    break;
+		case 9:
+		    message("You selected, 9. Exit"); 
+		    System.out.println("Exiting program..."); 
+		    close = true;
+		    break;
+		default:
+		    System.out.println("Invalid option"); 
+		    break;
 	    }
-
-
-
 	}while(!close);
+    }
+
+    private static void message(String content)
+    {
+	String magentaBackGround = "\u001b[45;1m"
+	System.out.println(); 
+	System.out.print(content); 
+	System.out.print("\u001b[0m"); 
+	System.out.println(""); 
     }
 
     private static CryptoCurrency findAsset(DSAGraph graph, String assetName)
@@ -85,6 +126,12 @@ public class cryptoGraph
 	}
 	return asset;
     }
+
+    private static void loadDataSubMenu()
+    {
+
+    }
+
 
     private static void usage()
     {
