@@ -46,5 +46,14 @@ public class DSAQueue implements Iterable
 	return list.peekFirst();
     }
 
+    public void display()
+    {
+	for (Object e : list)
+	{
+	    System.out.print(e + " "); 
+	}
+	System.out.println(""); 
+    }
+
     // public int size()
 }

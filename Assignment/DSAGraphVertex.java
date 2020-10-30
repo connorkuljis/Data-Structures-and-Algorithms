@@ -25,11 +25,10 @@ public class DSAGraphVertex
 	outDegree = 0;
     }
 
-    public void addEdge(DSAGraphEdge inEdge)
+    public void addEdge(DSAGraphVertex inVertex)
     {
-	adjacencyList.insertLast(inEdge);
+	adjacencyList.insertLast(inVertex);
 	outDegree++;
-	inEdge.getTo().incrementInDegree();
     }
 
 // ACCESSOR getLabel IMPORTS NONE EXPORTS label
@@ -42,6 +41,11 @@ public class DSAGraphVertex
     public Object getValue()
     {
         return value;
+    }
+    
+    public void setValue(Object inValue)
+    {
+	value = inValue;
     }
 
 // ACCESSOR getAdjacent IMPORTS NONE EXPORTS vertexList
@@ -78,6 +82,6 @@ public class DSAGraphVertex
 // ACCESSOR toString IMPORTS NONE EXPORTS string
     public String toString()
     {
-        return label + ", " + value + ", " + adjacencyList + ", " + wasVisited;
+        return label;
     }
 }

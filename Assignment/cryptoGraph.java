@@ -35,7 +35,7 @@ public class cryptoGraph
 		theGraph = DSAJson.readTrade(theGraph, tradeFileName);
 
 		System.out.println("Report:"); 
-		theGraph.displayEdges();
+		theGraph.displayAdjacencyList();
 	    }
 	    else
 	    {
@@ -103,11 +103,10 @@ public class cryptoGraph
 
     private static void message(String content)
     {
-	String magentaBackGround = "\u001b[45;1m"
-	System.out.println(); 
-	System.out.print(content); 
-	System.out.print("\u001b[0m"); 
-	System.out.println(""); 
+	String mgtBG = "\u001b[45;1m";
+	String reset = "\u001b[0m";
+
+	System.out.println(mgtBG + content + reset); 
     }
 
     private static CryptoCurrency findAsset(DSAGraph graph, String assetName)

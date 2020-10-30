@@ -14,21 +14,32 @@ public class DSAGraph
     private DSALinkedList verticies; // List of Graph Nodes
     private DSALinkedList edges;     // List of Edge Objects
 
+    // default constructor
     public DSAGraph()
     {
         verticies = new DSALinkedList();
 	edges = new DSALinkedList();
     }
 
+    /* ************************************************************************
+     * NAME   : addVertex
+     * IMPORTS: label (String), value (Object)
+     * EXPORTS: none
+     * PURPOSE: Add a new node/vertex to the graph.
+     * ASSERTION: Duplicate nodes are not allowed in the graph
+     * ***********************************************************************/
     public void addVertex(String label, Object value)
     {
         DSAGraphVertex vertex;
         DSAListNode node;
-        
-        vertex = new DSAGraphVertex(label, value);
-        node = new DSAListNode(vertex);
 
-        verticies.insertLast(node);
+	if(!hasVertex(label))
+	{
+	    vertex = new DSAGraphVertex(label, value);
+	    node = new DSAListNode(vertex);
+
+	    verticies.insertLast(node);
+	}
     }
 
     /* to add an edge between two verticies, we are given their labels */
@@ -48,10 +59,30 @@ public class DSAGraph
 
 	DSAGraphEdge edge = new DSAGraphEdge(fromVertex, toVertex, edgeLabel, value);
 	
-	fromVertex.addEdge(edge); // directed graph so just add the path 'from -> to'
+	fromVertex.addEdge(toVertex); // directed graph so just add the path 'from -> to'
 			  // from's adjacency list will include to,
 	                  // but to's adjacency list will not include from/
+	toVertex.incrementInDegree();
+
 	edges.insertLast(edge);
+    }
+
+    public boolean hasVertex(String label)
+    {
+        boolean found;
+        found = false;
+
+	try
+	{
+	    getVertex(label);
+	    found = true;
+	}
+	catch (Exception e)
+	{
+	    found = false;
+	}
+
+        return found;
     }
 
     public DSAGraphVertex getVertex(String inLabel) throws IllegalArgumentException
@@ -72,7 +103,6 @@ public class DSAGraph
 		vertex = currVertex;
 	    }
 	}
-
 	// exception handling will throw error if the vertex does not exist
 	if (vertex == null)
 	{
@@ -83,21 +113,6 @@ public class DSAGraph
 	return vertex;
     }
 
-    public boolean hasVertex(String label)
-    {
-        boolean found;
-        found = false;
-        for (Object e : verticies)
-        {
-            DSAListNode node = (DSAListNode) e;
-            DSAGraphVertex vertex = (DSAGraphVertex) node.getValue();
-            if (label.equals(vertex.getLabel()))
-            {
-                found = true;
-            }
-        }
-        return found;
-    }
 
     public int getVertexCount()
     {
@@ -119,45 +134,31 @@ public class DSAGraph
 	return edgeCount;
     }
 
-    public boolean isAdjancent(String vertex1, String vertex2) // alternatively take the char labels
+    public boolean isAdjancent(String search, String toFind) // alternatively take the char labels
     {
         boolean adjacent = false;
-        int count = 0;
-        if (hasVertex(vertex1) && hasVertex(vertex2)) // if the verticies exist in the graph
-        {
-            // iterate through the verticies
-            for (Object e : verticies) // May be slow due to iterating though the linked list
-            {
-                DSAGraphVertex vertex = (DSAGraphVertex) e;
-                if (vertex.getLabel().equals(vertex1))     
-                {
-                    // check if the other vertex exists in the current vertex adj
-                    if (hasAdjacent(vertex, vertex1))
-                    {
-                        count++;
-                    }
-                }
-                if (vertex.getLabel().equals(vertex2))         // is the inverse of line 33
-                {
-                    if (hasAdjacent(vertex, vertex2))
-                    {
-                        count++;
-                    }
-                }
-                else 
-                {
-                    throw new IllegalArgumentException("Error trying to find adjacent verticies");
-                }
-            }
-        }
-        if (count == 2) // this means that the two adjacent verticies are bidirectional
-        {
-            adjacent = true;
-        }
+	DSAGraphVertex from = null;
+	DSAGraphVertex find = null;
+	try
+	{
+	    from = getVertex(search);
+	}
+	catch (Exception e)
+	{
+	    System.out.println("Cannot find vertex " + search + " in the graph"); 
+	}
+
+	for (Object e : from.getAdjacencyList())
+	{
+	    DSAGraphVertex vertex = (DSAGraphVertex) e;
+	    if (vertex.getLabel().equals(toFind))
+	    {
+		adjacent = true;
+	    }
+	}
         return adjacent;
     }
 
-    // returns true if the vertex labeled inString exists within the vertex's adjacency list
     private boolean hasAdjacent(DSAGraphVertex vertex, String inString)
     {
         boolean hasAdjacent = false;
@@ -217,10 +218,10 @@ public class DSAGraph
 		System.out.print(vertex.getLabel() + " | ");
 		for (Object g : adjList)
 		{
-		    // DSAGraphVertex currVertex = (DSAGraphVertex) g;
-		    // System.out.print(currVertex.getLabel() + " ");
+		    DSAGraphVertex currVertex = (DSAGraphVertex) g;
+		    System.out.print(currVertex.getLabel() + " ");
 		    // System.out.println(currVertex); 
-		    System.out.print(g + " "); 
+		    // System.out.print(g + " "); 
 		}
 		System.out.println("");
 	    }
@@ -251,7 +252,6 @@ public class DSAGraph
 
 	    for (Object e : curr.getAdjacencyList())
 	    {
-		System.out.println(e); 
 		DSAGraphVertex adjVertex = (DSAGraphVertex) e;
 		if (!adjVertex.getVisited())
 		{
