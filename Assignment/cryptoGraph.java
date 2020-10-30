@@ -21,7 +21,7 @@ public class cryptoGraph
 	    System.out.println(mode + ": " + assetFileName + ", " + tradeFileName); 
 
 	    DSAGraph g = FileIO.readAsset(assetFileName);
-	    g.displayVertices();
+	    g.displayVerticies();
 
 
 	}

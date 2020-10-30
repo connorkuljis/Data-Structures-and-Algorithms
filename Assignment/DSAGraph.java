@@ -185,7 +185,7 @@ public class DSAGraph
 	return empty;
     }
 
-    public void displayVertices()
+    public void displayVerticies()
     {
         for (Object e : verticies)
         {
@@ -210,17 +210,20 @@ public class DSAGraph
         {
             DSAListNode node = (DSAListNode) e;
             DSAGraphVertex vertex = (DSAGraphVertex) node.getValue();
-            System.out.print(vertex.getLabel() + " | ");
 
             DSALinkedList adjList = vertex.getAdjacencyList();
-            for (Object g : adjList)
-            {
-		// DSAGraphVertex currVertex = (DSAGraphVertex) g;
-                // System.out.print(currVertex.getLabel() + " ");
-		// System.out.println(currVertex); 
-		System.out.print(g + " "); 
-            }
-            System.out.println("");
+	    if (!adjList.isEmpty())
+	    {
+		System.out.print(vertex.getLabel() + " | ");
+		for (Object g : adjList)
+		{
+		    // DSAGraphVertex currVertex = (DSAGraphVertex) g;
+		    // System.out.print(currVertex.getLabel() + " ");
+		    // System.out.println(currVertex); 
+		    System.out.print(g + " "); 
+		}
+		System.out.println("");
+	    }
         }
     }
 

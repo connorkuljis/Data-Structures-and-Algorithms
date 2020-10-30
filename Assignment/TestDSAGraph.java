@@ -14,7 +14,7 @@ public class TestDSAGraph
 	graph.addEdge("B", "C", "b->c", null);
 	graph.addEdge("C", "D", "c->d", null);
 	graph.displayAdjacencyList();
-	graph.displayVertices();
+	graph.displayVerticies();
 	graph.displayEdges();
 
 	/*

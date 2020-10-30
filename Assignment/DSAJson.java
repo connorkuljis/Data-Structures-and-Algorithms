@@ -17,6 +17,9 @@ public class DSAJson
 {
     public static void main(String[] args)
     {
+	DSAGraph graph = FileIO.readAsset("asset_info.csv");
+	// DSAGraph graph = new DSAGraph();
+
 	try
 	{
 	    JSONTokener jsonToken = new JSONTokener(new FileReader("exchangeInfo.json"));
@@ -26,26 +29,30 @@ public class DSAJson
 	    JSONArray symbols = jsonObject.getJSONArray("symbols");
 
 	    // Graph init
-	    DSAGraph graph = FileIO.readAsset("asset_info.csv");
 
 	    int count = 0;
 	    for (int i = 0; i < symbols.length(); i++)
 	    {
-		// TODO put an if statement to check the status if "TRADING"
 		JSONObject curObj = (JSONObject) (symbols.get(i)); 
-		// System.out.println(curObj.getString("symbol")); 
-		String label = curObj.getString("symbol"); 
-		String from = curObj.getString("baseAsset"); 
-		String to = curObj.getString("quoteAsset"); 
-		graph.addEdge(from, to, label, null);
-		graph.displayEdges();
-		count++;
+		// TODO put an if statement to check the status if "TRADING"
+		if (curObj.getString("status").equals("TRADING"))
+		{
+		    // System.out.println(curObj.getString("symbol")); 
+		    String label = curObj.getString("symbol"); 
+		    String from = curObj.getString("baseAsset"); 
+		    String to = curObj.getString("quoteAsset"); 
+		    graph.addEdge(from, to, label, null);
+		    count++;
+		}
 	    }
+
 	}
 	catch (Exception e)
 	{
 	    e.getMessage();
 	}
+	
+	graph.displayAdjacencyList();
     }
 
 }
