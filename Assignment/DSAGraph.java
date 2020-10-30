@@ -314,8 +314,7 @@ public class DSAGraph
 	DSAQueue traversalQueue = new DSAQueue();
 	DSAStack stack = new DSAStack();
 
-	DSAListNode front = (DSAListNode) verticies.peekFirst();
-	DSAGraphVertex start = (DSAGraphVertex) front.getValue();
+	DSAGraphVertex start = (DSAGraphVertex) verticies.peekFirst();
 
 	start.setVisited();
 	stack.push(start); // start the search 
@@ -354,8 +353,7 @@ public class DSAGraph
 	DSAQueue queue = new DSAQueue();
 	DSAQueue traversalQueue = new DSAQueue();
 
-	DSAListNode front = (DSAListNode) verticies.peekFirst();
-	DSAGraphVertex start = (DSAGraphVertex) front.getValue();
+	DSAGraphVertex start = (DSAGraphVertex) verticies.peekFirst();
 
 	start.setVisited();
 	
@@ -394,8 +392,7 @@ public class DSAGraph
     {
 	for (Object e : verticies)
 	{
-	    DSAListNode node = (DSAListNode) e;
-	    DSAGraphVertex vertex = (DSAGraphVertex) node.getValue();
+	    DSAGraphVertex vertex = (DSAGraphVertex) e;
 	    vertex.clearVisited();
 	}
     }

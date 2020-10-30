@@ -34,6 +34,8 @@ public class cryptoGraph
 		theGraph = FileIO.readAsset(assetFileName);
 		theGraph = DSAJson.readTrade(theGraph, tradeFileName);
 		theGraph.displayAdjacencyList();
+		theGraph.depthFirstSearch().display();
+		theGraph.breadthFirstSearch().display();
 
 	    }
 	    else
