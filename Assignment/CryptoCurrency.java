@@ -38,13 +38,10 @@ public class CryptoCurrency
 
     public String toString()
     {
-	/*
-	return("name: " + name + ", symbol:" + symbol + ", market cap: " + marketCap +
-		", price: " + price + ", circulating supply: " + circulatingSupply + 
-		", volume24hr: " + volume24hr + ", change1hr: " + change1hr + ", change24hr: "
-	       + change24hr + ", change7d: " + change7d);
-	       */
-	return symbol;
+	return("\tname\t\t\t: " + name + "\n\tsymbol\t\t\t: " + symbol + "\n\tmarket cap\t\t: " + marketCap +
+		"\n\tprice\t\t\t: " + price + "\n\tcirculating supply\t: " + circulatingSupply + 
+		"\n\tvolume24hr\t\t: " + volume24hr + "\n\tchange1hr\t\t: " + change1hr + "%" + "\n\tchange24hr\t\t: " 
+	       + change24hr + "%" + "\n\tchange7d\t\t: " + change7d + "%");
     }
 
     public String getName() { return name; }

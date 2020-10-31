@@ -9,9 +9,7 @@
 
 import java.util.*;
 import java.io.*;
-import org.json.JSONObject;
-import org.json.JSONTokener;
-import org.json.JSONArray;
+import org.json.*;
 
 public class DSAJson
 {
@@ -19,28 +17,37 @@ public class DSAJson
     {
 	try
 	{
-	    JSONTokener jsonToken = new JSONTokener(new FileReader("exchangeInfo.json"));
+	    JSONTokener jsonToken = new JSONTokener(new FileReader("newEx.json"));
 	    JSONObject jsonObject = new JSONObject(jsonToken);
 	    
 	    // System.out.println(jsonObject.getString("timezone"));
 	    JSONArray symbols = jsonObject.getJSONArray("symbols");
+	    System.out.println("length: " + symbols.length()); 
 
 	    int count = 0;
 	    for (int i = 0; i < symbols.length(); i++)
 	    {
 		JSONObject curObj = (JSONObject) (symbols.get(i)); 
-		// TODO put an if statement to check the status if "TRADING"
+		
 		if (curObj.getString("status").equals("TRADING"))
 		{
 		    // System.out.println(curObj.getString("symbol")); 
 		    String label = curObj.getString("symbol"); 
 		    String from = curObj.getString("baseAsset"); 
 		    String to = curObj.getString("quoteAsset"); 
-		    graph.addEdge(from, to, label, null);
-		    count++;
+		    try
+		    {
+			// exception is thrown if the base asset does
+			// not exist
+			graph.addEdge(from, to, label, null); 
+		    }
+		    catch (Exception e)
+		    {
+			// do nothing to skip the trade
+			//
+		    }
 		}
 	    }
-
 	}
 	catch (Exception e)
 	{
@@ -48,5 +55,4 @@ public class DSAJson
 	}
 	return graph;
     }
-
 }

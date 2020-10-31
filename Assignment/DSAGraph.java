@@ -56,7 +56,7 @@ public class DSAGraph
      *            the source vertex
      * ***********************************************************************/
     public void addEdge(String fromLabel, String toLabel, String edgeLabel, 
-	                Object value)
+	                Object value) throws IllegalArgumentException
     {
 	DSAGraphVertex fromVertex = null;
 	DSAGraphVertex toVertex = null;
@@ -67,7 +67,7 @@ public class DSAGraph
 	}
 	catch (Exception e)
 	{
-	    e.getMessage();
+	    throw new IllegalArgumentException(e);
 	}
 
 	DSAGraphEdge edge = new DSAGraphEdge(fromVertex, toVertex, edgeLabel, value);

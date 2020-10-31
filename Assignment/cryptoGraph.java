@@ -15,28 +15,27 @@ public class cryptoGraph
 	if (args.length == 3)
 	{
 	    String mode = args[0];
-
 	    String assetFileName = args[1];
 	    String tradeFileName = args[2];
 
-	    System.out.println(mode + " : " + assetFileName + ", " + tradeFileName); 
+	    DSAGraph theGraph = new DSAGraph();
+	    theGraph = FileIO.readAsset(assetFileName);
+	    theGraph = DSAJson.readTrade(theGraph, tradeFileName);
 
 	    if (mode.equals("-i"))
 	    {
 		System.out.println("Interactive mode -i"); 
-		menu();
+		menu(theGraph);
 	    }
 	    else if (mode.equals("-r"))
 	    {
 		System.out.println("Report mode -r"); 
 
-		DSAGraph theGraph = new DSAGraph();
-		theGraph = FileIO.readAsset(assetFileName);
-		theGraph = DSAJson.readTrade(theGraph, tradeFileName);
 		theGraph.displayAdjacencyList();
 		theGraph.depthFirstSearch().display();
 		theGraph.breadthFirstSearch().display();
-
+		System.out.println("Assets: " + theGraph.getVertexCount());
+		System.out.println("Trades: " + theGraph.getEdgeCount());
 	    }
 	    else
 	    {
@@ -49,7 +48,7 @@ public class cryptoGraph
 	}
     }
 
-    private static void menu()
+    private static void menu(DSAGraph theGraph)
     {
 	Scanner sc = new Scanner(System.in);
 	int choice;
@@ -57,9 +56,10 @@ public class cryptoGraph
 
 	do
 	{
+	    System.out.println("\tAssets: " + theGraph.getVertexCount()); 
+	    System.out.println("\tTrades: " + theGraph.getEdgeCount()); 
 	    prompt();
-	    System.out.print("Select an option:"); 
-
+	    System.out.print("Select an option >>> "); 
 	    choice = sc.nextInt(); 
 
 	    switch(choice)
@@ -70,6 +70,7 @@ public class cryptoGraph
 		    break;
 		case 2:
 		    message("You selected, 2. Find and display an asset"); 
+		    findMenu(theGraph);
 		    break;
 		case 3:
 		    message("You selected, 3. Find and display trade details");
@@ -102,6 +103,25 @@ public class cryptoGraph
 	}while(!close);
     }
 
+    private static void findMenu(DSAGraph theGraph)
+    {
+	Scanner sc = new Scanner(System.in);
+	boolean again = false;
+	do
+	{
+	    System.out.println("Please enter the asset symbol eg: 'BTC'"); 
+	    System.out.print(">>> ");
+	    String target = sc.next().toUpperCase();
+
+	    CryptoCurrency asset = findAsset(theGraph, target);
+	    System.out.print("Find another asset? (y/n) >>> "); 
+	    if (sc.next().toLowerCase().equals("y"))
+	    {
+		again = true;
+	    }
+	}while(again);
+    }
+
     private static void message(String content)
     {
 	String mgtBG = "\u001b[45;1m";
@@ -118,7 +138,7 @@ public class cryptoGraph
 	{
 	    vertex = graph.getVertex(assetName);
 	    asset = (CryptoCurrency) vertex.getValue();
-	    System.out.println(asset.getName()); 
+	    System.out.println(asset); 
 	}
 	catch (Exception e)
 	{
