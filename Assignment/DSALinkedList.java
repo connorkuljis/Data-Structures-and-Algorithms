@@ -160,4 +160,25 @@ public class DSALinkedList implements Iterable
         return nodeValue;
     }
 
+    public void remove(Object inData)
+    {
+	DSAListNode temp = head;
+	DSAListNode prev = null;
+
+	if (temp != null && temp.getValue().equals(inData))
+	{
+	    temp.setNext(head);
+	    return;
+	}
+
+	while (temp != null && !temp.getValue().equals(inData))
+	{
+	    prev = temp;
+	    temp = temp.getNext();
+	}
+	if (temp != null)
+	{
+	    prev.setNext(temp.getNext());
+	}
+    }
 }

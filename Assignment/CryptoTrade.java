@@ -33,8 +33,10 @@ public class CryptoTrade
 
     public String toString()
     {
-	return (name + " " + price + " " + priceChange + " " + priceChangePercent
-		+ "%" + " " + volume + " " + count);
+	return ("\tname\t\t\t: " + name + "\n\tprice\t\t\t: "  + price + 
+		"\n\tprice change\t\t: " + priceChange + "\n\tprice change %\t\t: " + 
+		priceChangePercent
+		+ "%" + "\n\tvolume\t\t\t: " + volume + "\n\tcount\t\t\t: " + count);
     }
 
     public String getName() { return name; }

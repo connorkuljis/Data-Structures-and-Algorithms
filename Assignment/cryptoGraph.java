@@ -34,6 +34,20 @@ public class cryptoGraph
 
 		System.out.println("Assets: " + theGraph.getVertexCount());
 		System.out.println("Trades: " + theGraph.getEdgeCount());
+		view(theGraph);
+		theGraph.helper("XRP", "USDT");
+		/*
+		for (Object path : paths)
+		{
+		    DSALinkedList p = (DSALinkedList) path;
+		    for (Object v : p)
+		    {
+			DSAGraphVertex vertex = (DSAGraphVertex) v;
+			System.out.print(vertex.getLabel() + "->"); 
+		    }
+		    System.out.println(""); 
+		}
+		*/
 	    }
 	    else
 	    {

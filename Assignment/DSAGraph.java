@@ -422,6 +422,92 @@ public class DSAGraph
 
     }
 
+    public DSALinkedList testBFS(String inSource, String inDest)
+    {
+	resetGraphVisited();
+
+	DSAQueue queue = new DSAQueue();
+	DSALinkedList results = new DSALinkedList();
+	DSAGraphVertex source = null;
+	DSAGraphVertex dest = null;
+
+	try
+	{
+	    source = getVertex(inSource);
+	}catch (Exception e) {  }
+
+	source.setVisited();
+	
+	System.out.println("Source: " + source); 
+	queue.insert(source);
+
+	while (!queue.isEmpty())
+	{
+	    DSALinkedList path = new DSALinkedList();
+	    path.insertLast(queue.remove());
+	    System.out.print(path.peekLast() + " -> "); 
+
+	    DSAGraphVertex check = (DSAGraphVertex) path.peekLast();
+	    if (check.getLabel().equals(inDest))
+	    {
+		    System.out.println(""); 
+		    path.insertFirst(source);
+		    results.insertLast(path);
+	    }
+	    else 
+	    {
+		DSAGraphVertex curVertex = (DSAGraphVertex) path.peekLast();
+		for (Object e : curVertex.getAdjacencyList())
+		{
+		    DSAGraphVertex neighbour = (DSAGraphVertex) e;
+		    queue.insert(neighbour);
+		}
+
+	    }
+	}
+	return results;
+    }
+
+    public void helper(String inSource, String inDest)
+    {
+	DSAGraphVertex source = getVertex(inSource);
+	DSALinkedList pathList = new DSALinkedList();
+
+	pathList.insertLast(source);
+
+	path(source, inDest, pathList);
+
+    }
+
+    public void path(DSAGraphVertex source, String dest, DSALinkedList localPathList)
+    {
+	if (source.getLabel().equals(dest))
+	{
+	    System.out.println(""); 
+	}
+	else
+	{
+	    source.setVisited();
+
+	    for (Object e : source.getAdjacencyList())
+	    {
+		DSAGraphVertex currVertex = (DSAGraphVertex) e;
+		if (!currVertex.getVisited())
+		{
+		    localPathList.insertLast(currVertex);
+		    System.out.print(currVertex + "->"); 
+		    path(currVertex, dest, localPathList);
+
+		    localPathList.remove(currVertex);
+		}
+	    }
+	    source.clearVisited();
+	}
+
+    }
+
+
+
     /* ************************************************************************
      * NAME   : resetGraphVisited
      * IMPORTS: none
