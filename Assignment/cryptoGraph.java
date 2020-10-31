@@ -31,11 +31,14 @@ public class cryptoGraph
 	    {
 		System.out.println("Report mode -r"); 
 
+		/*
 		theGraph.displayAdjacencyList();
 		theGraph.depthFirstSearch().display();
 		theGraph.breadthFirstSearch().display();
 		System.out.println("Assets: " + theGraph.getVertexCount());
 		System.out.println("Trades: " + theGraph.getEdgeCount());
+		*/
+		DSAJson.read24hr(theGraph);
 	    }
 	    else
 	    {

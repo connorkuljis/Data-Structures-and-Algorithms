@@ -22,7 +22,6 @@ public class DSAJson
 	    
 	    // System.out.println(jsonObject.getString("timezone"));
 	    JSONArray symbols = jsonObject.getJSONArray("symbols");
-	    System.out.println("length: " + symbols.length()); 
 
 	    int count = 0;
 	    for (int i = 0; i < symbols.length(); i++)
@@ -54,5 +53,47 @@ public class DSAJson
 	    e.getMessage();
 	}
 	return graph;
+    }
+
+    public static void read24hr(DSAGraph theGraph)
+    {
+	try
+	{
+	    JSONTokener jsonToken = new JSONTokener(new FileReader("24hr.json"));
+	    JSONArray tradeArray = new JSONArray(jsonToken);
+
+	    for (int i = 0; i < tradeArray.length(); i++)
+	    {
+		JSONObject curObj = (JSONObject) (tradeArray.get(i)); 
+		
+		String name = curObj.getString("symbol"); 
+		double price = curObj.getDouble("lastPrice");
+		double priceChange = curObj.getDouble("priceChange");
+		double priceChangePercent = curObj.getDouble("priceChangePercent");
+		double volume = curObj.getDouble("volume");
+		double count = curObj.getDouble("count");
+
+
+		CryptoTrade newTrade = new CryptoTrade(name, price, priceChange,
+			priceChangePercent, volume, count);
+
+		try
+		{
+		    theGraph.addWeight(name, newTrade);
+		}
+		catch (Exception e)
+		{
+		    System.out.println(e.getMessage()); 
+		    System.out.println("skip"); 
+		}
+		    
+
+		System.out.println(newTrade); 
+	    }
+	}
+	catch (Exception e)
+	{
+	    e.getMessage();
+	}
     }
 }

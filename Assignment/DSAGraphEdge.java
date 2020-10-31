@@ -23,6 +23,11 @@ public class DSAGraphEdge
 	value = inValue;
     }
 
+    public void setValue(Object inValue)
+    {
+	value = inValue;
+    }
+
     public String getLabel()
     {
 	return label;

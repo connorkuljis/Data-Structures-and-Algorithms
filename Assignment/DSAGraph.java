@@ -80,6 +80,19 @@ public class DSAGraph
 	edges.insertLast(edge);
     }
 
+    public void addWeight(String inLabel, Object inValue)
+    {
+	try
+	{
+	    DSAGraphEdge edge = getEdge(inLabel);
+	    edge.setValue(inValue);
+	}
+	catch (Exception e)
+	{
+
+	}
+    }
+
     /* ************************************************************************
      * NAME   : hasVertex
      * IMPORTS: label (String)
@@ -139,6 +152,33 @@ public class DSAGraph
 	return vertex;
     }
 
+    public DSAGraphEdge getEdge(String inLabel) throws 
+	                               IllegalArgumentException
+    {
+	DSAGraphEdge edge = null;
+
+	for (Object e : edges) 
+	{
+	    // casting each object in the verticies list to a vertex
+	    DSAGraphEdge currEdge = (DSAGraphEdge) e;
+
+	    // get the label
+	    String curLabel = currEdge.getLabel();
+
+	    if (curLabel.equals(inLabel)) // we have found our vertex
+	    {
+		edge = currEdge;
+	    }
+	}
+	// exception handling will throw error if the vertex does not exist
+	if (edge == null)
+	{
+	    throw new IllegalArgumentException("Cannot find edge (" + inLabel + 
+		    ")");
+	}
+
+	return edge;
+    }
     /* ************************************************************************
      * NAME   : getVertexCount
      * IMPORTS: none
