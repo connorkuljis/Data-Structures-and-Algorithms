@@ -21,24 +21,19 @@ public class cryptoGraph
 	    DSAGraph theGraph = new DSAGraph();
 	    theGraph = FileIO.readAsset(assetFileName);
 	    theGraph = DSAJson.readTrade(theGraph, tradeFileName);
+	    DSAJson.read24hr(theGraph);
 
 	    if (mode.equals("-i"))
 	    {
-		System.out.println("Interactive mode -i"); 
+		System.out.println("Entered INTERACTIVE mode... "); 
 		menu(theGraph);
 	    }
 	    else if (mode.equals("-r"))
 	    {
-		System.out.println("Report mode -r"); 
+		System.out.println("Entered REPORT mode... "); 
 
-		/*
-		theGraph.displayAdjacencyList();
-		theGraph.depthFirstSearch().display();
-		theGraph.breadthFirstSearch().display();
 		System.out.println("Assets: " + theGraph.getVertexCount());
 		System.out.println("Trades: " + theGraph.getEdgeCount());
-		*/
-		DSAJson.read24hr(theGraph);
 	    }
 	    else
 	    {
@@ -49,6 +44,13 @@ public class cryptoGraph
 	{
 	    usage();
 	}
+    }
+
+    public static void view(DSAGraph theGraph)
+    {
+	theGraph.displayAdjacencyList();
+	theGraph.depthFirstSearch().display();
+	theGraph.breadthFirstSearch().display();
     }
 
     private static void menu(DSAGraph theGraph)
@@ -73,11 +75,11 @@ public class cryptoGraph
 		    break;
 		case 2:
 		    message("You selected, 2. Find and display an asset"); 
-		    findMenu(theGraph);
+		    findAssetMenu(theGraph);
 		    break;
 		case 3:
 		    message("You selected, 3. Find and display trade details");
-
+		    findTradeMenu(theGraph);
 		    break;
 		case 4:
 		    message("4. Find and display potential trade paths"); 
@@ -106,7 +108,7 @@ public class cryptoGraph
 	}while(!close);
     }
 
-    private static void findMenu(DSAGraph theGraph)
+    private static void findAssetMenu(DSAGraph theGraph)
     {
 	Scanner sc = new Scanner(System.in);
 	boolean again = false;
@@ -116,7 +118,27 @@ public class cryptoGraph
 	    System.out.print(">>> ");
 	    String target = sc.next().toUpperCase();
 
-	    CryptoCurrency asset = findAsset(theGraph, target);
+	    findAsset(theGraph, target);
+	    System.out.print("Find another asset? (y/n) >>> "); 
+	    if (sc.next().toLowerCase().equals("y"))
+	    {
+		again = true;
+	    }
+	}while(again);
+    }
+
+    private static void findTradeMenu(DSAGraph theGraph)
+    {
+	Scanner sc = new Scanner(System.in);
+	boolean again = false;
+	do
+	{
+	    System.out.println("Please enter the trade symbol eg: 'BTCETH'"); 
+	    System.out.print(">>> ");
+	    String target = sc.next().toUpperCase();
+
+	    findTrade(theGraph, target);
+
 	    System.out.print("Find another asset? (y/n) >>> "); 
 	    if (sc.next().toLowerCase().equals("y"))
 	    {
@@ -133,7 +155,7 @@ public class cryptoGraph
 	System.out.println(mgtBG + content + reset); 
     }
 
-    private static CryptoCurrency findAsset(DSAGraph graph, String assetName)
+    private static void findAsset(DSAGraph graph, String assetName)
     {
 	DSAGraphVertex vertex = null;
 	CryptoCurrency asset = null;
@@ -147,7 +169,22 @@ public class cryptoGraph
 	{
 	    System.out.println("Cannot find '" + assetName + "'"); 
 	}
-	return asset;
+    }
+
+    private static void findTrade(DSAGraph graph, String tradeName)
+    {
+	DSAGraphEdge edge = null;
+	CryptoTrade trade = null;
+	try
+	{
+	    edge = graph.getEdge(tradeName);
+	    trade = (CryptoTrade) edge.getValue();
+	    System.out.println(trade); 
+	}
+	catch (Exception e)
+	{
+	    System.out.println("Cannot find '" + tradeName + "'"); 
+	}
     }
 
     private static void loadDataSubMenu()

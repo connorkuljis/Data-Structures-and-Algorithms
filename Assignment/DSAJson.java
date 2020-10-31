@@ -84,11 +84,7 @@ public class DSAJson
 		catch (Exception e)
 		{
 		    System.out.println(e.getMessage()); 
-		    System.out.println("skip"); 
 		}
-		    
-
-		System.out.println(newTrade); 
 	    }
 	}
 	catch (Exception e)
