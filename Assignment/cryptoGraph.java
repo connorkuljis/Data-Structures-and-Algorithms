@@ -1,10 +1,10 @@
 /* ***************************************************************************
- * NAME:
+ * NAME: cryptoGraph.java
  * AUTHOR: Connor Kuljis, 19459138
  * UNIT: Data Structures and Algorithms (COMP1002)
  * PURPOSE:
  * COMMENT:
- * DATE: 2020-
+ * DATE: 2020-10-25
  * **************************************************************************/
 import java.util.*;
 
@@ -34,9 +34,8 @@ public class cryptoGraph
 
 		System.out.println("Assets: " + theGraph.getVertexCount());
 		System.out.println("Trades: " + theGraph.getEdgeCount());
+		assetStats(theGraph);
 		tradeStats(theGraph);
-		// view(theGraph);
-		// theGraph.helper("XRP", "USDT");
 	    }
 	    else
 	    {
@@ -86,6 +85,7 @@ public class cryptoGraph
 		    break;
 		case 4:
 		    message("4. Find and display potential trade paths"); 
+		    findPathsMenu(theGraph);
 		    break;
 		case 5:
 		    message("You selected, 5. Set asset filter"); 
@@ -125,7 +125,7 @@ public class cryptoGraph
 	    String target = sc.next().toUpperCase();
 
 	    findAsset(theGraph, target);
-	    System.out.print("Find another asset? (y/n) >>> "); 
+	    System.out.print("\nFind another asset? (y/n) >>> "); 
 	    if (sc.next().toLowerCase().equals("y"))
 	    {
 		again = true;
@@ -145,12 +145,39 @@ public class cryptoGraph
 
 	    findTrade(theGraph, target);
 
-	    System.out.print("Find another asset? (y/n) >>> "); 
+	    System.out.print("Find another trade? (y/n) >>> "); 
 	    if (sc.next().toLowerCase().equals("y"))
 	    {
 		again = true;
 	    }
 	}while(again);
+    }
+
+    private static void findPathsMenu(DSAGraph theGraph)
+    {
+	Scanner sc = new Scanner(System.in);
+	boolean again = false;
+	do
+	{
+	    System.out.println("Please enter the source symbol eg: 'ETH'"); 
+	    System.out.print(">>> ");
+	    String source = sc.next().toUpperCase();
+
+	    System.out.println("Please enter the destination symbol eg: 'BTC'"); 
+	    System.out.print(">>> ");
+	    String dest = sc.next().toUpperCase();
+
+	    theGraph.findAllPaths(source, dest);
+
+
+	    System.out.print("Find another trade? (y/n) >>> "); 
+	    if (sc.next().toLowerCase().equals("y"))
+	    {
+		again = true;
+	    }
+	}while(again);
+
+
     }
 
     private static void message(String content)
@@ -245,7 +272,13 @@ public class cryptoGraph
     private static void usage()
     {
 	System.out.println("Usage-");
-	System.out.println(""); 
+	System.out.println("Please use the json.jar classpath"); 
+	System.out.println("Excpecting 3 command line arguments"); 
+
+	System.out.println("java -cp .:json.jar cryptoGraph <flag> <asset_file.csv> <trade_data.json>"); 
+	System.out.println("<flag> = '-i' or '-r' for interactive and report mode respectively"); 
+	System.out.println("<asset_file.csv> = asset file"); 
+	System.out.println("<trade_data.json> = trade file"); 
 
     }
 

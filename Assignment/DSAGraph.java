@@ -422,18 +422,20 @@ public class DSAGraph
 
     }
 
-    public void helper(String inSource, String inDest)
+    public void findAllPaths(String inSource, String inDest)
     {
 	DSAGraphVertex source = getVertex(inSource);
-	DSALinkedList pathList = new DSALinkedList();
 
-	pathList.insertLast(source);
+	DSALinkedList list = new DSALinkedList();
 
-	path(source, inDest, pathList);
+	list.insertLast(source);
+
+	System.out.println("POTENTIAL PATHS"); 
+	findAllPathsRecur(source, inDest, list);
 
     }
 
-    public void path(DSAGraphVertex source, String dest, DSALinkedList localPathList)
+    public void findAllPathsRecur(DSAGraphVertex source, String dest, DSALinkedList list)
     {
 	if (source.getLabel().equals(dest))
 	{
@@ -448,11 +450,11 @@ public class DSAGraph
 		DSAGraphVertex currVertex = (DSAGraphVertex) e;
 		if (!currVertex.getVisited())
 		{
-		    localPathList.insertLast(currVertex);
+		    list.insertLast(currVertex);
 		    System.out.print(currVertex + "->"); 
-		    path(currVertex, dest, localPathList);
+		    findAllPathsRecur(currVertex, dest, list);
 
-		    localPathList.remove(currVertex);
+		    list.remove(currVertex);
 		}
 	    }
 	    source.clearVisited();
@@ -470,12 +472,19 @@ public class DSAGraph
 	return edges;
     }
 
-    public void removeVertex(String inString)
-    {
-	DSAGraphVertex toRemove = getVertex(inString);
+    public void removeVertex(String inString) 
+    { 
+	DSAGraphVertex toRemove = null;
+	try
+	{
+	    toRemove = getVertex(inString);
+	}
+	catch(Exception e)
+	{
+	    System.out.println(e.getMessage()); 
+	}
 
 	verticies.remove(toRemove);
-	System.out.println("yeet"); 
     }
 
 
