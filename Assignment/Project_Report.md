@@ -81,7 +81,7 @@ The program excpects 3 command line arguments
 * FileIO.java           - File I/O csv parser.
 
 # Terminology
-* "Asset" : 
+* 
 
 # Walkthrough
 `java -cp .:json.jar cryptoGraph <flag> <asset_file.csv> <trade_data.json>`
@@ -424,7 +424,13 @@ find paths/negative cycles in the graph. The weights could be use the CryptoTrad
 
 Alternatively automatic API requesting could be implemented so that json and csv files do not have to be downloaded.
 
-# Matrix
+# Tracability Matrix
+|                       |  Requirements  |  Design/Code | Test  | 
+|-----------------------|----------------|--------------|-------|
+| Driver Menu | 1.1 System displays usage if called without args | cryptoGraph.java  |  user test  | 
+| Graph | 2.1 Implementaion of ADT graph  | DSAGraph.java  | UnitTestDSAGraph.java |
+| LinkedList | 3.1  | Implementation of ADT linkedlist  | DSAGraph.java DSALinkedList  | UnitTestLinkedList.java |
+| Queue | 3.1  | Implementation of ADT linkedlist  | DSAGraph.java DSALinkedList  | UnitTestLinkedList.java |
 
 
 # Class Diagram
@@ -443,5 +449,6 @@ Each its own class so that inforamtion can be stored, received and updated.
 The object can then be implemented into data structures such as linkedlists/heaps/graphs
 
 # Justification
+
 
 # References

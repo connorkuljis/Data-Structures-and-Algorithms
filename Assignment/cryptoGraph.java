@@ -2,9 +2,14 @@
  * NAME: cryptoGraph.java
  * AUTHOR: Connor Kuljis, 19459138
  * UNIT: Data Structures and Algorithms (COMP1002)
- * PURPOSE:
- * COMMENT:
+ * PURPOSE: driver code to run the DSAAssignment
+ * COMMENT: requires org.JSON
  * DATE: 2020-10-25
+ * 
+ * REFERENCE : SELF-CITE NOTICE: Programs may contain previous code 
+ *             from prior practical session and have been adapted from
+ *             psuedocde in lecures. All work has been completed by Connor
+ *             Andy Kuljis, 19459138
  * **************************************************************************/
 import java.util.*;
 

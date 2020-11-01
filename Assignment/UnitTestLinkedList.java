@@ -1,10 +1,12 @@
  /* *************************************************************************
- *  FILE: TestLinkedList.java
- *  AUTHOR: Connor Beardsmore - 15504319
- *  UNIT: DSA120 Prac 8
+ *  FILE: UnitTestLinkedList.java
+ *  AUTHOR: Connor Kuljis - 19459138
+ *  UNIT: Data Structures and Algorithms
  *  PURPOSE: Basic Test Harness For Linked List
  *  LAST MOD: 12/10/15
  *  REQUIRES: NONE
+ *  SELF-CITE NOTICE: this contains code written by a previous student, it was
+ *  supplied by the lecturer for use
  ***************************************************************************/
 
 import java.io.*;
