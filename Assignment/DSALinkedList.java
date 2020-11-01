@@ -5,6 +5,12 @@
  * PURPOSE: 
  * COMMENT:
  * DATE: 2020-08-28
+ *
+ * REFERENCES: This is modified code, previously submitted in Practial 4
+ *             - Graphs.
+ *
+ *             Implementation follows structure of psuedocode from Lecture 4 -
+ *             LinkedLists
  * **************************************************************************/
 import java.util.Iterator;
 import java.lang.Iterable;

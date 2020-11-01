@@ -48,11 +48,6 @@ public class DSAGraphEdge
 	return to;
     }
 
-    public boolean isDirected()
-    {
-	return true;
-    }
-
     public String toString()
     {
 	return label;

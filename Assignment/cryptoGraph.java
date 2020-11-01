@@ -12,7 +12,7 @@ public class cryptoGraph
 {
     public static void main(String[] args)
     {
-	if (args.length == 3)
+	if (args.length == 3) // check for correct arguments
 	{
 	    String mode = args[0];
 	    String assetFileName = args[1];
@@ -30,12 +30,13 @@ public class cryptoGraph
 	    }
 	    else if (mode.equals("-r"))
 	    {
-		System.out.println("Entered REPORT mode... "); 
 
-		System.out.println("Assets: " + theGraph.getVertexCount());
-		System.out.println("Trades: " + theGraph.getEdgeCount());
+		System.out.println("Entered REPORT mode... "); 
 		assetStats(theGraph);
 		tradeStats(theGraph);
+		System.out.println("Assets: " + theGraph.getVertexCount());
+		System.out.println("Trades: " + theGraph.getEdgeCount());
+		System.out.println("END REPORT mode... "); 
 	    }
 	    else
 	    {
@@ -58,7 +59,7 @@ public class cryptoGraph
     private static void menu(DSAGraph theGraph)
     {
 	Scanner sc = new Scanner(System.in);
-	int choice;
+	int choice = 0;
 	boolean close = false;
 
 	do
@@ -66,14 +67,26 @@ public class cryptoGraph
 	    System.out.println("\tAssets: " + theGraph.getVertexCount()); 
 	    System.out.println("\tTrades: " + theGraph.getEdgeCount()); 
 	    prompt();
-	    System.out.print("Select an option >>> "); 
-	    choice = sc.nextInt(); 
+	    boolean valid = false;
+	    do
+	    {
+		while (!sc.hasNextInt()) 
+		{
+		    prompt();
+		    System.out.println("Invalid selection"); 
+		    sc.next(); 
+		}
+
+		choice = sc.nextInt();
+		valid = true;
+
+	    }while(!valid);
 
 	    switch(choice)
 	    {
 		case 1:
 		    message("You selected, 1. Load Data"); 
-		    loadDataSubMenu();
+		    theGraph = loadDataSubMenu(theGraph);
 		    break;
 		case 2:
 		    message("You selected, 2. Find and display an asset"); 
@@ -263,9 +276,39 @@ public class cryptoGraph
 	}
 
     }
-    private static void loadDataSubMenu()
+    private static DSAGraph loadDataSubMenu(DSAGraph theGraph)
     {
+	Scanner sc = new Scanner(System.in);
+	boolean valid = false;
+	int choice = 0;
+	do
+	{
+	    System.out.println("1. Load Asset\n2. Load Trades"); 
+	    while (!sc.hasNextInt()) 
+	    {
+		System.out.println("Invalid selection"); 
+		sc.next(); 
+	    }
 
+	    choice = sc.nextInt();
+	    valid = true;
+
+	}while(!valid);
+
+	switch(choice)
+	{
+	    case 1:
+		System.out.println("Enter asset file name (.csv)"); 
+		String filename = sc.next();
+		theGraph = FileIO.readAsset(filename);
+		break;
+	    case 2:
+		System.out.println("Enter trade file name (.json)"); 
+		String tradeFileName = sc.next();
+		theGraph = DSAJson.readTrade(theGraph, tradeFileName);
+		break;
+	}
+	return theGraph;
     }
 
 

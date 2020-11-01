@@ -415,14 +415,32 @@ TOP TRADE NUMBER 10 BY VOLUME
 ```
 Exiting program...
 ```
-
 # Future Work
+One function to be added is the read/writing of serialized objects. Java provides a built-in serialization class, yet 
+there were some issues in getting it to save properly. A fix may be related to the recursion limit being reached.
+
+Using the CryptoTrade data as 'weights' a Dijkstra Shortest Path or Bellman–Ford Algorithm could be implemented to 
+find paths/negative cycles in the graph. The weights could be use the CryptoTrade price change field as a weight for example
+
+Alternatively automatic API requesting could be implemented so that json and csv files do not have to be downloaded.
 
 # Matrix
 
+
 # Class Diagram
+![UML](UML.png)
 
 # Class Descriptions
+## cryptoGraph.java      - This file provides the main function to run the program.
+This is the class that contains the main method that users will run.
+It was created as part of specification. It comprises of a menu function that breaks down in to
+smaller sub menus. The overall design is has high modularity and low cohesion
+
+## CryptoCurrency.java and CryptoTrade.java      
+Class file for creating currency and trade/pair objects.
+This class serves the purpose of storing information about cryptocurrencies / trades.
+Each its own class so that inforamtion can be stored, received and updated.
+The object can then be implemented into data structures such as linkedlists/heaps/graphs
 
 # Justification
 

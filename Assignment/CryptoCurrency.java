@@ -21,6 +21,7 @@ public class CryptoCurrency
     double change24hr;
     double change7d;
 
+    // CONTRUCTOR
     public CryptoCurrency(String inName, String inSymbol, double inMarketCap,
 	   double inPrice, String inCirculatingSupply, double inVolume24hr,
 	   double inChange1hr, double inChange24hr, double inChange7d)
@@ -36,6 +37,11 @@ public class CryptoCurrency
 	change7d = inChange7d;
     }
 
+    /* ***********************************************************************
+     * NAME: toString
+     * IMPORTS: none
+     * EXPORTS: String
+     * **********************************************************************/
     public String toString()
     {
 	return("\tname\t\t\t: " + name + "\n\tsymbol\t\t\t: " + symbol + "\n\tmarket cap\t\t: " + marketCap +
@@ -44,6 +50,7 @@ public class CryptoCurrency
 	       + change24hr + "%" + "\n\tchange7d\t\t: " + change7d + "%");
     }
 
+    // ACCESSORS
     public String getName() { return name; }
     public String getSymbol() { return symbol; }
     public Double getMarketCap() { return marketCap; }

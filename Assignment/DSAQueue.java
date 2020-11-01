@@ -5,6 +5,12 @@
  * PURPOSE:
  * COMMENT:
  * DATE: 2020-09-11
+ *
+ * REFERENCES: This is modified code, previously submitted in Practial 3
+ *             - Stack and Queues.
+ *
+ *             Implementation follows structure of psuedocode from Lecture 3 -
+ *             stacks and queues
  * **************************************************************************/
 
 import java.util.*;

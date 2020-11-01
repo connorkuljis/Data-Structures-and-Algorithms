@@ -2,15 +2,6 @@ import java.io.*;
 
 public class FileIO
 {
-    public static void displaySearch(DSAQueue traversalQueue)
-    {
-	for (Object e : traversalQueue) // each object is a vertex with a label
-	{
-	    System.out.print(((DSAGraphVertex)(e)).getLabel() + " "); 
-	}
-	System.out.println(""); 
-
-    }
 
     public static DSAGraph readAsset(String inFilename)
     {
@@ -111,28 +102,13 @@ public class FileIO
 	}
     }
 
-    // public static DSAGraph readAsset(String filename)
+    public static void displaySearch(DSAQueue traversalQueue)
     {
+	for (Object e : traversalQueue) // each object is a vertex with a label
+	{
+	    System.out.print(((DSAGraphVertex)(e)).getLabel() + " "); 
+	}
+	System.out.println(""); 
 
     }
-
-    // public static void writeCSV(DSAQueue queue, String target) throws Exception
-    // {
-    //     java.io.File file = new java.io.File(target);
-    //     if (file.exists())
-    //     {
-    //         throw new Exception("File already exists");
-    //     }
-    //     else
-    //     {
-    //         java.io.PrintWriter output = new java.io.PrintWriter(file);
-
-    //         for (Object e : queue)
-    //         {
-    //     	output.print(e + ",");
-    //     	output.println("");
-    //         }
-    //         output.close();
-    //     }
-    // }
 }
