@@ -429,8 +429,8 @@ Alternatively automatic API requesting could be implemented so that json and csv
 |-----------------------|----------------|--------------|-------|
 | Driver Menu | 1.1 System displays usage if called without args | cryptoGraph.java  |  user test  | 
 | Graph | 2.1 Implementaion of ADT graph  | DSAGraph.java  | UnitTestDSAGraph.java |
-| LinkedList | 3.1  | Implementation of ADT linkedlist  | DSAGraph.java DSALinkedList  | UnitTestLinkedList.java |
-| Queue | 3.1  | Implementation of ADT linkedlist  | DSAGraph.java DSALinkedList  | UnitTestLinkedList.java |
+| LinkedList | 3.1  Implementation of ADT linkedlist  | DSAGraph.java DSALinkedList.java  | UnitTestLinkedList.java |
+| Queue | 3.1  Implementation of ADT queue  | DSAGraph.java DSALinkedList  | UnitTestQueue.java |
 
 
 # Class Diagram
@@ -449,6 +449,12 @@ Each its own class so that inforamtion can be stored, received and updated.
 The object can then be implemented into data structures such as linkedlists/heaps/graphs
 
 # Justification
+## Why use a graph?
+A graph data structure was the prominent data structure in the program. 
+A graph is suitable due to an adjacency having relativeley low time complexity
+* Worst case performance to iterate over all verticies and edges is `O( n + m  )`, where n = number of nodes, and m is the number of edges. This is much more efficient than using a adjacency matrix where iteration is `O(n^2)`
 
 
 # References
+https://www.geeksforgeeks.org/linked-list-set-3-deleting-node/
+https://www.geeksforgeeks.org/find-paths-given-source-destination/
