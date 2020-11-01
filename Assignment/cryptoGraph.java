@@ -34,20 +34,9 @@ public class cryptoGraph
 
 		System.out.println("Assets: " + theGraph.getVertexCount());
 		System.out.println("Trades: " + theGraph.getEdgeCount());
-		view(theGraph);
-		theGraph.helper("XRP", "USDT");
-		/*
-		for (Object path : paths)
-		{
-		    DSALinkedList p = (DSALinkedList) path;
-		    for (Object v : p)
-		    {
-			DSAGraphVertex vertex = (DSAGraphVertex) v;
-			System.out.print(vertex.getLabel() + "->"); 
-		    }
-		    System.out.println(""); 
-		}
-		*/
+		tradeStats(theGraph);
+		// view(theGraph);
+		// theGraph.helper("XRP", "USDT");
 	    }
 	    else
 	    {
@@ -100,12 +89,15 @@ public class cryptoGraph
 		    break;
 		case 5:
 		    message("You selected, 5. Set asset filter"); 
+		    theGraph.removeVertex("BTC");
 		    break;
 		case 6:
 		    message("You selected, 6. Asset overview"); 
+		    assetStats(theGraph);
 		    break;
 		case 7:
 		    message("You selected, 7. Trade overview"); 
+		    tradeStats(theGraph);
 		    break;
 		case 8:
 		    message("You selected, 8. Save Data"); 
@@ -201,6 +193,49 @@ public class cryptoGraph
 	}
     }
 
+    private static void assetStats(DSAGraph theGraph)
+    {
+	DSALinkedList verticies = theGraph.getVerticies();
+	DSAHeap topHeap = new DSAHeap(10);
+
+	for (Object e : verticies)
+	{
+	    DSAGraphVertex vertex = (DSAGraphVertex) e;
+	    CryptoCurrency currency = (CryptoCurrency) vertex.getValue();
+	    double priority = currency.getPrice();
+	    topHeap.add(priority, currency);
+	}
+
+	for (int i = 0; i < 10; i++)
+	{
+	    int val = i + 1;
+	    System.out.println("TOP ASSET NUMBER " + val + " BY PRICE"); 
+	    System.out.println(topHeap.remove().getValue()); 
+	}
+
+    }
+
+    private static void tradeStats(DSAGraph theGraph)
+    {
+	DSALinkedList edges = theGraph.getEdges();
+	DSAHeap topHeap = new DSAHeap(10);
+
+	for (Object e : edges)
+	{
+	    DSAGraphEdge edge = (DSAGraphEdge) e;
+	    CryptoTrade trade = (CryptoTrade) edge.getValue();
+	    double priority = trade.getVolume();
+	    topHeap.add(priority, trade);
+	}
+
+	for (int i = 0; i < 10; i++)
+	{
+	    int val = i + 1;
+	    System.out.println("TOP TRADE NUMBER " + val + " BY VOLUME"); 
+	    System.out.println(topHeap.remove().getValue()); 
+	}
+
+    }
     private static void loadDataSubMenu()
     {
 
@@ -210,6 +245,8 @@ public class cryptoGraph
     private static void usage()
     {
 	System.out.println("Usage-");
+	System.out.println(""); 
+
     }
 
     private static void prompt()

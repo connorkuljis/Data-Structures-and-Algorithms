@@ -422,52 +422,6 @@ public class DSAGraph
 
     }
 
-    public DSALinkedList testBFS(String inSource, String inDest)
-    {
-	resetGraphVisited();
-
-	DSAQueue queue = new DSAQueue();
-	DSALinkedList results = new DSALinkedList();
-	DSAGraphVertex source = null;
-	DSAGraphVertex dest = null;
-
-	try
-	{
-	    source = getVertex(inSource);
-	}catch (Exception e) {  }
-
-	source.setVisited();
-	
-	System.out.println("Source: " + source); 
-	queue.insert(source);
-
-	while (!queue.isEmpty())
-	{
-	    DSALinkedList path = new DSALinkedList();
-	    path.insertLast(queue.remove());
-	    System.out.print(path.peekLast() + " -> "); 
-
-	    DSAGraphVertex check = (DSAGraphVertex) path.peekLast();
-	    if (check.getLabel().equals(inDest))
-	    {
-		    System.out.println(""); 
-		    path.insertFirst(source);
-		    results.insertLast(path);
-	    }
-	    else 
-	    {
-		DSAGraphVertex curVertex = (DSAGraphVertex) path.peekLast();
-		for (Object e : curVertex.getAdjacencyList())
-		{
-		    DSAGraphVertex neighbour = (DSAGraphVertex) e;
-		    queue.insert(neighbour);
-		}
-
-	    }
-	}
-	return results;
-    }
-
     public void helper(String inSource, String inDest)
     {
 	DSAGraphVertex source = getVertex(inSource);
@@ -505,7 +459,24 @@ public class DSAGraph
 	}
 
     }
+    
+    public DSALinkedList getVerticies()
+    {
+	return verticies;
+    }
 
+    public DSALinkedList getEdges()
+    {
+	return edges;
+    }
+
+    public void removeVertex(String inString)
+    {
+	DSAGraphVertex toRemove = getVertex(inString);
+
+	verticies.remove(toRemove);
+	System.out.println("yeet"); 
+    }
 
 
     /* ************************************************************************

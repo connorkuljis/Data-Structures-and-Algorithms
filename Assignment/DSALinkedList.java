@@ -168,17 +168,19 @@ public class DSALinkedList implements Iterable
 	if (temp != null && temp.getValue().equals(inData))
 	{
 	    temp.setNext(head);
-	    return;
+	}
+	else
+	{
+	    while (temp != null && !temp.getValue().equals(inData))
+	    {
+		prev = temp;
+		temp = temp.getNext();
+	    }
+	    if (temp != null)
+	    {
+		prev.setNext(temp.getNext());
+	    }
 	}
 
-	while (temp != null && !temp.getValue().equals(inData))
-	{
-	    prev = temp;
-	    temp = temp.getNext();
-	}
-	if (temp != null)
-	{
-	    prev.setNext(temp.getNext());
-	}
     }
 }
