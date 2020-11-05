@@ -302,6 +302,136 @@ class Sorts {
 	}
     }
 
+    public static void countSort(int[] arr)
+    {
+	int n = arr.length;
+	int[] result = new int[n];
+	int largestSize = maxElementInArr(arr);
+	
+
+	int[] count = new int[largestSize + 1];
+
+	// init the count array
+	for (int i = 0; i < largestSize; i++)
+	{
+	    count[i] = 0;
+	}
+	
+	// store the count of each number
+	for (int i = 0; i < n; ++i)
+	{
+	    ++count[arr[i]];
+	}
+
+	// sum the previous totals
+	for (int i = 1; i <= largestSize; ++i)
+	{
+	    count[i] += count[i-1];
+	}
+
+	// creating the result array, going backwards
+	for (int i = n-1; i >= 0; i--)
+	{
+	    result[count[arr[i]] - 1] = arr[i];
+	    --count[arr[i]];
+	}
+
+	// copy the array
+	for (int i = 0; i < n; ++i)
+	{
+	    arr[i] = result[i];
+	}
+    }
+
+    private static int maxElementInArr(int[] arr)
+    {
+	int largestSize = arr[0];
+	for (int i = 0; i < arr.length; i++) // iterate to find the largest element in the array
+	{
+	    if (arr[i] > largestSize) // just update the largest element
+	    {
+		largestSize = arr[i];
+	    }
+	}
+	return largestSize;
+    }
+
+    public static void radixSort(int[] arr)
+    {
+	int n = arr.length, m = maxElementInArr(arr);
+
+	for (int exp = 1; (m / exp) > 0; exp *= 10) // incrementing by digit (base10)
+	{
+	    countSortExp(arr, exp);
+	}
+
+	printArray(arr);
+    }
+
+
+
+    public static void countSortExp(int[] arr, int exp)
+    {
+	int n = arr.length;
+	int[] result = new int[n];
+	int largestSize = 10; // 10 represents the 10 possible digits
+	
+
+	int[] count = new int[largestSize + 1];
+
+	// init the count array
+	for (int i = 0; i < largestSize; i++)
+	{
+	    count[i] = 0;
+	}
+	
+	// store the count of each number
+	for (int i = 0; i < n; ++i)
+	{
+	    // ++count[arr[i]];
+	    count[(arr[i] / exp) % 10]++;
+	}
+
+	// sum the previous totals
+	for (int i = 1; i <= largestSize; ++i)
+	{
+	    count[i] += count[i-1];
+	}
+
+	// creating the result array, going backwards
+	for (int i = n-1; i >= 0; i--)
+	{
+	    //result[count[arr[i]] - 1] = arr[i];
+	    //--count[arr[i]];
+	    result[count[(arr[i] / exp) % 10] - 1] = arr[i];
+	    count[(arr[i] / exp) % 10]--;
+	}
+
+	// copy the array
+	for (int i = 0; i < n; ++i)
+	{
+	    arr[i] = result[i];
+	}
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	private static void printArray(int[] myArr) {
 		for (int i = 0; i < myArr.length; i++) {
 			System.out.print(myArr[i] + " ");

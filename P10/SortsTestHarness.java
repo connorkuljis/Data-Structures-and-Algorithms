@@ -38,6 +38,8 @@ class SortsTestHarness
         System.out.println("           3 - quicksort (median of three)");
         System.out.println("           r - quicksort (random)");
         System.out.println("           s - shellsort");
+        System.out.println("           c - countsort");
+        System.out.println("           x - radixsort");
         System.out.println("        y is one of");
         System.out.println("           a - 1..n ascending");
         System.out.println("           d - 1..n descending");
@@ -121,6 +123,8 @@ class SortsTestHarness
                         case '3' : Sorts.quickSortMedian3(A); break;
                         case 'r' : Sorts.quickSortRandom(A); break;
 			case 's' : Sorts.shellSort(A); break;
+			case 'c' : Sorts.countSort(A); break;
+			case 'x' : Sorts.radixSort(A); break;
 
                         default :
                             throw new IllegalArgumentException("Unsupported sort type " + sortType);
