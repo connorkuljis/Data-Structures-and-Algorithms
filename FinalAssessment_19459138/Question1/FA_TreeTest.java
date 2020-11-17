@@ -4,6 +4,8 @@
  * Name : Connor Kuljis	
  * ID   : 19459138
  *
+ * Assertion: leaf nodes have a height of "0" and height works from bottom to top.
+ * may contain code referenced/adapted from P05/BinarySearchTree.java
  **/
 public class FA_TreeTest
 {
