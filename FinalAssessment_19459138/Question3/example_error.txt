@@ -1,0 +1,23 @@
+
+***Question 3 - Testing Heaps ***
+
+Added heap entry [priority: 0, value: 100]
+Added heap entry [priority: 1, value: 101]
+Added heap entry [priority: 2, value: 102]
+Added heap entry [priority: 3, value: 103]
+Added heap entry [priority: 4, value: 104]
+Added heap entry [priority: 5, value: 105]
+Added heap entry [priority: 6, value: 106]
+Added heap entry [priority: 7, value: 107]
+Added heap entry [priority: 8, value: 108]
+Added heap entry [priority: 9, value: 109]
+109 <- this should be the top element in the max heap
+108
+107
+106
+105
+104
+103
+102
+101
+100
