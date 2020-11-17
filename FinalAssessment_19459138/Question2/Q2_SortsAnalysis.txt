@@ -1,11 +1,51 @@
+Q2_SortAnalysis.txt
 
 Insertion Sort					
 
-Data Size  | Best Case | Worst Case | Average Case
-           |           |            |     
-           |           |            |    
-           |           |            |    
-           |           |            |    
+Data Size	|	Best Case	|	Worst Case	|	Average Case
+1		|
+2 		|
+4		|
+6		|
+8		|
+16		|
+32		|
+64		|
+128		|
+256		|
+512		|
+1024		|
+4096		|
+8192		|
+ir 1 0.0
+ir 2 0.0
+ir 4 0.0
+ir 8 1.0
+ir 16 1.3333333333333333
+ir 32 7.666666666666667
+ir 64 29.666666666666668
+ir 128 113.0
+ir 256 646.6666666666666
+ir 512 369.0
+ir 1024 2737.3333333333335
+ir 2048 1688.6666666666667
+ir 4096 3520.6666666666665
+ir 8192 10741.0
+e
+id 1 0.0
+id 2 0.0
+id 4 0.0
+id 8 1.0
+id 16 3.0
+id 32 14.333333333333334
+id 64 57.666666666666664
+id 128 294.3333333333333
+id 256 81.33333333333333
+id 512 93.66666666666667
+id 1024 341.6666666666667
+id 2048 1211.6666666666667
+id 4096 4914.666666666667
+id 8192 20219.0
 
 Discussion :
 
@@ -18,4 +58,23 @@ Data Size  | Best Case | Worst Case | Average Case
            |           |            |    
            |           |            |    
 
-etc.
+QuickSort
+
+Strategy 1 - Right Most
+
+Data Size  | Best Case | Worst Case | Average Case
+           |           |            |     
+           |           |            |    
+           |           |            |    
+           |           |            |    
+
+Strategy 2 - Median of Three
+
+Data Size  | Best Case | Worst Case | Average Case
+           |           |            |     
+           |           |            |    
+           |           |            |    
+           |           |            |    
+
+
+Discussion :
