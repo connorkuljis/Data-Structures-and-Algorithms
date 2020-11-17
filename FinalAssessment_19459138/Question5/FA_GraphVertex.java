@@ -1,8 +1,8 @@
 /**
  * DSA Final Assessment Question 5 - FA_GraphVertex.java                             4
  *
- * Name : 
- * ID   :
+ * Name : Connor Kuljis	
+ * ID   : 19459138
  *
  **/
 public class FA_GraphVertex {
@@ -23,6 +23,12 @@ public class FA_GraphVertex {
         {
             links.insertLast(vertex);   
         }
+
+	// added method
+	public FA_LinkedList getLinks()
+	{
+	    return links;
+	}
 
         public String getLabel() 
         {
