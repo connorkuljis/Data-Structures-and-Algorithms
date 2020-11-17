@@ -1,80 +1,101 @@
 Q2_SortAnalysis.txt
 
+Methodology
+Tests are done by a shell script that runs various sorts on ascending, descending and random data sets.  Sample size 0, thorugh 8192, where each result is the average of 4 runs for each sort type.  Time is in nanoseconds, rounded to 1dp.  
+
 Insertion Sort					
 
 Data Size	|	Best Case	|	Worst Case	|	Average Case
-1		|
-2 		|
-4		|
-6		|
-8		|
-16		|
-32		|
-64		|
-128		|
-256		|
-512		|
-1024		|
-4096		|
-8192		|
-ir 1 0.0
-ir 2 0.0
-ir 4 0.0
-ir 8 1.0
-ir 16 1.3333333333333333
-ir 32 7.666666666666667
-ir 64 29.666666666666668
-ir 128 113.0
-ir 256 646.6666666666666
-ir 512 369.0
-ir 1024 2737.3333333333335
-ir 2048 1688.6666666666667
-ir 4096 3520.6666666666665
-ir 8192 10741.0
-e
-id 1 0.0
-id 2 0.0
-id 4 0.0
-id 8 1.0
-id 16 3.0
-id 32 14.333333333333334
-id 64 57.666666666666664
-id 128 294.3333333333333
-id 256 81.33333333333333
-id 512 93.66666666666667
-id 1024 341.6666666666667
-id 2048 1211.6666666666667
-id 4096 4914.666666666667
-id 8192 20219.0
+1		|	0.0		| 	0.0		| 	0.0
+2 		|  	0.0		| 	0.0		| 	0.3
+4		|	0.0 		| 	0.0		| 	0.3
+8		|	0.0		| 	10.0		|	1.0
+16		|	1.0		| 	25.3		| 	3.0
+32		|	1.0		| 	74.3		| 	13.6
+64		|	4.3		| 	256.0		| 	40.6
+128		|	9.6		| 	271.6		| 	126.3
+256		|	3.0		| 	239.0		| 	856.6
+512		| 	2.0		|	469.0		| 	478.3
+1024		|	4.0		| 	1426.0		| 	233.6
+4096		|	11.0		| 	5853.3		|	4737.6
+8192		|	26.0		| 	27445.3		| 	12287.0
 
 Discussion :
+Insertion sort is known as one of the three 'in-place' sorting algorithms.
+Its time complexity is O(n^2) due to its use of nested for loops.
+
+Insertion sort has characteristics such as having a 'sorted' and 'unsorted' part of the array.
+The values from the unsorted part and picked and placed in the correct position in the sorted part.
+
+Best case -> sorted ascending data
+Worst case -> sorted descending data
+Average case -> unsorted random data
 
 
 ShellSort	
 				
-Data Size  | Best Case | Worst Case | Average Case
-           |           |            |     
-           |           |            |    
-           |           |            |    
-           |           |            |    
+Data Size	|	Best Case	|	Worst Case	|	Average Case
+1		|	0.0		| 	0.3		|	0.0
+2 		|	0.0		|	1.0		|	0.0
+4		|	0.0		|	0.0		|	0.0
+8		|	0.6		|	1.0		|	1.0
+16		|	2.0 		|	3.0		|	3.0
+32		|	5.6		|	9.3		|	9.0
+64		|	14.0		|	28.0		|	21.3
+128		|	33.0		|	72.0		|	51.3
+256		|	74.6		| 	169.3		|	117.6
+512		|	183.6		|	430.3		|	590.6
+1024		|	382.6		|	1146.6		|	81.3
+4096		|	118.0		|	408.3		|	179.0
+8192		|	257.0		|	2195.6		|	391.6
+Discussion :
+
+Best case -> sorted ascending data
+Worst case -> unsorted random data
+Average case -> sorted descending data
 
 QuickSort
 
 Strategy 1 - Right Most
 
-Data Size  | Best Case | Worst Case | Average Case
-           |           |            |     
-           |           |            |    
-           |           |            |    
-           |           |            |    
+Data Size	|	Best Case	|	Worst Case	|	Average Case
+1		|	71.6		|	83.3		|	56.6	
+2 		|	98.0		|	89.0		|	93.0
+4		|	209.0		|	152.3		|	262.6
+8		|	274.0		|	263.3		| 	957.6
+16		|	506.3		|	459.3		| 	1788.3
+32		|	1520.3		|	846.0		| 	2684.3
+64		|	2683.3		|	1503.3		| 	3132.3
+128		|	3798.3		|	2130.3		| 	7318.3
+256		|	6099.6		|	3064.0		| 	13902.6
+512		|	9042.0		|	11266.6		| 	25173.0
+1024		|	12985.3		|	11613.3		| 	47824.3
+4096		|	44525.6		|	49996.3		| 	47924.3
+8192		|	84993.9		|	117494.3	| 	109002.6
+Discussion :
+Best case -> unsorted random data
+Worst case -> sorted descending data
+Average case -> sorted ascending data
 
 Strategy 2 - Median of Three
 
-Data Size  | Best Case | Worst Case | Average Case
-           |           |            |     
-           |           |            |    
-           |           |            |    
-           |           |            |    
-
+Data Size	|	Best Case	|	Worst Case	|	Average Case
+1		|	54.0		| 	63.6		| 	54.0
+2 		|	118.6		|	105.3		|	133.6
+4		|	151.3		|	157.3		|	149.0
+8		|	459.3		|	597.0		|	468.6
+16		|	711.3		|	948.0		|	415.3
+32		|	798.3		|	1356.6		|	818.0
+64		|	1576.3		|	1796.0		|	1570.3
+128		|	2951.6		|	3021.3		|	2929.3
+256		|	6428.0		|	7299.0		|	6882.3
+512		|	10616.6		|	12018.3		|	10726.3
+1024		|	20922.6		|	20470.3		|	19929.6
+4096		|	37015.0		|	38449.0		|	36723.3
+8192		|	73713.6		|	83948.3		|	73646.33
 
 Discussion :
+Best case -> sorted descending data
+Worst case -> unsorted random data
+Average case -> sorted ascending data
+
