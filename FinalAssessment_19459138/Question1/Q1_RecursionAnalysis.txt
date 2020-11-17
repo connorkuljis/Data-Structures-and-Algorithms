@@ -1,0 +1,41 @@
+
+Algorithm	|	10	|	20	|	30	|	40	|	50	|	60	|	70	<- input values
+It. Fact	|	1800	|	600	|	800	|	900	|	1000	|	1100	|	1200	
+Rec. Fact	|	2200	|	1900	|	2300	|	3000	|	5500	|	4300	|	13300	
+It. Fib		|	1700	|	900	|	800	|	900	|	99200	|	1300	|	1300	
+Rec. Fib	|	12600	|	658500	|	4482900	|	441995900	-		-		-	
+
+## Factorial Discussion
+
+Input data + performance
+    Looking at the performance of the recursive algorithms when compared to iterative,
+the recursive algorithms perform slower, although the difference may be negligable, as 
+little as 400 nanoseconds. It seems that the iterative method scales better with increasing
+input values (n) when compared to the recursive method.
+
+Both factorial algorithms are linear, O(n) time.
+
+Discussion
+    Iterative algorithm is a bit faster than the recursive method, as I suspect
+that this is due to the recusive method making 'calls' to the 'call stack' and the
+increased time to pop calls off the stack once the base case is met.
+
+## Fibonacci Discussion
+
+Input data + performance
+    Looking at the data for fibonacci, it is strongly recommended to use an 
+iterative method. At n=50 the recursive algorithm will hold on producing an output.
+Looking at previous values, the run times are extremely high.
+
+The iterative method runs in linear O(n) time, where recursive runs exponentially O(2^n)
+
+Discussion
+    The recursive method runs disastrously slow. I believe the algorithm
+slows down so much due to a stack overflow where the computer tries to use
+too much memory space on the call stack then there is available.
+
+Even though the recurisve implementation is a bit simpler and closer to the 
+mathematical definition, the use of exponential recursion calls is bad for
+performance. Iterative is much better
+
+
