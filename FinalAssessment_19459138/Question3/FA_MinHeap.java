@@ -1,18 +1,12 @@
 /**
- * DSA Final Assessment Question 3 - FA_MaxHeap.java
+ * DSA Final Assessment Question 3 - FA_MinHeap.java
  *
  * Name : Connor Kuljis
  * ID   : 1945913
  *
- * this is the max heap for the final assessment, refer to MaxHeapTest.java for detailed assertions.
- * changelog: 
- * 	line 55: added if statement to throw exception if array is at max capacity
- * 	line 69: wrapped removal of object in try-catch
- * 	line 137: additional function to display contents
- * 	line 150: additional function to heapify(0)
  **/
  
-public class FA_MaxHeap
+public class FA_MinHeap
 {
 
 	public class FA_HeapEntry
@@ -42,7 +36,7 @@ public class FA_MaxHeap
 	private int MAXSIZE = 10;
 	
 	
-	public FA_MaxHeap()
+	public FA_MinHeap()
 	{
 		heap = new FA_HeapEntry[MAXSIZE];
 		count = 0;	
@@ -84,6 +78,9 @@ public class FA_MaxHeap
 		return retValue;
 	}
 
+	/** TO CONVERT TO MIN HEAP NEGATE THE SIGNS WHERE PRIORITY IS COMPARED
+	 *  DO NOT CHANGE WHERE COUNT IS COMPARED
+	 *  */
 	private void trickleDown(int index)
 	{
 	   int leftIdx = index * 2 + 1;
@@ -91,17 +88,17 @@ public class FA_MaxHeap
 	   int largeIdx;
 	   FA_HeapEntry temp;
 
-	   if (leftIdx < count)
+	   if (leftIdx < count) // not here
 		{
 		largeIdx = leftIdx;			
-		if (rightIdx < count)
+		if (rightIdx < count) // not here
 		{
-		   if (heap[leftIdx].getPriority() < heap[rightIdx].getPriority())
+		   if (heap[leftIdx].getPriority() > heap[rightIdx].getPriority()) //here 
 			{
 				largeIdx = rightIdx;
 			}
 		}
-		if (heap[largeIdx].getPriority() > heap[index].getPriority())
+		if (heap[largeIdx].getPriority() < heap[index].getPriority()) // and here
 		{
               	temp = heap[largeIdx];
               	heap[largeIdx] = heap[index];
@@ -118,9 +115,9 @@ public class FA_MaxHeap
 
 		parentIndex = (index-1)/2;
 
-		if (index > 0 )
+		if (index > 0 ) // not here
 		{
-			if (heap[index].getPriority() > heap[parentIndex].getPriority())
+			if (heap[index].getPriority() < heap[parentIndex].getPriority()) // here
 			{
 				temp = heap[parentIndex];
 				heap[parentIndex] = heap[index];

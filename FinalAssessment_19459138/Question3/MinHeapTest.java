@@ -1,37 +1,24 @@
 /**
- * DSA Final Assessment Question 3 - MaxHeapTest.java
+ * DSA Final Assessment Question 3d - MaxHeapTest.java
  *
  * Name : Connor Kuljis
  * ID   : 1949138
- *
- * ASSUMPTION: 	Question 3.a states "Modify FA_MaxHeap.java/py  to  store  the  priority  and  value".
- * 		It seems this functionality is already implemented, so I've just added more evident testing to show.
- *
- * For the error handling i've wrapped the remove() body in a try catch, that when caught raises a PracExamException.
- * 	An example case may be trying to remove a heap entry when the heap is already empty, this could crash with an null pointer
- * 	exception. This is solved with this try catch implementation.
- *
- * For the add() method I've set an initial statment to check the number of items agains the max_size.
- * If the count is at the limit, or for some reason is above the limit, a PracExamException is thrown.
- * I have not resized the array as the spec does not state whether this is needed, but it is an option.
  * 			
- * ASSERTION: 	instead of explicitly creating a function to handle priotity queue, 
- * 		the existing add() method has been re-used in conjuntion with fileIO.
- * 		This logic is found the processLine function (line 155).
- * 		To simulate a priotity queue, the additional heapify() function is called
- * 		after every insertion from fileIO.
+ * This is a copy of MaxHeapTest, please refer to that file for detailed assertions, statments.
+ * This file just uses FA_MinHeap instead of FA_MaxHeap to cover part D
  *
- * 		fileIO - refers to method readHeapFile()
+ *
  **/
 
 import java.util.*;
 import java.io.*;
  
-public class MaxHeapTest
+public class MinHeapTest
 {
     public static void main(String args[])
     {
-	// part A has been done (see comments)
+	// part A has been done (see comments) in MaxHeapTest
+	// THIS TIME USING MIN HEAP
 	partB(); // broken down into modules for readability, lots of testing going on
 	partC();
     }
@@ -39,10 +26,12 @@ public class MaxHeapTest
     // this section is about error handing, try catches have been used
     private static void partB()
     {
+
+	System.out.println("\n***Question 3D - SAME TEST USING MIN Heaps ***\n");
 	System.out.println("\n***Question 3 - Testing Heaps ***\n");
 	System.out.println("For completeness, error stack traces are printed to show good use of custom exceptions\n"); 
 	
-	FA_MaxHeap testHeap = new FA_MaxHeap();
+	FA_MinHeap testHeap = new FA_MinHeap();
 	
 	// testing add()
 	for (int i=0; i<15; i++) // max size of heap is 10 so we should handle out of bounds
@@ -79,45 +68,45 @@ public class MaxHeapTest
 
     private static void partC()
     {
-		System.out.println("\n***Question 3 c- Testing Priority Queue ***\n");
+	System.out.println("\n***Question 3 c- Testing Priority Queue ***\n");
 
-		String message = ("This segment is Question 3 part (c)\n" + 
-			"Involves reading from a file and checking contents of priority\n"
-			+ "queue at each stage, (insert/remove)\n");
+	String message = ("This segment is Question 3 part (c)\n" + 
+		"Involves reading from a file and checking contents of priority\n"
+		+ "queue at each stage, (insert/remove)\n");
 
-		System.out.println("Message"); 
+	System.out.println("Message"); 
 
-		// INSERTION PART HERE 
-		System.out.println("\n***Question 3 c- Testing Insertion of Queue ***\n");
-		String filename = "FA_HeapData.txt";
-		FA_MaxHeap maxHeap = readHeapFile(filename); // this method will print the contents as they are added one by one
-		// END INSERION
+	// INSERTION PART HERE 
+	System.out.println("\n***Question 3 c- Testing Insertion of Queue ***\n");
+	String filename = "FA_HeapData.txt";
+	FA_MinHeap minHeap = readHeapFile(filename); // this method will print the contents as they are added one by one
+	// END INSERION
 
-		// START REMOVAL
-		System.out.println("\n***Question 3 c- Testing Removal of Queue ***\n");
-		Object tempObject = null;
-		for (int i=0; i<10; i++)
+	// START REMOVAL
+	System.out.println("\n***Question 3 c- Testing Removal of Queue ***\n");
+	Object tempObject = null;
+	for (int i=0; i<10; i++)
+	{
+		try
 		{
-			try
-			{
-			    tempObject = maxHeap.remove();
-			    System.out.println(tempObject + " has been removed.");
-			    maxHeap.printContents();
-			}
-			catch (Exception e)
-			{
-			    e.printStackTrace();
-			}
+		    tempObject = minHeap.remove();
+		    System.out.println(tempObject + " has been removed.");
+		    minHeap.printContents();
 		}
-		//END REMOVAL
+		catch (Exception e)
+		{
+		    e.printStackTrace();
+		}
+	}
+	//END REMOVAL
 
-		System.out.println("\n**** Tests Complete ****\n");
+	System.out.println("\n**** Tests Complete ****\n");
 
     }
 
     // this function reads the file, and simply passes each line to another method which handles each line
     // returns a max heap
-    public static FA_MaxHeap readHeapFile(String inFilename)
+    public static FA_MinHeap readHeapFile(String inFilename)
     {
 	FileInputStream fileStrm = null;
 	InputStreamReader rdr;
@@ -125,7 +114,7 @@ public class MaxHeapTest
 	String line;
 
 	int lineNum = 0;
-	FA_MaxHeap heap = new FA_MaxHeap();
+	FA_MinHeap heap = new FA_MinHeap();
 
 	try {
 	    fileStrm = new FileInputStream(inFilename);
@@ -156,7 +145,7 @@ public class MaxHeapTest
 	return heap;
     }
 
-    public static void processLine(String row, FA_MaxHeap heap)
+    public static void processLine(String row, FA_MinHeap heap)
     {
 	try
 	{
