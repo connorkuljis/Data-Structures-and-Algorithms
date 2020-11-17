@@ -1,0 +1,17 @@
+Algorithm  | 10 | 20 | 30 | 40 | 50 | 60 | 70 <- input values
+It. Fact   |    |    |    |    |    |    |
+Rec. Fact  |    |    |    |    |    |    |
+Iter. Fib  |    |    |    |    |    |    |
+Rec. Fib   |    |    |    |    |    |    |
+
+## Recursive Discussion
+
+Input data + performance
+
+Discussion
+
+## Fibonacci Discussion
+
+Input data + performance
+
+Discussion
