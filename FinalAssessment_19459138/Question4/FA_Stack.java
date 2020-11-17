@@ -1,9 +1,10 @@
 /**
  * DSA Final Assessment Question 4 - FA_Stack.java                             4
  *
- * Name : 
- * ID   :
+ * Name : Connor Kuljis
+ * ID   : 19459138
  *
+ * ASSERTION: I've just used the builtin stack in the test file, leaving this file as is.
  **/
 
 class FA_Stack
@@ -84,5 +85,4 @@ class FA_Stack
         count--;
         return topValue;
     }
-
 }
