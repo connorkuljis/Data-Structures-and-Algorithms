@@ -1,8 +1,8 @@
 /**
  * DSA Final Assessment Question 1 - FA_BinarySearchTree.java
  *
- * Name : 
- * ID   :
+ * Name : Connor Kuljis		
+ * ID   : 19459138
  *
  **/
 
@@ -64,6 +64,34 @@ public class FA_BinarySearchTree {
 		}
 		return cur;
 	}
+
+	public void printEvenValuesRecur()
+	{
+	    FA_TreeNode start = root;
+	    printEvenValues(start);
+
+	}
+	public void printEvenValues(FA_TreeNode node)
+	{
+	    if (node == null)
+	    {
+		return;
+	    }
+
+	    printEvenValues(node.left);
+	    if ((value % 2) != 0) // is odd
+	    {
+		System.out.println(node.value + ","); 
+	    }
+	    printEvenValues(node.left);
+	}
+
+	public void printEvenLevels()
+	{
+
+
+	}
+
 	
   
 }
