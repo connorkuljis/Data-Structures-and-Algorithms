@@ -1,20 +1,44 @@
 /**
  * DSA Final Assessment Question 1 - FA_TreeTest.java
  *
- * Name : 
- * ID   :
+ * Name : Connor Kuljis	
+ * ID   : 19459138
  *
  **/
 public class FA_TreeTest
 {
-	public static void main(String args[])
+    public static void main(String args[])
+    {
+	System.out.println("\n**** Question 1: Testing Trees ****\n");
+	
+	int[] input = {00,11,22,33,44,88,99,100,44,55,66,77};
+
+	// int[] other = {10,5,40,6,4,16,45};
+
+	FA_BinarySearchTree tree = new FA_BinarySearchTree();
+	System.out.print("input=["); 
+	for(int i = 0; i < input.length; i++)
 	{
-		System.out.println(“\n**** Question 1: Testing Trees ****\n”);
-
-		// put your code here
-			
-		System.out.println(“\n**** Tests Complete ****\n”);
-
+	    System.out.print(input[i] + ",");
+	    tree.insert(input[i]);
 	}
+	System.out.print("]"); 
+	System.out.println(""); 
+
+	// Question 1 b
+	tree.printEvenValuesRecur();
+	System.out.println(""); 
+
+	// Question 1 c
+	tree.printEvenLevelsRecur();
+	System.out.println(""); 
+
+	System.out.println("isEmpty=" + tree.isEmpty()); 
+
+
+		
+	System.out.println("\n**** Tests Complete ****\n");
+
+    }
 	
 }

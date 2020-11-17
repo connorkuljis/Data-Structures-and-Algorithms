@@ -3,7 +3,9 @@
  *
  * Name : Connor Kuljis		
  * ID   : 19459138
- *
+ * 
+ * Contains methods adapted from P05/BinarySearchTree.java
+ * - used the traversal method, and height calculation
  **/
 
 public class FA_BinarySearchTree {   
@@ -67,8 +69,9 @@ public class FA_BinarySearchTree {
 
 	public void printEvenValuesRecur()
 	{
-	    FA_TreeNode start = root;
-	    printEvenValues(start);
+	    System.out.println("Printing odd values: "); 
+	    printEvenValues(root);
+	    System.out.println("Finished printing odd values"); 
 
 	}
 	public void printEvenValues(FA_TreeNode node)
@@ -79,18 +82,67 @@ public class FA_BinarySearchTree {
 	    }
 
 	    printEvenValues(node.left);
-	    if ((value % 2) != 0) // is odd
+	    if ((node.value % 2) != 0) // is odd
 	    {
-		System.out.println(node.value + ","); 
+		System.out.println(node.value); 
 	    }
-	    printEvenValues(node.left);
+	    printEvenValues(node.right);
 	}
 
-	public void printEvenLevels()
+	public void printEvenLevelsRecur()
 	{
-
-
+	    System.out.println("Printing even levels: "); 
+	    System.out.println("Note: leaf nodes have a height of (0) eg: bottom-up"); 
+	    printEvenLevels(root);
+	    System.out.println("Finished printing even levels"); 
 	}
+
+	public void printEvenLevels(FA_TreeNode node)
+	{
+	    if (node == null)
+	    {
+		return;
+	    }
+
+	    printEvenLevels(node.left);
+	    int height = heightRec(node);
+	    if ((height % 2) == 0) // is even
+	    {
+		System.out.println(node.value + ", height=" + height); 
+	    }
+	    printEvenLevels(node.right);
+	}
+
+    public int height()
+    {
+	return heightRec(root);
+    }
+
+    public int heightRec(FA_TreeNode curNode)
+    {
+	int htSoFar, iLeftHt, iRightHt;
+
+	if (curNode == null)
+	{
+	    htSoFar = -1; // Base case – no more along this branch
+	}
+	else
+	{
+	    iLeftHt = heightRec(curNode.left); // Calc left height from here 
+	    iRightHt = heightRec(curNode.right); 
+
+	    // Get highest of left vs right branches
+	    if (iLeftHt > iRightHt)
+	    {
+		htSoFar = iLeftHt + 1;
+	    }
+	    else
+	    {
+		htSoFar = iRightHt + 1;
+	    }
+	}
+	return htSoFar;
+    }
 
 	
   
